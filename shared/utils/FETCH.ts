@@ -1,6 +1,4 @@
-import API_CONSTANTS from "../constants/api";
-
-const uri: string = API_CONSTANTS.BASE_URL
+const uri: string = process.env.BASE_URL as string
 
 const get = async (url: string, params?: any, headers?: any) => {
   try {
