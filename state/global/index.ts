@@ -38,18 +38,6 @@ export default createSlice({
       state.message_name = action.payload
     },
 
-    setCurrentCases: (state, action: PayloadAction<any[]>) => {
-      state.currentCases = action.payload
-    },
-
-    setPastCases: (state, action: PayloadAction<any[]>) => {
-      state.pastCases = action.payload
-    },
-
-    setRequests: (state, action: PayloadAction<any[]>) => {
-      state.requests = action.payload
-    },
-
     setCurrentRequest: (state, action: PayloadAction<string>) => {
       state.currentRequest = action.payload
     },

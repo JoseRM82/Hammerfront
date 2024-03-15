@@ -1,14 +1,14 @@
 import Head from 'next/head'
 import { FunctionComponent, useEffect } from 'react'
 
-import Contact from '../../components/contact'
+import NewCase from '../../components/new-case'
 import Footer from '../../components/footer'
 import Header from '../../components/header'
 import globalState from '../../state/global'
 import { useAppDispatch, useAppSelector } from '../../state'
 import Chat from '../../components/chat'
 
-const ContactUs: FunctionComponent<Props> = ({ className }) => {
+const newCases: FunctionComponent<Props> = ({ className }) => {
   const { chatIsOpen } = useAppSelector(state => state.globalState)
   const dispatch = useAppDispatch()
 
@@ -20,13 +20,13 @@ const ContactUs: FunctionComponent<Props> = ({ className }) => {
     <>
       <div className={className}>
         <Head>
-          <title>Hammer & Co. Contact us</title>
+          <title>Hammer & Co. newCase us</title>
           <meta name="Hammer services page" />
         </Head>
 
         <Header header />
         <div className='body'>
-          <Contact />
+          <NewCase />
         </div>
         <Footer />
       </div>
@@ -35,7 +35,7 @@ const ContactUs: FunctionComponent<Props> = ({ className }) => {
   )
 }
 
-export default ContactUs
+export default newCases
 
 interface Props {
   className?: string;

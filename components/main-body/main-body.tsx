@@ -5,8 +5,10 @@ import StyledButton from "../styled-button";
 import Statistics from "./statistics/list";
 import WhyUsList from "./why-us/list";
 import WorkWithUs from "./work-with-us";
+import { useAppSelector } from "../../state";
 
 const MainBody: FunctionComponent<Props> = ({ className }) => {
+  const {client, lawyer} = useAppSelector(state => state.globalState)
   const route = useRouter()
 
   const onSignUp = () => {
@@ -20,7 +22,7 @@ const MainBody: FunctionComponent<Props> = ({ className }) => {
           <div className="text">
             <h1>THE BIGGEST LAW SITE TO CONNECT PERSONS WITH THE CORRECT LAWYER</h1>
             <span>Here are the best lawyers in each specialty in all languages around the world</span>
-            <StyledButton white text="Create your Account" onClick={onSignUp} />
+            {(!client && !lawyer) && <StyledButton className="body-create_account" white text="Create your Account" onClick={onSignUp} />}
           </div>
         </div>
       </div>

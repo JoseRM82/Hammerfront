@@ -2,7 +2,7 @@ import { FunctionComponent } from "react";
 import { useAppSelector } from "../../../../../state";
 import StyledButton from "../../../../styled-button";
 
-const CasesCard: FunctionComponent<Props> = ({ className, requests, actualCases, firstField, secondField, thirdField, fourthField, fifthField, sixthField, seventhField, eighthField, ninethField, extraField, firstFieldText, secondFieldText, thirdFieldText, fourthFieldText, fifthFieldText, sixthFieldText, seventhFieldText, eighthFieldText, ninethFieldText, showAllInfo, onClick, onAccept, onRefuse, onChat }) => {
+const CasesCard: FunctionComponent<Props> = ({ className, requests, CurrentCases, firstField, secondField, thirdField, fourthField, fifthField, sixthField, seventhField, eighthField, ninethField, extraField, firstFieldText, secondFieldText, thirdFieldText, fourthFieldText, fifthFieldText, sixthFieldText, seventhFieldText, eighthFieldText, ninethFieldText, showAllInfo, onClick, onAccept, onRefuse, onChat }) => {
   const { lawyer } = useAppSelector(state => state.globalState)
 
   return (
@@ -21,7 +21,7 @@ const CasesCard: FunctionComponent<Props> = ({ className, requests, actualCases,
               {eighthFieldText && <div className="complete-card-item"><span className="complete-span">{eighthFieldText}</span>{eighthField}</div>}
             </div>
             <div className="requests-btns">
-              {actualCases && <StyledButton text="CHAT" onClick={(e) => { e.stopPropagation(); onChat?.() }} />}
+              {CurrentCases && <StyledButton text="CHAT" onClick={(e) => { e.stopPropagation(); onChat?.() }} />}
               {(requests && lawyer) && <><StyledButton className="requests-btn" text="ACCEPT" onClick={(e) => { e.stopPropagation(); onAccept?.() }} />
                 <StyledButton className="requests-btn" white text="DECLINE" onClick={(e) => { e.stopPropagation(); onRefuse?.() }} /></>}
             </div>
@@ -44,27 +44,27 @@ export default CasesCard
 
 interface Props {
   className?: string;
-  firstField?: string;
-  firstFieldText?: string;
-  secondField?: string;
-  secondFieldText?: string;
-  thirdField?: string;
-  thirdFieldText?: string;
-  fourthField?: string;
-  fourthFieldText?: string;
-  fifthField?: string;
-  fifthFieldText?: string;
-  sixthField?: string;
-  sixthFieldText?: string;
-  seventhField?: string;
-  seventhFieldText?: string;
-  eighthField?: string;
-  eighthFieldText?: string;
-  ninethField?: string;
-  ninethFieldText?: string;
-  extraField?: string;
+  firstField?: string | number;
+  firstFieldText?: string | number;
+  secondField?: string | number;
+  secondFieldText?: string | number;
+  thirdField?: string | number;
+  thirdFieldText?: string | number;
+  fourthField?: string | number;
+  fourthFieldText?: string | number;
+  fifthField?: string | number;
+  fifthFieldText?: string | number;
+  sixthField?: string | number;
+  sixthFieldText?: string | number;
+  seventhField?: string | number;
+  seventhFieldText?: string | number;
+  eighthField?: string | number;
+  eighthFieldText?: string | number;
+  ninethField?: string | number;
+  ninethFieldText?: string | number;
+  extraField?: string | number;
   showAllInfo?: boolean;
-  actualCases?: boolean;
+  CurrentCases?: boolean;
   requests?: boolean;
   onClick?: () => void;
   onChat?: () => void;

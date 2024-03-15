@@ -1,10 +1,12 @@
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { FunctionComponent } from "react";
+import { useAppSelector } from "../../../state";
 import StyledButton from "../../styled-button";
 import working from './working.jpg';
 
 const WorkWithUs: FunctionComponent<Props> = ({ className }) => {
+  const {client, lawyer} = useAppSelector(state => state.globalState)
   const route = useRouter()
 
   const onSignUp = () => {
@@ -19,7 +21,7 @@ const WorkWithUs: FunctionComponent<Props> = ({ className }) => {
       <div className="text-container">
         <h1 className="work-title">Want to try another way to work?</h1>
         <div className="work-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Omnis nesciunt perspiciatis, recusandae a eligendi voluptas quasi totam sunt facilis. Nesciunt incidunt, impedit et tenetur quibusdam eum? Ducimus laboriosam eius ab.</div>
-        <StyledButton text="Work with us" onClick={onSignUp} />
+        {(!client && !lawyer) && <StyledButton text="Work with us" onClick={onSignUp} />}
       </div>
     </div>
   )

@@ -4,12 +4,9 @@ import { FunctionComponent, useEffect } from "react";
 import Footer from "../../components/footer";
 import Header from "../../components/header";
 import YourCases from "../../components/your-cases";
-import getCurrentCases from "../../services/case/get-current-cases";
 import globalState from '../../state/global'
-import { USER_TOKEN, USER_TYPE } from "../../shared/constants/local";
+import { USER_NAME, USER_TOKEN, USER_TYPE } from "../../shared/constants/local";
 import { useAppDispatch, useAppSelector } from "../../state";
-import getPastCases from "../../services/case/get-past-cases";
-import getRequests from "../../services/case/get-requests";
 import { UserType } from "../../state/user/types";
 import Chat from "../../components/chat";
 
@@ -31,37 +28,17 @@ const Cases: FunctionComponent<Props> = ({ className }) => {
         dispatch(globalState.actions.setLawyerActive(true))
 
       } else {
+        localStorage.removeItem(USER_TYPE)
+        localStorage.removeItem(USER_TOKEN)
+        localStorage.removeItem(USER_NAME)
         return
       }
 
-      getCurrentCases(userType)
-        .then(response => {
-          if (response.success) {
-            const cases = response.data;
-
-            dispatch(globalState.actions.setCurrentCases(cases!))
-          }
-        }).catch(error => console.error(error))
-
-      getPastCases(userType)
-        .then(response => {
-          if (response.success) {
-            const pastCases = response.data
-
-            dispatch(globalState.actions.setPastCases(pastCases))
-          }
-        }).catch(error => console.error(error))
-
-      getRequests(userType)
-        .then(response => {
-          if (response.success) {
-            const requests = response.data
-
-            dispatch(globalState.actions.setRequests(requests))
-          }
-        }).catch(error => console.error(error))
-
-      dispatch(globalState.actions.setCurrentRequest(''))
+    } else {
+      localStorage.removeItem(USER_TYPE)
+      localStorage.removeItem(USER_TOKEN)
+      localStorage.removeItem(USER_NAME)
+      return
     }
 
   }, [])
@@ -70,7 +47,7 @@ const Cases: FunctionComponent<Props> = ({ className }) => {
     <>
       <div className={className}>
         <Head>
-          <title>Hammer & Co. Contact us</title>
+          <title>Hammer & Co. newCase us</title>
           <meta name="Hammer services page" />
         </Head>
 

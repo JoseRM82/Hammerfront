@@ -1,6 +1,7 @@
 import styled from "styled-components";
 
 import ChatsList from "./chats-list";
+import { Colors } from "../../../utils/styles";
 
 export default styled(ChatsList)`
   height: 6rem;

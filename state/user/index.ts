@@ -13,5 +13,11 @@ export default createSlice({
     setTokenUser: (state, action: PayloadAction<string | null>) => {
       state.token = action.payload
     },
+    setUserInfo: (state, action: PayloadAction<{name: string, last_name: string} | {name: '', last_name: ''}>) => {
+      state.userInfo = action.payload
+    },
+    setUserId: (state, action: PayloadAction<string | null>) => {
+      state.userId = action.payload
+    },
   }
 })

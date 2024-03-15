@@ -1,8 +1,8 @@
 import styled from "styled-components";
 
-import ContactUs from "./contact-us";
+import newCases from "./new-cases";
 
-export default styled(ContactUs)`
+export default styled(newCases)`
   .body {
     display: flex;
     flex-direction: column;

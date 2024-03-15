@@ -1,11 +1,12 @@
 import styled, { css } from "styled-components";
 
 import StyledButton from "./styled-button";
+import { Colors } from "../../utils/styles";
 
 export default styled(StyledButton)`
   border: unset;
-  background: #000;
-  color: #fff;
+  background: ${Colors.darkBackground};
+  color: ${Colors.lightFont};
   padding: 1.5rem 4.5rem;
   font-size: 1.8rem;
   font-weight: 600;
@@ -13,8 +14,8 @@ export default styled(StyledButton)`
   white-space: nowrap;
 
   ${props => props.white && css`
-    background: #efefef;
-    color: #000;
+    background: ${Colors.button};
+    color: ${Colors.darkFont};
   `}
 `
   

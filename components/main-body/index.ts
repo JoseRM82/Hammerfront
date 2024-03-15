@@ -32,7 +32,7 @@ export default styled(MainBody)`
     flex-direction: column;
     align-items: center;
     justify-content: flex-end;
-    padding: 0 0 16rem 0;
+    padding: 0 0 7rem 0;
   }
 
   .text {

@@ -36,6 +36,15 @@ export default styled(Calendar)`
       color: #efefef;
     }
 
+    &-now {
+      font-weight: 700;
+    }
+
+    &-back {
+      font-weight: 300;
+      cursor: pointer;
+    }
+
     &-prev, &-next {
       cursor: pointer;
       padding: 0 3rem;

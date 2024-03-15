@@ -9,9 +9,9 @@ const YourCases: FunctionComponent<Props> = ({ className }) => {
     <div className={className}>
       <div className='case_option'>
         <div className="case_option-navbar">
-          <div className="case_option-list">Actual cases</div>
+          <div className="case_option-list">Current cases</div>
           <div className={`case_option-item ${optionToggled === 'Calendar' ? 'clicked' : ''}`} onClick={() => setOptionToggled('Calendar')}>Calendar</div>
-          <div className={`case_option-item ${optionToggled === 'Actual Cases' ? 'clicked' : ''}`} onClick={() => setOptionToggled('Actual Cases')}>List</div>
+          <div className={`case_option-item ${optionToggled === 'Current Cases' ? 'clicked' : ''}`} onClick={() => setOptionToggled('Current Cases')}>List</div>
           <div className={`case_option-item ${optionToggled === 'Requests' ? 'clicked' : ''}`} onClick={() => setOptionToggled('Requests')}>Requests</div>
         </div>
         <div className="case_option-navbar">

@@ -8,7 +8,7 @@ import StyledButton from '../styled-button'
 import StyledLabelText from '../styled-label-text'
 import globalState from '../../state/global'
 
-const Contact: FunctionComponent<Props> = ({ className }) => {
+const newCase: FunctionComponent<Props> = ({ className }) => {
   const { register, handleSubmit } = useForm()
   const getValues = { register }
   const dispatch = useAppDispatch()
@@ -34,10 +34,10 @@ const Contact: FunctionComponent<Props> = ({ className }) => {
 
   return (
     <div className={className}>
-      <div className='contact-form'>
-        <h1 className='contact-title'>Add your case info: </h1>
-        <form className='contact' id='contact' onSubmit={handleSubmit(onAddCaseInformation)} >
-          <div className='contact-container'>
+      <div className='newCase-form'>
+        <h1 className='newCase-title'>Add your case info: </h1>
+        <form className='newCase' id='newCase' onSubmit={handleSubmit(onAddCaseInformation)} >
+          <div className='newCase-container'>
             <StyledLabelText handleInput={getValues} text='Phone Number:' req name='phone_number' />
             <StyledLabelText handleInput={getValues} text='Email:' name='email' req type='email' />
             <StyledLabelText handleInput={getValues} text='City:' name='city' req />
@@ -52,13 +52,13 @@ const Contact: FunctionComponent<Props> = ({ className }) => {
       </div>
       <div className='btns'>
         <StyledButton text='Cancel' white onClick={onCancel} />
-        <StyledButton text='Find a Lawyer' form='contact' />
+        <StyledButton text='Find a Lawyer' form='newCase' />
       </div>
     </div>
   )
 }
 
-export default Contact
+export default newCase
 
 interface Props {
   className?: string;

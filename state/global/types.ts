@@ -7,9 +7,6 @@ export interface State {
   chatsList: any[];
   messages: any[];
   message_name: string;
-  currentCases: any[];
-  pastCases: any[];
-  requests: any[];
   currentRequest: string;
   lawyersList: any[];
 }

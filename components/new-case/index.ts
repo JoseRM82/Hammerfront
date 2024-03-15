@@ -1,15 +1,16 @@
 import styled from "styled-components";
 
-import Contact from "./contact";
+import newCase from "./new-case";
+import { Colors } from "../../utils/styles";
 
-export default styled(Contact)`
+export default styled(newCase)`
   box-shadow: 3px 5px 10px #00000080;
   display: flex;
   flex-direction: column;
   align-items: flex-end;
   background: #fff;
 
-  .contact-form {
+  .newCase-form {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -18,13 +19,13 @@ export default styled(Contact)`
     color: #000;
   }
   
-  .contact-title {
+  .newCase-title {
     text-align: center;
     font-size: 4rem;
     font-weight: 700;
   }
 
-  .contact {
+  .newCase {
     gap: 5rem;
     display: flex;
     flex-direction: column; 

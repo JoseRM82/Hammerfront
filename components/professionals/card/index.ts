@@ -85,6 +85,7 @@ export default styled(Card)`
       font-weight: 600;
     }
 
+    
     &_age, &_specialty, &_university, &_experience {
       padding: .5rem 0;
       font-size: 2.5rem;

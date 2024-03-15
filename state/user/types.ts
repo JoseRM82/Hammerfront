@@ -1,7 +1,14 @@
 export interface State {
   type: UserType | null;
   token: string | null;
+  userInfo: UserInfo
+  userId: string | null;
   data: Data;
+}
+
+export interface UserInfo {
+  name: string;
+  last_name: string;
 }
 
 export enum UserType {

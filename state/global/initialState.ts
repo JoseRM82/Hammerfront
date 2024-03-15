@@ -9,9 +9,6 @@ export const initialState: State = {
   chatsList: [],
   messages: [],
   message_name: '',
-  currentCases: [],
-  pastCases: [],
-  requests: [],
   currentRequest: '',
   lawyersList: [],
 }

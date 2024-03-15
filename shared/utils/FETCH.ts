@@ -2,7 +2,7 @@ import API_CONSTANTS from "../constants/api";
 
 const uri: string = API_CONSTANTS.BASE_URL
 
-const get = async (url: string, params?: string, headers?: any) => {
+const get = async (url: string, params?: any, headers?: any) => {
   try {
     const response = await fetch(uri.concat(url, params ?? ''), {
       method: 'GET',

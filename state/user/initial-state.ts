@@ -1,4 +1,4 @@
-import { Data, State } from './types'
+import { Data, State, UserInfo } from './types'
 
 const initialData: Data = {
   identification: '',
@@ -18,9 +18,16 @@ const initialData: Data = {
   own_description: '',
 }
 
+const initialInfo: UserInfo = {
+  name: '',
+  last_name: '',
+}
+
 const initialState: State = {
   type: null,
   token: null,
+  userInfo: initialInfo,
+  userId: null,
   data: initialData,
 }
 

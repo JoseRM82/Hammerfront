@@ -14,7 +14,14 @@ const login = async (email: string, password: string, userType: string): Promise
 
 interface Response {
   success: boolean;
-  data?: string;
+  data?: Data;
+}
+
+interface Data {
+  token: string;
+  name: string;
+  last_name: string;
+  _id: string;
 }
 
 export default login

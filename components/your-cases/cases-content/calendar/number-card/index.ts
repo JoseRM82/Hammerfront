@@ -7,4 +7,11 @@ export default styled(NumberCard)`
     color: #efefef;
     padding: 3rem 0;
     cursor: pointer;
+
+    &.new-citation {
+        padding: 0;
+        background: none;
+        color: blue;
+        cursor: pointer;
+    }
 `

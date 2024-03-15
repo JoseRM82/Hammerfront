@@ -1,4 +1,4 @@
-import { FunctionComponent, useCallback } from "react";
+import { FunctionComponent, useCallback, useEffect, useState } from "react";
 import getChatsList from "../../services/chat/get-chats-list";
 import createMessage from "../../services/messages/create-message";
 import getMessages from "../../services/messages/get-messages";
@@ -10,12 +10,19 @@ import messageState from "../../state/message";
 import chatState from "../../state/chat";
 import ChatsList from "./chats-list";
 import MessagesList from "./messages-list";
+import { USER_ID } from "../../shared/constants/local";
 
 const Chat: FunctionComponent<Props> = ({ className }) => {
-  const { currentChatId, messages, ownId, message_name, chatsList, client } = useAppSelector(state => state.globalState)
+  const { currentChatId, messages, message_name, chatsList, client } = useAppSelector(state => state.globalState)
   const { message } = useAppSelector(state => state.messageState)
   const { chatInput } = useAppSelector(state => state.chatState)
+  const [ownId, setOwnId] = useState('')
   const dispatch = useAppDispatch()
+
+  useEffect(() => {
+    const myId = localStorage.getItem(USER_ID)
+    myId ? setOwnId(myId) : dispatch(globalState.actions.setCurrentChatId(''))
+  }, [])
 
   const onSelectChat = (id: string, name: string) => {
     getMessages(id)
@@ -56,7 +63,7 @@ const Chat: FunctionComponent<Props> = ({ className }) => {
           dispatch(globalState.actions.setChatIsOpen(true))
           dispatch(messageState.actions.setMessage(''))
         }
-      })
+      }).catch(error => console.error(error))
   }
 
   const onSendMessage = useCallback(() => {

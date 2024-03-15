@@ -1,25 +1,25 @@
 import styled, { css } from 'styled-components'
 
 import Header from './header'
+import { Colors } from '../../utils/styles'
 
 export default styled(Header)`
-  padding: 1.5rem 3rem;
   display: flex;
   flex-direction: column;
-  width: 70%;
+  width: 100vw;
   max-width: 1500px;
   margin: 0 auto;
-  color: #efefef;
+  color: ${Colors.lightFont};
 
   ${props => props.header && css`
-    color: #000;
+    color: ${Colors.darkFont};
   `}
 
   .signs {
     align-self: flex-end;
     font-size: 1.5rem;
     display: flex;
-    padding: 0 2rem;
+    padding: 1rem 5rem 0;
     gap: 1rem;
   }
 
@@ -32,8 +32,10 @@ export default styled(Header)`
   }
 
   .main-header {
+    width: 70%;
     display: flex;
     justify-content: space-between;
+    align-self: center;
     align-items: center;
     padding: 2rem;
   }
@@ -64,10 +66,10 @@ export default styled(Header)`
         background: unset;
         font-weight: 600;
         font-size: 2rem;
-        color: #efefef;
+        color: ${Colors.lightFont};
 
         ${props => props.header && css`
-          color: #000;
+          color: ${Colors.darkFont};
         `}
 
         :hover {
