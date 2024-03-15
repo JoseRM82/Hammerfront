@@ -1,6 +1,8 @@
 const uri: string = process.env.BASE_URL as string
+console.log('uri: ', uri)
 
 const get = async (url: string, params?: any, headers?: any) => {
+  console.log('link: ', uri.concat(url, params ?? ''))
   try {
     const response = await fetch(uri.concat(url, params ?? ''), {
       method: 'GET',
@@ -36,6 +38,7 @@ const get = async (url: string, params?: any, headers?: any) => {
 }
 
 const post = async (url: string, body: any, headers?: any, params?: string) => {
+  console.log('link: ', uri.concat(url, params ?? ''))
   try {
     const response = await fetch(uri.concat(url, params ?? ''), {
       method: 'POST',

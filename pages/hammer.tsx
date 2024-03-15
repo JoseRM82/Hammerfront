@@ -1,6 +1,7 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
 import { useEffect } from 'react'
+import 'dotenv/config'
 
 import Chat from '../components/chat'
 import Footer from '../components/footer'

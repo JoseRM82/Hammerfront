@@ -8,3 +8,9 @@ const nextConfig = {
 }
 
 module.exports = nextConfig
+
+module.exports = {
+  env: {
+    BASE_URL: 'https://hammer-backend.onrender.com/api/',
+  }
+}
