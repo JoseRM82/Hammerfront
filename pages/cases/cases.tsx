@@ -47,7 +47,7 @@ const Cases: FunctionComponent<Props> = ({ className }) => {
     <>
       <div className={className}>
         <Head>
-          <title>Hammer & Co. newCase us</title>
+          <title>Hammer & Co. NewCase us</title>
           <meta name="Hammer services page" />
         </Head>
 

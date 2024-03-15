@@ -8,7 +8,7 @@ import globalState from '../../state/global'
 import { useAppDispatch, useAppSelector } from '../../state'
 import Chat from '../../components/chat'
 
-const newCases: FunctionComponent<Props> = ({ className }) => {
+const NewCases: FunctionComponent<Props> = ({ className }) => {
   const { chatIsOpen } = useAppSelector(state => state.globalState)
   const dispatch = useAppDispatch()
 
@@ -20,7 +20,7 @@ const newCases: FunctionComponent<Props> = ({ className }) => {
     <>
       <div className={className}>
         <Head>
-          <title>Hammer & Co. newCase us</title>
+          <title>Hammer & Co. NewCase us</title>
           <meta name="Hammer services page" />
         </Head>
 
@@ -35,7 +35,7 @@ const newCases: FunctionComponent<Props> = ({ className }) => {
   )
 }
 
-export default newCases
+export default NewCases
 
 interface Props {
   className?: string;

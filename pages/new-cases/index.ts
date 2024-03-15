@@ -1,8 +1,8 @@
 import styled from "styled-components";
 
-import newCases from "./new-cases";
+import NewCases from "./new-cases";
 
-export default styled(newCases)`
+export default styled(NewCases)`
   .body {
     display: flex;
     flex-direction: column;

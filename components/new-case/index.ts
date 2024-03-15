@@ -1,16 +1,16 @@
 import styled from "styled-components";
 
-import newCase from "./new-case";
+import NewCase from "./new-case";
 import { Colors } from "../../utils/styles";
 
-export default styled(newCase)`
+export default styled(NewCase)`
   box-shadow: 3px 5px 10px #00000080;
   display: flex;
   flex-direction: column;
   align-items: flex-end;
   background: #fff;
 
-  .newCase-form {
+  .NewCase-form {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -19,13 +19,13 @@ export default styled(newCase)`
     color: #000;
   }
   
-  .newCase-title {
+  .NewCase-title {
     text-align: center;
     font-size: 4rem;
     font-weight: 700;
   }
 
-  .newCase {
+  .NewCase {
     gap: 5rem;
     display: flex;
     flex-direction: column; 

@@ -2,7 +2,7 @@ import { FunctionComponent, useEffect, useState } from "react";
 import dayjs from 'dayjs';
 
 import NumberCard from "./number-card";
-import { useDate } from "../../../../hooks/useCalendar/useDate/useDate";
+import { monthInfo } from "../../../../hooks/useCalendar/useDate/useDate";
 import { useCalendar } from "../../../../hooks/useCalendar/useCalendar";
 dayjs().format()
 
@@ -43,7 +43,7 @@ const Calendar: FunctionComponent<Props> = ({ className }) => {
   // }
 
   useEffect(() => {
-    const res = useDate(viewedMonth, viewedYear)!
+    const res = monthInfo(viewedMonth, viewedYear)!
     setDays(res)
     setCalendar(useCalendar(res.totalDays, res.firstDay)!)
     const isThisMonth = (dayjs().format('YYYY-M') === `${viewedYear}-${viewedMonth}`)
