@@ -1,4 +1,4 @@
-export const useCalendar = (totalDays: number, firstDay: number) => {
+export const createCalendar = (totalDays: number, firstDay: number) => {
     let number = 0
     let calendar: { id: string, number: string }[] = []
     const max = Math.ceil((totalDays + firstDay) / 7) * 7

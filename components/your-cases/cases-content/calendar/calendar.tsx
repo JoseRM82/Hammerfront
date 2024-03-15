@@ -3,12 +3,12 @@ import dayjs from 'dayjs';
 
 import NumberCard from "./number-card";
 import { monthInfo } from "../../../../hooks/useCalendar/useDate/useDate";
-import { useCalendar } from "../../../../hooks/useCalendar/useCalendar";
+import { createCalendar } from "../../../../hooks/useCalendar/useCalendar";
 dayjs().format()
 
 const Calendar: FunctionComponent<Props> = ({ className }) => {
   const [days, setDays] = useState<{ totalDays: number, firstDay: number }>({ totalDays: dayjs().endOf('month').get('date'), firstDay: dayjs().startOf('month').get('day') })
-  const [calendar, setCalendar] = useState<{ id: string, number: string }[]>(useCalendar(days.totalDays, days.firstDay))
+  const [calendar, setCalendar] = useState<{ id: string, number: string }[]>(createCalendar(days.totalDays, days.firstDay))
   const [viewedMonth, setViewedMonth] = useState<number>(dayjs().get('month') + 1)
   const [viewedYear, setViewedYear] = useState<number>(dayjs().get('year'))
   const [backButton, setBackButton] = useState(false)
@@ -45,7 +45,7 @@ const Calendar: FunctionComponent<Props> = ({ className }) => {
   useEffect(() => {
     const res = monthInfo(viewedMonth, viewedYear)!
     setDays(res)
-    setCalendar(useCalendar(res.totalDays, res.firstDay)!)
+    setCalendar(createCalendar(res.totalDays, res.firstDay)!)
     const isThisMonth = (dayjs().format('YYYY-M') === `${viewedYear}-${viewedMonth}`)
     setBackButton(!isThisMonth)
   }, [viewedMonth])
