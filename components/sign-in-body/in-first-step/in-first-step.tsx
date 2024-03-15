@@ -95,15 +95,15 @@ const InFirstStep: FunctionComponent<Props> = ({ className }) => {
         <StyledButton className={`signin-btn ${userType === 'client' ? '' : 'overshadowed'}`} text="Client" onClick={() => onSelectUserType('client')} />
         <StyledButton className={`signin-btn ${userType === 'lawyer' ? '' : 'overshadowed'}`} text="Lawyer" onClick={() => onSelectUserType('lawyer')} /></h1>
         <div>
-          {noUserType && <div className="signin-error">"Client" or "Lawyer" must be selected</div>}
+          {noUserType && <div className="signin-error">Client or Lawyer must be selected</div>}
           {noField && <div className="signin-error">Both fields must be filled</div>}
-          {failedLogin && <div className="signin-error">This user doesn't exist</div>}
+          {failedLogin && <div className="signin-error">This user doesn&lsquot exist</div>}
         </div>
       <form className="signin-form" id='sign-in'>
         <StyledLabelText name="email" text="Enter your email" type="email" req autof value={email} onChange={e => dispatch(loginState.actions.setEmail(e.target.value))} />
         <StyledLabelText name="password" text="Enter your password" type="password" req value={password} onChange={e => dispatch(loginState.actions.setPassword(e.target.value))} />
       </form>
-      <span className="signin-account">Don't have an account yet? <Link href={'/sign-up'}>Click here</Link></span>
+      <span className="signin-account">Don&lsquot have an account yet? <Link href={'/sign-up'}>Click here</Link></span>
       <div className="signin-btns">
         <StyledButton white text="Cancel" onClick={onCancel} />
         <StyledButton type="button" form="sign-in" text="Continue" onClick={onLogin} />
