@@ -1,10 +1,16 @@
-import { State, JudgementLocation } from './types'
+import { State, JudgementLocation, FileUrl } from './types'
 
 const initialLocation: JudgementLocation = {
   city: '',
   state: '',
   country: '',
   adress: '',
+}
+
+const initialUrl: FileUrl = {
+  name: '',
+  url: '',
+  key: '',
 }
 
 const initialstate: State = {
@@ -18,6 +24,7 @@ const initialstate: State = {
   language: '',
   case_description: '',
   file_deleted: false,
+  file_url: initialUrl,
 }
 
 export default initialstate

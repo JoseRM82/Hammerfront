@@ -9,6 +9,13 @@ export interface State {
   case_description: string,
   file_sent: boolean,
   file_deleted: boolean,
+  file_url: FileUrl,
+}
+
+export interface FileUrl {
+  name: string,
+  url: string,
+  key: string,
 }
 
 export interface JudgementLocation {

@@ -12,12 +12,12 @@ import getRequestedFiles from "../../../../../services/case/get-requested-files"
 
 const CasesCard: FunctionComponent<Props> = ({ className, caseId, requests, CurrentCases, firstField, secondField, thirdField, fourthField, fifthField, sixthField, seventhField, eighthField, ninethField, extraField, firstFieldText, secondFieldText, thirdFieldText, fourthFieldText, fifthFieldText, sixthFieldText, seventhFieldText, eighthFieldText, ninethFieldText, showAllInfo, onClick, onAccept, onRefuse, onChat }) => {
   const { lawyer } = useAppSelector(state => state.globalState);
-  const { file_name, file_sent, file_deleted } = useAppSelector(state => state.caseState)
+  const { file_name, file_sent, file_deleted, file_url } = useAppSelector(state => state.caseState)
   const dispatch = useAppDispatch()
   const [open, setOpen] = useState(false);
   const [input, setInput] = useState(false);
   const [requestsList, setRequestsList] = useState<string[]>([])
-  const [filesList, setFilesList] = useState<string[]>([])
+  const [filesList, setFilesList] = useState<FileUrl[]>([])
 
   const hide = () => {
     setOpen(false);
@@ -49,6 +49,7 @@ const CasesCard: FunctionComponent<Props> = ({ className, caseId, requests, Curr
           return
         }
         setRequestsList(res.data.requested_files)
+        setFilesList(res.data.uploaded_files)
       })
   }
 
@@ -59,7 +60,7 @@ const CasesCard: FunctionComponent<Props> = ({ className, caseId, requests, Curr
 
     requestsList.splice(requestsList.indexOf(file_name), 1)
     setRequestsList(requestsList)
-    setFilesList([...filesList, file_name])
+    setFilesList([...filesList, file_url])
     dispatch(caseState.actions.setFileSent(false))
     dispatch(caseState.actions.setFileName(''))
   }, [file_sent])
@@ -82,7 +83,7 @@ const CasesCard: FunctionComponent<Props> = ({ className, caseId, requests, Curr
       }
       {(filesList.length > 0) &&
           filesList.map(x => 
-            (<NewNeededFile key={uuidv4()} type="url" caseId={caseId} fileName={x} />)
+            (<NewNeededFile key={uuidv4()} type="url" caseId={caseId} fileName={x.name} fileUrl={x.url} />)
           )
       }
       {(input && lawyer) && 
@@ -162,4 +163,10 @@ interface Props {
   onChat?: () => void;
   onAccept?: () => void;
   onRefuse?: () => void;
+}
+
+interface FileUrl {
+  name: string;
+  url: string;
+  key: string;
 }

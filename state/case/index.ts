@@ -24,5 +24,8 @@ export default createSlice({
     setFileDeleted: (state, action: PayloadAction<boolean>) => {
       state.file_deleted = action.payload
     },
+    setFileUrl: (state, action: PayloadAction<{name: string, url: string, key: string}>) => {
+      state.file_url = action.payload
+    },
   }
 })

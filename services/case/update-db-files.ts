@@ -1,7 +1,7 @@
 import { post } from "../../shared/utils/FETCH";
 import { USER_TOKEN, USER_TYPE } from "../../shared/constants/local";
 
-const updateDbFiles = async (ext: string, case_id: string, file_name: string, file_url?: string): Promise<Response> => {
+const updateDbFiles = async (ext: string, case_id: string, file_name: string, file_url?: string, key?: string): Promise<Response> => {
   try {
     const token = localStorage.getItem(USER_TOKEN)
     const user_type = localStorage.getItem(USER_TYPE)
@@ -11,6 +11,7 @@ const updateDbFiles = async (ext: string, case_id: string, file_name: string, fi
       case_id: case_id,
       file_name: file_name,
       ext: ext,
+      key: key,
     }
 
     const response = await post('cases/update-needed-files', body, {
