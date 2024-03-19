@@ -56,7 +56,7 @@ const Header: FunctionComponent<Props> = ({ className }) => {
 
             dispatch(globalState.actions.setChatsList(chatsList))
           }
-        }).catch(error => console.log(error))
+        }).catch(error => console.error(error))
       dispatch(globalState.actions.setChatIsOpen(true))
     }
   }
@@ -81,8 +81,7 @@ const Header: FunctionComponent<Props> = ({ className }) => {
           <div className='options-list'>
             {(client || lawyer) && <button className='options-list_item' onClick={onChatOpen} >Chat</button>}
             {(client || lawyer) && <Link href='/cases'><button className='options-list_item'>Your Cases</button></Link>}
-            {client && <button className='options-list_item' onClick={() => onGoToPage('/new-case')}>New Case</button>}
-            <button className='options-list_item' onClick={() => onGoToPage('/our-professionals')}>Our Professionals</button>
+            {client && <button className='options-list_item' onClick={() => onGoToPage('/new-cases')}>New Case</button>}
           </div>
         </div>
       </div>
