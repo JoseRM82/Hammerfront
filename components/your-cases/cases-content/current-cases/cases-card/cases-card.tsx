@@ -55,14 +55,16 @@ const CasesCard: FunctionComponent<Props> = ({ className, caseId, requests, Curr
           return
         }
 
-        if(!uploadedFiles[0].name) {
+        if(!uploadedFiles[0].name && requestedFiles[0]) {
           setRequestsList(requestedFiles)
           return
         }
 
-        if(!requestedFiles[0]) {
+        if(!requestedFiles[0] && uploadedFiles[0].name) {
           setFilesList(uploadedFiles)
+          return
         }
+        
         setRequestsList(requestedFiles)
         setFilesList(uploadedFiles)
       })
