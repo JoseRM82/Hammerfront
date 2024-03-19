@@ -6,6 +6,7 @@ import sendFile from "../../../../../services/case/create-file-url";
 import caseState from "../../../../../state/case";
 import updateDbFiles from "../../../../../services/case/update-db-files";
 import deleteFileFromS3 from "../../../../../services/case/delete-file-from-s3";
+import Link from "next/link";
 
 const NewNeededFile: FunctionComponent<Props> = ({className, fileName, type, caseId, fileUrl}) => {
   const {lawyer, client} = useAppSelector(state => state.globalState)
@@ -75,7 +76,8 @@ const NewNeededFile: FunctionComponent<Props> = ({className, fileName, type, cas
 
   return (
     <div className={className}>
-      <div className={className + " needed-file"}>{fileName}</div>
+      {(lawyer && (type === 'url')) && <Link href={fileUrl!}><a target="_blank"><div className={className + " needed-file"}>{fileName}</div></a></Link>}
+      {!(lawyer && (type === 'url')) && <div className={className + " needed-file"}>{fileName}</div>}
       {(lawyer && (type === 'request')) && <button className="file-delete-button" onClick={() => onDelete(fileName!, caseId!)}>x</button>}
       {(client && (type === 'url')) && <button className="file-delete-button" onClick={() => onDeleteUrl(fileName!, caseId!)}>x</button>}
       {(client && (type === 'request')) && 
