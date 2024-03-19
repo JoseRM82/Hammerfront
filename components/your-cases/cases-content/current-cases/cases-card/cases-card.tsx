@@ -48,8 +48,8 @@ const CasesCard: FunctionComponent<Props> = ({ className, caseId, requests, Curr
         if(!res.success) {
           return
         }
-        const requestedFiles = res.data!.files_types
-        const uploadedFiles = res.data!.files_url
+        const requestedFiles = res.data!.requested_files
+        const uploadedFiles = res.data!.uploaded_files
 
         if(!requestedFiles[0] && !uploadedFiles[0].name) {
           return
@@ -64,7 +64,7 @@ const CasesCard: FunctionComponent<Props> = ({ className, caseId, requests, Curr
           setFilesList(uploadedFiles)
           return
         }
-        
+
         setRequestsList(requestedFiles)
         setFilesList(uploadedFiles)
       })
