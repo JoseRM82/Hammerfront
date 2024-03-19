@@ -23,10 +23,9 @@ const CurrentCases: FunctionComponent<Props> = ({ className }) => {
         getCurrentCases(userType)
           .then(response => {
             if (response.success) {
-              const cases = response.data;
-              console.log('needed files: ', cases[0].needed_files.files_types)
+              const casesList = response.data;
         
-              setCases(cases)
+              setCases(casesList)
             }
           }).catch(error => console.error(error))
     }
