@@ -22,8 +22,6 @@ const NewCase: FunctionComponent<Props> = ({ className }) => {
     createCase(body)
       .then((response) => {
         if (response.success) {
-          console.log('Case created successfully')
-
           const caseId = response.data._id
           dispatch(globalState.actions.setCurrentRequest(caseId))
 

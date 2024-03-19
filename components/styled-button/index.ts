@@ -12,6 +12,7 @@ export default styled(StyledButton)`
   font-weight: 600;
   cursor: pointer;
   white-space: nowrap;
+  border-radius: -18px;
 
   ${props => props.white && css`
     background: ${Colors.button};

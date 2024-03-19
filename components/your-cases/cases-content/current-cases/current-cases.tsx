@@ -24,6 +24,7 @@ const CurrentCases: FunctionComponent<Props> = ({ className }) => {
           .then(response => {
             if (response.success) {
               const cases = response.data;
+              console.log('needed files: ', cases[0].needed_files.files_types)
         
               setCases(cases)
             }
@@ -89,7 +90,7 @@ const CurrentCases: FunctionComponent<Props> = ({ className }) => {
         {
           cases.length > 0
             ? cases.map(x => (
-              <CasesCard key={x._id} CurrentCases showAllInfo={selectedId === x._id} onClick={() => onClickCase(x._id)} onChat={() => onChat(client ? x.lawyer_id! : x.client_id!)} firstFieldText='Case ID: ' firstField={x._id + ''} secondFieldText={client ? 'Lawyer Name: ' : (lawyer ? 'Client Name: ' : '')} secondField={client ? (x.lawyer_name! ? x.lawyer_name! : 'No lawyer yet') : (lawyer ? x.client_name! : '')} thirdFieldText='Next Court Date: ' thirdField={x.next_court ? x.next_court : 'No date yet'} fourthField={x.needed_files ? x.needed_files.number : '0'} fifthFieldText={client ? 'Status: ' : (lawyer ? 'Case Type: ' : '')} fifthField={client ? x.status : (lawyer ? x.data.case_type : '')} sixthFieldText='Needed Files: ' sixthField={x.needed_files ? x.needed_files.types : '0'} seventhFieldText='Language: ' seventhField={x.data.languages} eighthFieldText='Judgement Location: ' eighthField={x.judgement_location ? x.judgement_location.court_adress : x.data.city} ninethFieldText='Case Description: ' ninethField={x.data.description} />
+              <CasesCard key={x._id} CurrentCases caseId={selectedId} showAllInfo={selectedId === x._id} onClick={() => onClickCase(x._id)} onChat={() => onChat(client ? x.lawyer_id! : x.client_id!)} firstFieldText='Case ID: ' firstField={x._id + ''} secondFieldText={client ? 'Lawyer Name: ' : (lawyer ? 'Client Name: ' : '')} secondField={client ? (x.lawyer_name! ? x.lawyer_name! : 'No lawyer yet') : (lawyer ? x.client_name! : '')} thirdFieldText='Next Court Date: ' thirdField={x.next_court ? x.next_court : 'No date yet'}  fifthFieldText={client ? 'Status: ' : (lawyer ? 'Case Type: ' : '')} fifthField={client ? x.status : (lawyer ? x.data.case_type : '')} sixthFieldText='Needed Files: ' sixthField={x.needed_files.files_types!.length} seventhFieldText='Language: ' seventhField={x.data.languages} eighthFieldText='Judgement Location: ' eighthField={x.judgement_location ? x.judgement_location.court_adress : x.data.city} ninethFieldText='Case Description: ' ninethField={x.data.description} />
             ))
             : <div className="current-cases-categories">There aren&apost cases yet</div>
         }
@@ -130,6 +131,11 @@ interface Location {
 }
 
 interface NeededFiles {
-  number: number;
-  types: string;
+  files_types?: string[]; 
+  files_url?: Files_URL[];
+}
+
+interface Files_URL {
+  name?: string;
+  url?: string;
 }

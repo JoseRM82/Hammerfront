@@ -9,11 +9,20 @@ export default createSlice({
     setNextCourt: (state, action: PayloadAction<string>) => {
       state.next_court = action.payload
     },
-    setNeededFiles: (state, action: PayloadAction<string>) => {
-      state.needed_files = action.payload
+    setNeededFile: (state, action: PayloadAction<string>) => {
+      state.needed_file = action.payload
+    },
+    setFileName: (state, action: PayloadAction<string>) => {
+      state.file_name = action.payload
     },
     setCaseDescription: (state, action: PayloadAction<string>) => {
       state.case_description = action.payload
+    },
+    setFileSent: (state, action: PayloadAction<boolean>) => {
+      state.file_sent = action.payload
+    },
+    setFileDeleted: (state, action: PayloadAction<boolean>) => {
+      state.file_deleted = action.payload
     },
   }
 })

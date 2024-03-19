@@ -4,8 +4,8 @@ import takeCase from "../../../../services/case/take-case";
 import declineRequest from "../../../../services/requests/decline-request";
 import { useAppSelector } from "../../../../state";
 import RequestsCard from "../current-cases/cases-card";
-import getPastCases from "../../../../services/case/get-past-cases";
 import { USER_TOKEN, USER_TYPE } from "../../../../shared/constants/local";
+import getRequests from "../../../../services/case/get-requests";
 
 const Requests: FunctionComponent<Props> = ({ className }) => {
   const [selectedId, setSelectedId] = useState('')
@@ -17,7 +17,7 @@ const Requests: FunctionComponent<Props> = ({ className }) => {
     const userToken = localStorage.getItem(USER_TOKEN)
     
     if (userType && userToken) {
-        getPastCases(userType)
+        getRequests(userType)
           .then(response => {
             if (response.success) {
               const cases = response.data;

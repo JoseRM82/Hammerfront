@@ -1,3 +1,5 @@
+import { Lawyer } from "../../components/professionals/list/professionals-list";
+
 export interface State {
   client: boolean;
   lawyer: boolean;
@@ -8,5 +10,5 @@ export interface State {
   messages: any[];
   message_name: string;
   currentRequest: string;
-  lawyersList: any[];
+  lawyersList: Lawyer[];
 }

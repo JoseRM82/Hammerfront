@@ -1,8 +1,6 @@
 const uri: string = process.env.BASE_URL as string
-console.log('uri: ', uri)
 
 const get = async (url: string, params?: any, headers?: any) => {
-  console.log('link: ', uri.concat(url, params ?? ''))
   try {
     const response = await fetch(uri.concat(url, params ?? ''), {
       method: 'GET',
@@ -37,12 +35,13 @@ const get = async (url: string, params?: any, headers?: any) => {
   }
 }
 
-const post = async (url: string, body: any, headers?: any, params?: string) => {
-  console.log('link: ', uri.concat(url, params ?? ''))
+const post = async (url: string, body: any, headers?: any, params?: string, shouldStringify = true, isAFile = false) => {
   try {
     const response = await fetch(uri.concat(url, params ?? ''), {
       method: 'POST',
-      headers: headers
+      headers: isAFile
+      ? {...headers,}
+      : headers
         ? {
           Accept: 'application/json',
           'Content-Type': 'application/json',
@@ -52,7 +51,7 @@ const post = async (url: string, body: any, headers?: any, params?: string) => {
           Accept: 'application/json',
           'Content-Type': 'application/json',
         },
-      body: JSON.stringify(body)
+      body: shouldStringify ? JSON.stringify(body) : body,
     })
 
     try {

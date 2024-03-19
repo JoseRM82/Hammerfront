@@ -10,8 +10,8 @@ const Card: FunctionComponent<Props> = ({ className, complete, name, photo, univ
   return (
     <div className={className} id={_id + ''} onClick={onClick}>
       <div className='photo'>
-        {/* <Image className='actual-photo' src={photo} alt={name} objectFit='cover' /> */}
-        <div className='actual-photo' >{name}</div>
+        {/* <Image className='current-photo' src={photo} alt={name} objectFit='cover' /> */}
+        <div className='current-photo' >{name}</div>
       </div>
       {complete
         ? (<div className='data'>
@@ -43,7 +43,7 @@ export default Card
 
 interface Props {
   className?: string;
-  _id?: number;
+  _id?: string;
   name?: string;
   photo?: string | StaticImageData;
   age?: string;
