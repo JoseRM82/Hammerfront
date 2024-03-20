@@ -43,6 +43,7 @@ const NewNeededFile: FunctionComponent<Props> = ({className, fileName, type, cas
               dispatch(caseState.actions.setFileSent(true))
               dispatch(caseState.actions.setFileUrl(res.data!))
               setSend(false)
+              alert('File sent successfully')
             })
         })
     }

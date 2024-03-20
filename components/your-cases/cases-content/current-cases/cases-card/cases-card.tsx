@@ -9,6 +9,7 @@ import StyledLabelText from "../../../../styled-label-text";
 import caseState from "../../../../../state/case";
 import registerFile from "../../../../../services/case/send-file-request";
 import getRequestedFiles from "../../../../../services/case/get-requested-files";
+import { isAnElementInArray } from "../../../../../shared/functions/array-functions";
 
 const CasesCard: FunctionComponent<Props> = ({ className, caseId, requests, CurrentCases, firstField, secondField, thirdField, fourthField, fifthField, sixthField, seventhField, eighthField, ninethField, extraField, firstFieldText, secondFieldText, thirdFieldText, fourthFieldText, fifthFieldText, sixthFieldText, seventhFieldText, eighthFieldText, ninethFieldText, showAllInfo, onClick, onAccept, onRefuse, onChat }) => {
   const { lawyer } = useAppSelector(state => state.globalState);
@@ -31,11 +32,17 @@ const CasesCard: FunctionComponent<Props> = ({ className, caseId, requests, Curr
     if(!name) {
       return
     } else {
+      if (isAnElementInArray(requestsList, name)) {
+        return
+      }
+      
       setRequestsList([...requestsList, name])
+
       registerFile(name, case_id)
         .then(res => {
           if(!res.success) {
             setRequestsList(requestsList.splice(requestsList.indexOf(name), 1))
+            
           }
         }
       )
@@ -64,7 +71,6 @@ const CasesCard: FunctionComponent<Props> = ({ className, caseId, requests, Curr
           setFilesList(uploadedFiles)
           return
         }
-
         setRequestsList(requestedFiles)
         setFilesList(uploadedFiles)
       })
