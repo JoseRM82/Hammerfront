@@ -5,11 +5,13 @@ import { Popover } from 'antd';
 
 import { USER_ID, USER_NAME, USER_TOKEN, USER_TYPE } from '../../shared/constants/local';
 import globalState from '../../state/global'
-import userState from '../../state/user'
 import { useAppDispatch, useAppSelector } from '../../state';
 import getChatsList from '../../services/chat/get-chats-list';
+import logo1 from './logo1.png'
+import logo2 from './logo2.png'
+import Image from 'next/image';
 
-const Header: FunctionComponent<Props> = ({ className }) => {
+const Header: FunctionComponent<Props> = ({ className, visitor }) => {
   const { client, lawyer } = useAppSelector(state => state.globalState)
   const { chatIsOpen } = useAppSelector(state => state.globalState)
   const [loged, setLoged] = useState(false)
@@ -61,27 +63,28 @@ const Header: FunctionComponent<Props> = ({ className }) => {
     }
   }
 
-  const onGoToPage = (path: string) => {
+  const onGoToPage = (path: string, sign: string) => {
+    dispatch(globalState.actions.setSign(sign))
     router.push(path)
   }
 
   return (
     <div className={className}>
-      <div className='signs'>
-        {(!client && !lawyer) && <div className='sign' onClick={() => onGoToPage('/sign-in')}>Sign in </div>}
-        {(!client && !lawyer) && <div>/</div>}
-        {(!client && !lawyer) && <div className='sign' onClick={() => onGoToPage('/sign-up')}> Sign up</div>}
-        <Popover>
-         {loged && <div className='sign' onClick={onLogout} >{userInfo}</div>}
-        </Popover>
-      </div>
       <div className='main-header'>
-        <div className='logo' onClick={() => onGoToPage('/')} >Logo</div>
+        <div className='logo' onClick={() => onGoToPage('/', '')}><div><Image src={logo2} height={100} width={100} /></div></div>
         <div className='options'>
           <div className='options-list'>
             {(client || lawyer) && <button className='options-list_item' onClick={onChatOpen} >Chat</button>}
             {(client || lawyer) && <Link href='/cases'><button className='options-list_item'>Your Cases</button></Link>}
-            {client && <button className='options-list_item' onClick={() => onGoToPage('/new-cases')}>New Case</button>}
+            {client && <button className='options-list_item' onClick={() => onGoToPage('/new-cases', '')}>New Case</button>}
+            {visitor && <div className='signs'>
+              {(!client && !lawyer) && <div className='sign' onClick={() => onGoToPage('/sign-in', 'SignIn')}>Sign in </div>}
+              {(!client && !lawyer) && <div>/</div>}
+              {(!client && !lawyer) && <div className='sign' onClick={() => onGoToPage('/sign-up', 'SignUp')}> Sign up</div>}
+              <Popover>
+                {loged && <div className='sign' onClick={onLogout} >{userInfo}</div>}
+              </Popover>
+            </div>}
           </div>
         </div>
       </div>
@@ -94,4 +97,5 @@ export default Header;
 interface Props {
   className?: string;
   header?: boolean;
+  visitor?: boolean;
 }

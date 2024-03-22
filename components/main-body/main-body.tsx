@@ -22,7 +22,7 @@ const MainBody: FunctionComponent<Props> = ({ className }) => {
           <div className="text">
             <h1>THE BIGGEST LAW SITE TO CONNECT PERSONS WITH THE CORRECT LAWYER</h1>
             <span>Here are the best lawyers in each specialty in all languages around the world</span>
-            {(!client && !lawyer) && <StyledButton className="body-create_account" white text="Create your Account" onClick={onSignUp} />}
+            {(!client && !lawyer) && <StyledButton className="body-create_account" text="Create your Account" onClick={onSignUp} />}
           </div>
         </div>
       </div>

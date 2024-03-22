@@ -66,19 +66,22 @@ const UpFirstStep: FunctionComponent<Props> = ({ className, onNext, setLawyer })
 
   }, [first_name, last_name, email])
 
+  const onGoSignIn = () => {
+    dispatch(globalState.actions.setSign('SignIn'))
+  }
+  
   return (
     <div className={className}>
-      <h1 className="signup-title">Sign Up as
+      <div className="signup-title">
         <StyledButton className={`signup-btn ${userType === 'client' ? '' : 'overshadowed'}`} text="Client" onClick={() => onSelectUserType('client')} />
-        <StyledButton className={`signup-btn ${userType === 'lawyer' ? '' : 'overshadowed'}`} text="Lawyer" onClick={() => onSelectUserType('lawyer')} /></h1>
+        <StyledButton className={`signup-btn ${userType === 'lawyer' ? '' : 'overshadowed'}`} text="Lawyer" onClick={() => onSelectUserType('lawyer')} />
+      </div>
       <form className="signup-form">
-        <div className="signup-names">
-          <StyledLabelText name="firstName" req text="First Name(s):" value={first_name} onChange={e => dispatch(registerState.actions.setFirstName(e.target.value))} autof type="text" />
-          <StyledLabelText name="lastName" req text="Last Name(s):" value={last_name} onChange={e => dispatch(registerState.actions.setLastName(e.target.value))} type="text" />
-        </div>
-        <StyledLabelText name="email" req text="Email:" value={email} onChange={e => dispatch(registerState.actions.setEmail(e.target.value))} type="email" />
+        <StyledLabelText name="firstName" req value={first_name} onChange={e => dispatch(registerState.actions.setFirstName(e.target.value))} autof type="text" />
+        <StyledLabelText name="lastName" req value={last_name} onChange={e => dispatch(registerState.actions.setLastName(e.target.value))} type="text" />
+        <StyledLabelText name="email" req value={email} onChange={e => dispatch(registerState.actions.setEmail(e.target.value))} type="email" />
       </form>
-      <span className="signup-account">Already have an account? <Link href={'/sign-in'}>Click here</Link></span>
+      <span className="signup-account">Already have an account? <div className="sign-change" onClick={onGoSignIn}>Sign In here</div></span>
       <div className="signup-btns">
         <StyledButton text="Cancel" white onClick={onCancel} />
         <StyledButton text="Next" onClick={userType === 'lawyer' ? onClickAsLawyer : onClickAsClient} />

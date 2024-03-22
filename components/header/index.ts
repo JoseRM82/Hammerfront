@@ -15,9 +15,15 @@ export default styled(Header)`
     color: ${Colors.darkFont};
   `}
 
+  .logo {
+    width: 150%;
+    height: auto;
+    cursor: pointer;
+  }
+
   .signs {
     align-self: flex-end;
-    font-size: 1.5rem;
+    font-size: 2rem;
     display: flex;
     padding: 1rem 5rem 0;
     gap: 1rem;
@@ -25,6 +31,7 @@ export default styled(Header)`
 
   .sign {
     cursor: pointer;
+    font-size: 2rem;
 
     :hover {
       text-decoration: underline;
@@ -37,7 +44,7 @@ export default styled(Header)`
     justify-content: space-between;
     align-self: center;
     align-items: center;
-    padding: 2rem;
+    padding: 3rem;
   }
 
   .logo {

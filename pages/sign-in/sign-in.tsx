@@ -1,8 +1,6 @@
 import Head from "next/head";
 import { FunctionComponent } from "react";
 
-import Footer from "../../components/footer";
-import Header from "../../components/header";
 import SignInBody from "../../components/sign-in-body";
 
 const SignIn: FunctionComponent<Props> = ({className}) => {
@@ -13,9 +11,10 @@ const SignIn: FunctionComponent<Props> = ({className}) => {
         <meta name="Hammer services page" />
       </Head>
 
-      <Header header />
-        <SignInBody />
-      <Footer />
+      <div className="signin-glass"></div>
+      <div className="signin-background">
+          <SignInBody />
+      </div>
     </div>
   )
 }

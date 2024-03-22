@@ -15,13 +15,15 @@ const WorkWithUs: FunctionComponent<Props> = ({ className }) => {
 
   return (
     <div className={className}>
-      <div className="img-container">
-        <Image src={working} width={460} height={500} objectFit='contain' />
-      </div>
-      <div className="text-container">
-        <h1 className="work-title">Want to try another way to work?</h1>
-        <div className="work-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Omnis nesciunt perspiciatis, recusandae a eligendi voluptas quasi totam sunt facilis. Nesciunt incidunt, impedit et tenetur quibusdam eum? Ducimus laboriosam eius ab.</div>
-        {(!client && !lawyer) && <StyledButton text="Work with us" onClick={onSignUp} />}
+      <div className="work-wu-container">
+        <div className="img-container">
+          <Image src={working} width={460} height={500} objectFit='contain' />
+        </div>
+        <div className="text-container">
+          <h1 className="work-title">Want to try another way to work?</h1>
+          <div className="work-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Omnis nesciunt perspiciatis, recusandae a eligendi voluptas quasi totam sunt facilis. Nesciunt incidunt, impedit et tenetur quibusdam eum? Ducimus laboriosam eius ab.</div>
+          {(!client && !lawyer) && <StyledButton white text="Work with us" onClick={onSignUp} />}
+        </div>
       </div>
     </div>
   )

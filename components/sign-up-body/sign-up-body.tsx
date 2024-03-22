@@ -8,10 +8,6 @@ const SignUpBody: FunctionComponent<Props> = ({ className }) => {
   const [currentStep, setCurrentStep] = useState(1)
   const [userType, setUserType] = useState('client')
 
-  // const onClickContinue = () => {
-  //   document.location.href = `${document.location.origin}`
-  // }
-
   return (
     <div className={className}>
       {currentStep === 1 && <UpFirstStep setLawyer={() => setUserType('lawyer')} onNext={() => setCurrentStep(2)} />}
@@ -25,4 +21,5 @@ export default SignUpBody
 
 interface Props {
   className?: string;
+  sign?: boolean;
 }

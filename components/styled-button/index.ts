@@ -1,22 +1,33 @@
 import styled, { css } from "styled-components";
 
 import StyledButton from "./styled-button";
-import { Colors } from "../../utils/styles";
+import { Colors, LuxuryColors } from "../../utils/styles";
 
 export default styled(StyledButton)`
   border: unset;
-  background: ${Colors.darkBackground};
-  color: ${Colors.lightFont};
+  background: ${LuxuryColors.darkBackground};
+  color: ${LuxuryColors.lightFont};
   padding: 1.5rem 4.5rem;
   font-size: 1.8rem;
   font-weight: 600;
   cursor: pointer;
   white-space: nowrap;
-  border-radius: -18px;
+  border-radius: 3px;
 
   ${props => props.white && css`
-    background: ${Colors.button};
-    color: ${Colors.darkFont};
+    background: ${LuxuryColors.button};
+    color: ${LuxuryColors.darkFont};
+  `}
+
+  ${props => props.luxury && css`
+    background: unset;
+    color: #ffffff5c;
+    border: 3px solid #ffffff5c;
+    
+    :hover {
+      color: #ffffff;
+      border: 3px solid #ffffff;
+    }
   `}
 `
   

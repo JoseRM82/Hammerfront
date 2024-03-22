@@ -11,4 +11,5 @@ export interface State {
   message_name: string;
   currentRequest: string;
   lawyersList: Lawyer[];
+  sign: string;
 }

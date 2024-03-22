@@ -4,19 +4,21 @@ import { FunctionComponent } from "react";
 
 import facebook from './facebook.svg';
 import twitter from './twitter.svg';
-import whatsapp from './whatsapp.svg';
+import instagram from './instagram.svg';
+import linkedin from './linkedin.svg';
 
 const Footer: FunctionComponent<Props> = ({ className }) => {
   return (
     <div className={className}>
       <div className="footer-filter">
         <div className="footer-disclaimer">
-          All rights reserved for Hammer & Co. and their partners
+          Jose Matos in association with Hammer & co.
         </div>
         <div className="footer-social">
-          <Link href='https://www.facebook.com'><a target={"_blank"}><div className="social-link" ><Image src={facebook} height={40} width={40} /></div></a></Link>
-          <Link href='https://www.twitter.com'><a target={"_blank"}><div className="social-link" ><Image src={twitter} height={40} width={40} /></div></a></Link>
-          <Link href='https://web.whatsapp.com'><a target={"_blank"}><div className="social-link" ><Image src={whatsapp} height={40} width={40} /></div></a></Link>
+          <Link href='https://www.facebook.com'><a target={"_blank"}><div className="social-link" ><Image src={facebook} height={30} width={30} /></div></a></Link>
+          <Link href='https://www.twitter.com'><a target={"_blank"}><div className="social-link" ><Image src={twitter} height={30} width={30} /></div></a></Link>
+          <Link href='https://web.whatsapp.com'><a target={"_blank"}><div className="social-link" ><Image src={instagram} height={30} width={30} /></div></a></Link>
+          <Link href='https://www.linkedin.com'><a target={"_blank"}><div className="social-link" ><Image src={linkedin} height={30} width={30} /></div></a></Link>
         </div>
       </div>
     </div>

@@ -1,9 +1,9 @@
 import styled from "styled-components";
 
 import MainBody from './main-body';
+import { LuxuryColors } from "../../utils/styles";
 
 export default styled(MainBody)`
-  padding: 0 0 6rem 0;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -12,7 +12,7 @@ export default styled(MainBody)`
   align-items: center;
 
   .body-image-container {
-    box-shadow: 0 0 5px 0 #00000065;
+    box-shadow: 0 0 20px 0 #00000065;
     width: 100%;
     height: 100vh;
     background-attachment: fixed; 
@@ -32,7 +32,7 @@ export default styled(MainBody)`
     flex-direction: column;
     align-items: center;
     justify-content: flex-end;
-    padding: 0 0 7rem 0;
+    padding: 0 0 4rem 0;
   }
 
   .text {
@@ -42,7 +42,7 @@ export default styled(MainBody)`
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 10rem;
+    gap: 5rem;
     width: 60%;
     max-width: 1050px;
 
@@ -58,11 +58,10 @@ export default styled(MainBody)`
   }
 
   .main-body {
-    width: calc(100% - 6rem);
-    max-width: 120rem;
+    /* background: ${LuxuryColors.darkBackground}; */
+    width: 100vw;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 8rem;
   }
 `

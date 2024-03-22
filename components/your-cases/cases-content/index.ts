@@ -1,6 +1,7 @@
 import styled from "styled-components";
 
 import CasesContent from "./cases-content";
+import { Colors } from "../../../utils/styles";
 
 export default styled(CasesContent)`
     width: 100%;
@@ -8,6 +9,7 @@ export default styled(CasesContent)`
     display: flex;
     flex-direction: column;
     gap: 4rem;
+    color: ${Colors.darkFont};
 
     .cases-title {
         font-size: 3rem;

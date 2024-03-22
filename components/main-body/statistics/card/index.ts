@@ -3,7 +3,8 @@ import styled from "styled-components";
 import StatisticCard from "./statistics-card";
 
 export default styled(StatisticCard)`
-  background: #000;
+  background: #000000d6;
+  border-radius: 4px;
   color: #efefef;
   display: flex;
   flex-direction: column;

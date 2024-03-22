@@ -13,6 +13,7 @@ interface Props {
   text: string;
   active?: boolean;
   white?: boolean;
+  luxury?: boolean;
   type?: 'button' | 'submit' | 'reset' | undefined;
   form?: string;
   onClick?: (e: any) => void

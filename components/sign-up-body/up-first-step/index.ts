@@ -5,11 +5,8 @@ import UpFirstStep from "./up-first-step";
 export default styled(UpFirstStep)`
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  box-shadow: 3px 5px 10px #00000080;
-  padding: 6rem;
-  gap: 3rem;
-  background: #fff;
+  justify-content: center;
+  gap: 2rem;
 
   .signup {
     &-title{

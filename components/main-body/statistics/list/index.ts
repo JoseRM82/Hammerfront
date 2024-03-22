@@ -23,14 +23,14 @@ export default styled(Statistics)`
       color: #efefef;
       text-align: justify;
       font-size: 2rem;
-      padding: 6rem 6rem 6rem 25rem;
+      padding: 6rem 6rem 6rem 7rem;
     }
 
     &-data {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
       gap: 2rem;
-      padding: 3rem 20rem 3rem 3rem;
+      padding: 3rem 7rem 3rem 3rem;
     }
   }
 `

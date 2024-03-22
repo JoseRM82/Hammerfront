@@ -2,24 +2,24 @@ import { FunctionComponent } from "react";
 import WhyUs from "../card";
 
 import { StaticImageData } from "next/image";
-import books from './books.jpg';
-import team from './team.jpg';
-import world from './world.jpg';
+import law1 from './law1.svg'
+import law2 from './law2.svg'
+import law3 from './law3.svg'
 
 const dummyObject = [
   {
     'id': 1,
-    'image': books,
+    'image': law1,
     'description': 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis unde ducimus molestiae perferendis, suscipit repellendus accusamus porro quos ab odit? Reprehenderit, id odit! Repellendus, repellat nam! Sint nobis quisquam magni. Lorem ipsum dolor, sit amet consectetur adipisicing elit. Veniam magnam architecto vitae praesentium voluptatibus ratione, tempora quisquam dicta dolorum beatae iure eius dolorem ipsum incidunt nemo. Inventore ullam dignissimos earum.'
   },
   {
     'id': 2,
-    'image': world,
+    'image': law2,
     'description': 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis unde ducimus molestiae perferendis, suscipit repellendus accusamus porro quos ab odit? Reprehenderit, id odit! Repellendus, repellat nam! Sint nobis quisquam magni. Lorem ipsum dolor, sit amet consectetur adipisicing elit. Veniam magnam architecto vitae praesentium voluptatibus ratione, tempora quisquam dicta dolorum beatae iure eius dolorem ipsum incidunt nemo. Inventore ullam dignissimos earum.'
   },
   {
     'id': 3,
-    'image': team,
+    'image': law3,
     'description': 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis unde ducimus molestiae perferendis, suscipit repellendus accusamus porro quos ab odit? Reprehenderit, id odit! Repellendus, repellat nam! Sint nobis quisquam magni. Lorem ipsum dolor, sit amet consectetur adipisicing elit. Veniam magnam architecto vitae praesentium voluptatibus ratione, tempora quisquam dicta dolorum beatae iure eius dolorem ipsum incidunt nemo. Inventore ullam dignissimos earum.'
   },
 ]

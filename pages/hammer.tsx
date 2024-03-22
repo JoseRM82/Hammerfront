@@ -1,6 +1,6 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import 'dotenv/config'
 
 import Chat from '../components/chat'
@@ -14,6 +14,7 @@ import globalState from './../state/global'
 
 const Hammer: NextPage<Props> = ({ className }) => {
   const { chatIsOpen } = useAppSelector(state => state.globalState)
+  const [noLogged, setNoLogged] = useState<boolean>(true)
   const dispatch = useAppDispatch()
 
   useEffect(() => {
@@ -30,7 +31,7 @@ const Hammer: NextPage<Props> = ({ className }) => {
         if (response.success) {
           dispatch(globalState.actions.setOwnId(response.data))
         }
-      }).catch(error => console.error(error))
+      }).catch(error => {console.error(error); dispatch(globalState.actions.setClientActive(false)); setNoLogged(false)})
 
     } else if (userType === 'lawyer' && token) {
       dispatch(globalState.actions.setClientActive(false))
@@ -40,7 +41,7 @@ const Hammer: NextPage<Props> = ({ className }) => {
         if (response.success) {
           dispatch(globalState.actions.setOwnId(response.data))
         }
-      })
+      }).catch(error => {console.error(error); dispatch(globalState.actions.setLawyerActive(false)); setNoLogged(false)})
 
     } else {
       dispatch(globalState.actions.setClientActive(false))
@@ -56,7 +57,7 @@ const Hammer: NextPage<Props> = ({ className }) => {
           <meta name="Hammer services page" />
         </Head>
 
-        <Header className='header' />
+        <Header className='header' visitor={noLogged} />
         <div className='body'>
           <MainBody />
         </div>

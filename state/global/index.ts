@@ -41,9 +41,13 @@ export default createSlice({
     setCurrentRequest: (state, action: PayloadAction<string>) => {
       state.currentRequest = action.payload
     },
-
+    
     setLawyersList: (state, action: PayloadAction<any[]>) => {
       state.lawyersList = action.payload
-    }
+    },
+
+    setSign: (state, action: PayloadAction<string>) => {
+      state.sign = action.payload
+    },
   }
 })

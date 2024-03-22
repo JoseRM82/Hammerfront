@@ -1,3 +1,8 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?> <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path fill-rule="evenodd" clip-rule="evenodd" d="M24 0C10.7452 0 0 10.7452 0 24C0 37.2548 10.7452 48 24 48C37.2548 48 48 37.2548 48 24C48 10.7452 37.2548 0 24 0ZM26.5016 25.0542V38.1115H21.0991V25.0547H18.4V20.5551H21.0991V17.8536C21.0991 14.1828 22.6231 12 26.9532 12H30.5581V16.5001H28.3048C26.6192 16.5001 26.5077 17.1289 26.5077 18.3025L26.5016 20.5546H30.5836L30.1059 25.0542H26.5016Z" fill="black"/>
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 39.9 39" enable-background="new 0 0 39.9 39" xml:space="preserve">
+<g id="XMLID_2080_">
+	<path id="XMLID_2082_" fill="none" stroke="#ffffff" stroke-width="1.5" stroke-miterlimit="10" d="M20,38.6L20,38.6
+		c-10.5,0-19-8.5-19-19v0C1,9,9.5,0.5,20,0.5h0c10.5,0,19,8.5,19,19v0C39,30,30.5,38.6,20,38.6z"></path>
+	<path id="XMLID_2081_" fill="#ffffff" d="M17.1,31h4.6V19.4H25l0.3-3.9h-3.6c0,0,0-1.5,0-2.2c0-0.9,0.2-1.3,1.1-1.3
+		c0.7,0,2.5,0,2.5,0V8c0,0-2.6,0-3.2,0c-3.4,0-5,1.5-5,4.4c0,2.5,0,3.1,0,3.1h-2.4v3.9h2.4V31z"></path>
+</g>
 </svg>

@@ -1,6 +1,7 @@
 import styled from "styled-components";
 
 import Calendar from './calendar'
+import { Colors, BlueColors } from "../../../../utils/styles";
 
 export default styled(Calendar)`
   display: flex;
@@ -9,7 +10,7 @@ export default styled(Calendar)`
   width: 100%;
   max-width: 100rem;
   font-size: 2rem;
-  color: #efefef;
+  color: ${BlueColors.lightFont};
 
   .calendar {
     &-date {
@@ -17,7 +18,7 @@ export default styled(Calendar)`
       padding: 3rem 4rem;
       display: flex;
       justify-content: space-between;
-      background: #343434;
+      background: unset;
     }
 
     &-month {
@@ -32,27 +33,39 @@ export default styled(Calendar)`
       flex-direction: column;
       align-items: center;
       gap: 2px;
-      background: #343434;
-      color: #efefef;
+      font-size: 2.5rem;
+      font-weight: 600;
+      padding: 2rem 0;
+      color: ${BlueColors.lightFont};
+
     }
 
     &-now {
-      font-weight: 700;
+      font-weight: 800;
+      font-size: 3rem;
+      color: ${BlueColors.lightFont};
     }
 
     &-back {
-      font-weight: 300;
+      font-weight: 500;
+      color: ${BlueColors.lightFont};
       cursor: pointer;
     }
 
     &-prev, &-next {
+      background: ${BlueColors.lightBackground};
+      color: ${BlueColors.darkFont};
+      font-size: 2.5rem;
+      font-weight: 600;
+      border-radius: 3px;
       cursor: pointer;
-      padding: 0 3rem;
+      height: 4rem;
+      width: 6rem;
     }
   }
 
   .sun {
-    color: #cfa44d;
+    color: ${BlueColors.darkBackground};
   }
 
   .occupied-soon {
@@ -64,11 +77,11 @@ export default styled(Calendar)`
   }
 
   .today-back {
-    background: #a0a0a0;
+    background: ${BlueColors.button};
   }
   
   .today-font {
-    color: #343434;
+    color: ${BlueColors.darkFont};
     font-weight: 700;
   }
 `
