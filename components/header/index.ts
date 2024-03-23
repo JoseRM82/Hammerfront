@@ -1,7 +1,7 @@
 import styled, { css } from 'styled-components'
 
 import Header from './header'
-import { Colors } from '../../utils/styles'
+import { Colors, LuxuryColors } from '../../utils/styles'
 
 export default styled(Header)`
   display: flex;
@@ -12,7 +12,7 @@ export default styled(Header)`
   color: ${Colors.lightFont};
 
   ${props => props.header && css`
-    color: ${Colors.darkFont};
+    color: ${LuxuryColors.darkFont};
   `}
 
   .logo {
@@ -25,7 +25,6 @@ export default styled(Header)`
     align-self: flex-end;
     font-size: 2rem;
     display: flex;
-    padding: 1rem 5rem 0;
     gap: 1rem;
   }
 
@@ -39,7 +38,7 @@ export default styled(Header)`
   }
 
   .main-header {
-    width: 70%;
+    width: 80%;
     display: flex;
     justify-content: space-between;
     align-self: center;
@@ -57,6 +56,28 @@ export default styled(Header)`
     }
   }
 
+  .signed-user {
+    border: none;
+    border-radius: 5px;
+    font-weight: 600;
+    font-size: 2rem;
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    background: ${LuxuryColors.darkBackground};
+    padding: 2rem;
+    color: ${LuxuryColors.button};
+    
+    ${props => props.header && css`
+    color: ${LuxuryColors.button};
+    `}
+    
+    :hover {
+      cursor: pointer;
+      background: ${LuxuryColors.buttonHover};
+    }
+  }
+
   .options {
     display: flex;
     justify-content: space-between;
@@ -66,26 +87,54 @@ export default styled(Header)`
     &-list {
       display: flex;
       justify-content: center;
-      gap: 2rem;
+      align-items: baseline;
 
       &_item {
         border: none;
         background: unset;
         font-weight: 600;
         font-size: 2rem;
+        padding: 2rem;
         color: ${Colors.lightFont};
 
         ${props => props.header && css`
-          color: ${Colors.darkFont};
+          color: ${LuxuryColors.selected};
         `}
 
         :hover {
           cursor: pointer;
-          text-decoration: underline;
+          background: ${LuxuryColors.buttonHover};
         }
 
         transition: text-decoration .8s;
       }
     }
   }
-  `
+
+  &.header-popover {
+    /* background: ${LuxuryColors.darkFont}; */
+    display: flex;
+    width: fit-content;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 1.5rem;
+    padding: 1rem;
+    color: ${LuxuryColors.selected};
+
+    .header-popover-field {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: .5rem 1rem;
+      font-weight: 600;
+      font-size: 2rem;
+      cursor: pointer;
+
+      .header-popover-image {
+        display: flex;
+        align-items: center;
+      }
+    }
+  }
+`

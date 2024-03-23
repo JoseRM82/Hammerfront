@@ -26,5 +26,9 @@ export const LuxuryColors = {
   darkBackground: '#1f1b1c',
   lightFont: '#ffecd5',
   darkFont: '#111114',
-  alternativeFont: '#ffffff'
+  alternativeFont: '#ffffff',
+  darkCard: '#44445169',
+  unselected: '#ffffff5c',
+  selected: '#ffffff',
+  buttonHover: '#171e23',
 }

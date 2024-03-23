@@ -11,5 +11,5 @@ export const initialState: State = {
   message_name: '',
   currentRequest: '',
   lawyersList: [],
-  sign: 'SignUp',
+  sign: 'SignIn',
 }

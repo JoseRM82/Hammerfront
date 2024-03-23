@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-import { Colors, BlueColors } from "../../utils/styles";
+import { Colors, BlueColors, LuxuryColors } from "../../utils/styles";
 import Cases from './cases';
 
 export default styled(Cases)`
@@ -9,7 +9,7 @@ export default styled(Cases)`
   flex-grow: 1;
   flex-direction: column;
   align-items: center;
-  background: ${BlueColors.darkBackground};
+  background: ${LuxuryColors.darkButton};
 
   .body {
     max-width: 150rem;

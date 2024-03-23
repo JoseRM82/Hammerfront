@@ -72,9 +72,28 @@ export default styled(StyledLabelText)`
       background: unset;
       border-radius: 5px;
       padding: .7rem;
+      color: #fff;
 
       :focus {
-        box-shadow: 0px 3px 6px #00000080;
+        fill: none;
+        outline: unset;
+        background: transparent;
+      }
+
+      :focus-within {
+        border: unset;
+      }
+      
+      :active {
+        fill: none;
+        outline: unset;
+        background: transparent;
+      }
+      
+      :focus-visible {
+        fill: none;
+        outline: unset;
+        background: transparent;
       }
 
       transition: box-shadow .5s;

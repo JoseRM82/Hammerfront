@@ -1,47 +1,70 @@
 import styled from "styled-components";
 
-import { Colors } from "../../utils/styles";
+import { Colors, LuxuryColors } from "../../utils/styles";
 import YourCases from './your-cases';
 
 export default styled(YourCases)`
   display: flex;
   width: 100%;
   min-height: 72vh;
-  border-bottom: solid 1px;
-  border-top: solid 1px;
+  padding-bottom: 8rem;
 
   .case_option {
     height: auto;
-    background: ${Colors.lightFont};
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    width: fit-content;
+    padding: 2rem;
 
     &-navbar{
 
     }
      
     &-list {
-      background: ${Colors.darkBackground};
-      color: ${Colors.lightFont};
-      font-size: 2rem;
+      color: ${LuxuryColors.unselected};
+      font-size: 2.5rem;
+      padding: 1.5rem 0;
       font-weight: 600;
-      padding: 1.5rem;
       white-space: nowrap;
-    }
-
-    &-item {
-      background: ${Colors.darkFont};
-      color: ${Colors.lightFont};
-      font-size: 1.8rem;
-      padding: 1rem 1rem 1rem 3rem;
       cursor: pointer;
+
+      :hover {
+        color: ${LuxuryColors.selected};
+      }
+
+      transition: color .5s;
+    }
+    
+    &-item {
+      color: ${LuxuryColors.unselected};
+      padding: 1.5rem 0 .8rem 0;
+      font-size: 1.8rem;
+      cursor: pointer;
+      width: fit-content;
+      display: flex;
     }
   }
 
-  .clicked {
-      background: ${Colors.button};
-      color: ${Colors.darkFont};
-    }
+  /* .case-option {
+    display: unset;
+
+    transition: .2s ease all;
+  } */
+
+  .clicked-item {
+    color: ${LuxuryColors.selected};
+    border-bottom: 1px solid ${LuxuryColors.selected} ;
+  }
+
+  .clicked-list {
+    color: ${LuxuryColors.selected};
+  }
+
+  /* .hide {
+    transform: translateY(-100%); 
+  } */
+
+  .hide-list {
+    display: none;
+  }
 `

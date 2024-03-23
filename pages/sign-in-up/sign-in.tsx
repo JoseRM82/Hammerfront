@@ -11,7 +11,9 @@ const SignIn: FunctionComponent<Props> = ({className}) => {
         <meta name="Hammer services page" />
       </Head>
 
-      <div className="signin-glass"></div>
+      <div className="signin-glass">
+        <div className="signin-glass-hammer">HAMMER</div>
+      </div>
       <div className="signin-background">
           <SignInBody />
       </div>

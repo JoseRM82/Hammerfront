@@ -36,10 +36,25 @@ export default styled(CurrentCases)`
       }
 
       &-cases-list {
-        width: 100%;
-        display: flex;
-        flex-direction: column;
-        gap: 1.5rem;
+        width: 90%;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 3rem;
       }
     }
+
+    .current-cases-cards {
+      width: 90%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 3rem;
+    }
+
+    .current-cases-cards-grid {
+      width: 100%;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 3rem;
+    }   
 `

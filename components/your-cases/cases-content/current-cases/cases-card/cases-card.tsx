@@ -144,11 +144,11 @@ const CasesCard: FunctionComponent<Props> = ({ className, caseId, requests, Curr
           {ninethField && <div className="complete-card-item"><span className="complete-span">{ninethFieldText}</span>{ninethField}</div>}
         </>
 
-        : <><div className="cases-card-item">{firstField}</div>
-          <div className="cases-card-item">{secondField}</div>
-          <div className="cases-card-item">{thirdField}</div>
-          <div className="cases-card-item">{requestFiles.length}</div>
-          <div className="cases-card-item">{fifthField}</div>
+        : <><div className="cases-card-item"><span className="card-span">{firstFieldText}:</span> {firstField}</div>
+          <div className="cases-card-item"><span className="card-span">{secondFieldText}:</span> {secondField}</div>
+          <div className="cases-card-item"><span className="card-span">{thirdFieldText}:</span> {thirdField}</div>
+          <div className="cases-card-item"><span className="card-span">{sixthFieldText}:</span> {requestFiles.length}</div>
+          <div className="cases-card-item"><span className="card-span">{fifthFieldText}:</span> {fifthField}</div>
           {extraField && <div className="cases-card-item">{extraField}</div>}</>
       }
     </div>

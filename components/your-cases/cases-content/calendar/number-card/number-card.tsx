@@ -1,17 +1,19 @@
 import { FunctionComponent } from "react";
 import { Popover } from "antd";
 
-const NumberCard: FunctionComponent<Props> = ({ className, number }) => {
+const NumberCard: FunctionComponent<Props> = ({ className, number, month, year }) => {
     const content = (
         <div className={`${className} new-citation`}>+ add a new citation</div>
     )
         
     return (
-        <div className={className}>
-            <Popover trigger='click' content={content}>
+        number ? <Popover trigger='click' content={content}>
+            <div className={className}>
                 {number}
-            </Popover>
-        </div>
+            </div>
+        </Popover>
+        :
+        <div className={className}></div>
     )
 }
 
@@ -20,6 +22,8 @@ export default NumberCard
 interface Props {
     className?: string;
     number?: string;
+    month?: string;
+    year?: string;
     citation?: Citation;
 }
     

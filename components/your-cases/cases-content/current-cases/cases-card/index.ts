@@ -1,29 +1,49 @@
 import styled, { css } from "styled-components";
 
 import CasesCard from "./cases-card";
+import { LuxuryColors } from "../../../../../utils/styles";
 
 export default styled(CasesCard)`
   &.cases-card {
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    gap: 2px;
+    display: flex;
+    flex-direction: column;
+    background: ${LuxuryColors.darkCard};
+    padding: 5rem 1rem;
+    gap: 2rem;
     cursor: pointer;
+    text-overflow: ellipsis;
+    overflow: hidden;
   
     ${props => props.showAllInfo && css`
       display: flex;
       flex-direction: column;
-      background: #e0d69e;
+      background: ${LuxuryColors.buttonHover};
       gap: 2rem;
       text-align: left;
       padding: 2.5rem;
+      text-overflow: unset;
+      overflow: unset;
     `}
   
     .cases-card-item {
-      background: #e0d69e;
+      color: ${LuxuryColors.lightFont};
       text-align: left;
       text-overflow: ellipsis;
-      font-size: 1.5rem;
+      overflow: hidden;
+      font-size: 2rem;
+      font-weight: 600;
       padding: 0.2rem 0 0.2rem 1rem;
+      text-overflow: ellipsis;
+      overflow: hidden;
+
+      ${props => props.showAllInfo && css`
+        text-overflow: unset;
+        overflow: unset;
+      `}
+    }
+
+    .card-span {
+      color: ${LuxuryColors.selected};
     }
   
     .complete-card {
@@ -40,9 +60,11 @@ export default styled(CasesCard)`
   
     .complete-card-item {
       font-size: 2rem;
+      color: ${LuxuryColors.lightFont};
     }
   
     .complete-span {
+      color: ${LuxuryColors.selected};
       font-size: 2rem;
       font-weight: 600;
     }

@@ -8,6 +8,7 @@ import StyledLabelText from "../../styled-label-text";
 import registerState from '../../../state/register'
 import createPassword from "../../../services/auth/create-password";
 import globalState from '../../../state/global'
+import pass from '../../sign-in-body/in-first-step/pass.svg'
 import { UserType } from "../../../state/user/types";
 import { USER_TOKEN, USER_TYPE } from "../../../shared/constants/local";
 
@@ -46,17 +47,21 @@ const UpSecondStep: FunctionComponent<Props> = ({ className, onNext, lawyer }) =
 
   }
 
+  const onGoSignIn = () => {
+    dispatch(globalState.actions.setSign('SignIn'))
+  }
+
   return (
     <div className={className}>
-      <h1 className="signup-second-title">Sign Up</h1>
+      <h1 className="signup-second-title">Set your password</h1>
       <form className="signup-second-form" id="second-form">
-        <StyledLabelText name="password" req text="Set your Password:" value={first_password} onChange={e => onMatchingPassword(e, 'first')} autof type="password" />
-        <StyledLabelText name="passwordValidate" req text="Confirm your Password:" value={second_password} onChange={e => onMatchingPassword(e, 'second')} type="password" />
+        <StyledLabelText image={pass} name="password" req placeHolder="Password" value={first_password} onChange={e => onMatchingPassword(e, 'first')} autof type="password" />
+        <StyledLabelText image={pass} name="passwordValidate" req placeHolder="Confirm Password" value={second_password} onChange={e => onMatchingPassword(e, 'second')} type="password" />
       </form>
-      <span className="signup-second-account">Already have an account? <Link href={'/sign-in'}>Click here</Link></span>
+      <span className="signup-second-account">Already have an account? <div className="signup-second-account-link" onClick={onGoSignIn}>Click here</div></span>
       <div className="signup-second-btns">
-        <StyledButton text="Cancel" white onClick={onCancel} />
-        <StyledButton text="Next" active={active} onClick={onSetPassword} />
+        <StyledButton luxury text="Cancel" white onClick={onCancel} />
+        <StyledButton luxury text="Next Step" active={active} onClick={onSetPassword} />
       </div>
     </div>
   )

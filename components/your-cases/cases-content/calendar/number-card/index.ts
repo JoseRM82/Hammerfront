@@ -1,11 +1,11 @@
 import styled from "styled-components";
 
 import NumberCard from './number-card'
-import { Colors, BlueColors } from "../../../../../utils/styles";
+import { Colors, BlueColors, LuxuryColors } from "../../../../../utils/styles";
 
 export default styled(NumberCard)`
-    background: ${BlueColors.darkButton};
-    color: ${BlueColors.lightFont};
+    background: ${LuxuryColors.darkCard};
+    color: ${LuxuryColors.lightFont};
     padding: 2.5rem 0;
     border-radius: 3px;
     font-size: 2.5rem;
@@ -13,6 +13,7 @@ export default styled(NumberCard)`
     cursor: pointer;
 
     &.new-citation {
+        font-size: 1.5rem;
         padding: 0;
         background: none;
         color: blue;

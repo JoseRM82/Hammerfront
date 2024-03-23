@@ -2,7 +2,6 @@ import { FunctionComponent, useEffect, useState } from "react";
 
 import FirstStep from './in-first-step';
 import SignUpBody from "../sign-up-body";
-import globalState from "../../state/global";
 import { useAppSelector } from "../../state";
 
 const SignInBody: FunctionComponent<Props> = ({className}) => {

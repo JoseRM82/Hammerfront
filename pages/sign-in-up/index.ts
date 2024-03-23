@@ -14,6 +14,16 @@ export default styled(SignIn)`
     width: 100%;
     background: ${LuxuryColors.darkButton}d1;
     height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &-hammer {
+      font-size: 8rem;
+      font-weight: 800;
+      letter-spacing: 2rem;
+      color: #ffffff4a;
+    }
   }
 
   .signin-background {
