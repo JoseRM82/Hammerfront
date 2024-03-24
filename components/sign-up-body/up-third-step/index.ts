@@ -6,8 +6,26 @@ import { LuxuryColors } from "../../../utils/styles";
 export default styled(UpThirdStep)`
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  gap: 3rem;
+
+  .signup-body-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 2rem;
+    height: 100%;
+  }
+
+  .back-image {
+    justify-self: flex-start;
+    width: fit-content;
+    cursor: pointer;
+    opacity: .3;
+    padding: 3rem 0rem 0rem;
+
+    :hover {
+      opacity: unset;
+    }
+  }
 
   .signup-third {
     &-title{
@@ -29,7 +47,6 @@ export default styled(UpThirdStep)`
     }
 
     &-form {
-      align-self: flex-start;
       display: flex;
       flex-direction: column;
       gap: 2rem;
@@ -38,7 +55,8 @@ export default styled(UpThirdStep)`
 
     &-selection {
       display: flex;
-      gap: 5rem;
+      flex-direction: column;
+      gap: 2rem;
     }
 
     &-account {
@@ -59,7 +77,6 @@ export default styled(UpThirdStep)`
     }
 
     &-btns {
-      align-self: center;
       display: flex;
       gap: 3rem;
     }

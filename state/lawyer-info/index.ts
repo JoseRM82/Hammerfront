@@ -1,31 +1,29 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 import initialState from "./initial-state";
+import { Data } from "./types";
 
 export default createSlice({
   name: 'lawyerState',
   initialState,
   reducers: {
-    setCountry: (state, action: PayloadAction<string>) => {
-      state.country = action.payload
+    setFirstName: (state, action: PayloadAction<string>) => {
+      state.first_name = action.payload
     },
-    setCity: (state, action: PayloadAction<string>) => {
-      state.city = action.payload
+    setLastName: (state, action: PayloadAction<string>) => {
+      state.last_name = action.payload
     },
-    setAdress: (state, action: PayloadAction<string>) => {
-      state.adress = action.payload
+    setEmail: (state, action: PayloadAction<string>) => {
+      state.email = action.payload
     },
-    setWorkArea: (state, action: PayloadAction<string>) => {
-      state.work_area = action.payload
+    setPassword: (state, action: PayloadAction<string>) => {
+      state.password = action.payload
     },
-    setZipCode: (state, action: PayloadAction<string>) => {
-      state.zip_code = action.payload
+    setToken: (state, action: PayloadAction<string>) => {
+      state.token = action.payload
     },
-    setLanguages: (state, action: PayloadAction<string>) => {
-      state.languages = action.payload
-    },
-    setPhoneNumber: (state, action: PayloadAction<string>) => {
-      state.phone_number = action.payload
+    setData: (state, action: PayloadAction<Data>) => {
+      state.data = action.payload
     },
   }
 })

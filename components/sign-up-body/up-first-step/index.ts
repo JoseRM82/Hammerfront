@@ -6,8 +6,31 @@ import { LuxuryColors } from "../../../utils/styles";
 export default styled(UpFirstStep)`
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  gap: 2rem;
+  
+  .signup-body-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 2rem;
+    height: 100%;
+  }
+
+  .back-image {
+    justify-self: flex-start;
+    width: fit-content;
+    cursor: pointer;
+    opacity: .3;
+    padding: 3rem 0rem 0rem;
+
+    :hover {
+      opacity: unset;
+    }
+  }
+
+  .signup-error {
+    font-size: 1.5rem;
+    color: ${LuxuryColors.button};
+  }
 
   .signup {
     &-title{

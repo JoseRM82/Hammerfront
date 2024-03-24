@@ -1,19 +1,30 @@
-import Link from "next/link";
 import { FunctionComponent } from "react";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/router";
+import Image from "next/image";
 
 import StyledButton from "../../styled-button";
-import setClientInfo from "../../../services/client/set-client-info";
-import setLawyerInfo from "../../../services/lawyer/set-lawyer-info";
 import StyledLabelText from "../../styled-label-text";
 import globalState from "../../../state/global";
-import { useAppDispatch } from "../../../state";
-import { USER_TOKEN, USER_TYPE } from "../../../shared/constants/local";
+import back from '../../../shared/utils/back1.svg'
+import { useAppDispatch, useAppSelector } from "../../../state";
+import { USER_ID, USER_NAME, USER_TOKEN, USER_TYPE } from "../../../shared/constants/local";
+import createLawyer from "../../../services/lawyer/create-lawyer";
+import createClient from "../../../services/client/create-client";
 
 const UpThirdStep: FunctionComponent<Props> = ({ className, lawyer }) => {
   const { register, handleSubmit } = useForm()
   const getValues = { register }
+  const { clientFirstName, clientLastName, clientToken } = useAppSelector(state => ({
+    clientFirstName: state.clientState.first_name,
+    clientLastName: state.clientState.last_name,
+    clientToken: state.clientState.token,
+  }))
+  const { lawyerFirstName, lawyerLastName, lawyerToken } = useAppSelector(state => ({
+    lawyerFirstName: state.lawyerState.first_name,
+    lawyerLastName: state.lawyerState.last_name,
+    lawyerToken: state.lawyerState.token,
+  }))
   const dispatch = useAppDispatch()
   const router = useRouter()
 
@@ -26,27 +37,31 @@ const UpThirdStep: FunctionComponent<Props> = ({ className, lawyer }) => {
   }
 
   const onSetClientInfo = (body: any) => {
-    setClientInfo(body)
-      .then(response => {
-        if (response.success) {
-          dispatch(globalState.actions.setClientActive(true))
-          dispatch(globalState.actions.setLawyerActive(false))
-        }
-      })
-      .then(() => router.push('/cases'))
-      .catch(error => console.error(error))
+    createClient(body)
+      .then(res => {
+        if(!res.success) return
+
+        localStorage.setItem(USER_NAME, `${clientFirstName} ${clientLastName}`)
+        localStorage.setItem(USER_ID, res.data)
+        localStorage.setItem(USER_TOKEN, clientToken)
+        localStorage.setItem(USER_TYPE, 'client')
+        dispatch(globalState.actions.setClientActive(true))
+        router.push('/cases')
+      }).catch(error => console.error(error))
   }
 
   const onSetLawyerInfo = (body: any) => {
-    setLawyerInfo(body)
-      .then(response => {
-        if (response.success) {
-          dispatch(globalState.actions.setLawyerActive(true))
-          dispatch(globalState.actions.setClientActive(false))
-        }
-      })
-      .then(() => router.push('/cases'))
-      .catch(error => console.error(error))
+    createLawyer(body)
+      .then(res => {
+        if(!res.success) return
+
+        localStorage.setItem(USER_NAME, `${lawyerFirstName} ${lawyerLastName}`)
+        localStorage.setItem(USER_ID, res.data)
+        localStorage.setItem(USER_TOKEN, lawyerToken)
+        localStorage.setItem(USER_TYPE, 'lawyer')
+        dispatch(globalState.actions.setLawyerActive(true))
+        router.push('/cases')
+      }).catch(error => console.error(error))
   }
 
   const onGoSignIn = () => {
@@ -55,31 +70,33 @@ const UpThirdStep: FunctionComponent<Props> = ({ className, lawyer }) => {
 
   return (
     <div className={className}>
-      <h1 className="signup-third-title">Sign Up</h1>
-      <form className="signup-third-form" onSubmit={lawyer ? handleSubmit(onSetLawyerInfo) : handleSubmit(onSetClientInfo)} id="third-form" >
-        <div className="signup-third-container">
-          <StyledLabelText handleInput={getValues} name='identification' autof req placeHolder={lawyer ? "Tuition ID" : "ID"} type="text" />
-          {lawyer && <StyledLabelText handleInput={getValues} name='university' req placeHolder="University you graduated from" type="text" />}
-          {lawyer && <StyledLabelText handleInput={getValues} name='specialty_branch' placeHolder="Specialty branch" type="text" />}
-          {lawyer && <StyledLabelText handleInput={getValues} name='graduated_at' req placeHolder="Time working as lawyer" type="text" />}
-          <StyledLabelText handleInput={getValues} name='birthdate' req placeHolder="Birthdate (YYYY/MM/DD)" type="text" />
-          <StyledLabelText handleInput={getValues} name='country' req placeHolder="Country" type="text" />
-          {!lawyer && <StyledLabelText handleInput={getValues} name='state' placeHolder='State' req />}
-          {!lawyer && <StyledLabelText handleInput={getValues} name='city' req placeHolder="City" type="text" />}
-          {lawyer && <StyledLabelText handleInput={getValues} name='work_area' req placeHolder="Cities where you can work" type="text" />}
-          <StyledLabelText handleInput={getValues} name='zip_code' req placeHolder="Zip Code" type="text" />
-          <StyledLabelText handleInput={getValues} name='languages' req placeHolder="Language(s)" type="text" />
-          <StyledLabelText handleInput={getValues} name='phone_number' placeHolder="Phone Number" type="text" />
-          {lawyer && <StyledLabelText handleInput={getValues} className="" name='photo' req placeHolder="Add your photo" type='submit'/>}
+      <div className="back-image"><Image onClick={onCancel} src={back} height={50} width={50} /></div>
+      <div className="signup-body-container">
+        <h1 className="signup-third-title">Set your information</h1>
+        <form className="signup-third-form" onSubmit={lawyer ? handleSubmit(onSetLawyerInfo) : handleSubmit(onSetClientInfo)} id="third-form" >
+          <div className="signup-third-container">
+            <StyledLabelText handleInput={getValues} name='identification' autof req placeHolder={lawyer ? "Tuition ID" : "National ID"} type="text" />
+            {lawyer && <StyledLabelText handleInput={getValues} name='university' req placeHolder="University you graduated from" type="text" />}
+            {lawyer && <StyledLabelText handleInput={getValues} name='specialty_branch' placeHolder="Specialty branch" type="text" />}
+            {lawyer && <StyledLabelText handleInput={getValues} name='experience' req placeHolder="Time working as lawyer" type="text" />}
+            <StyledLabelText handleInput={getValues} name='birthdate' req placeHolder="Birthdate (YYYY/MM/DD)" type="text" />
+            <StyledLabelText handleInput={getValues} name='country' req placeHolder="Country" type="text" />
+            {!lawyer && <StyledLabelText handleInput={getValues} name='state' placeHolder='State' req />}
+            {!lawyer && <StyledLabelText handleInput={getValues} name='city' req placeHolder="City" type="text" />}
+            {lawyer && <StyledLabelText handleInput={getValues} name='work_area' req placeHolder="Cities where you can work" type="text" />}
+            <StyledLabelText handleInput={getValues} name='zip_code' req placeHolder="Zip Code" type="text" />
+            <StyledLabelText handleInput={getValues} name='languages' req placeHolder="Language(s)" type="text" />
+            <StyledLabelText handleInput={getValues} name='phone_number' req placeHolder="Phone Number" type="text" />
+            {lawyer && <StyledLabelText handleInput={getValues} className="" name='photo' placeHolder="Add your photo" type='submit'/>}
+          </div>
+        </form>
+        <div className="signup-third-selection">
+          <span className="signup-third-account">Already have an account? <div className="signup-third-account-link" onClick={onGoSignIn}>Click here</div></span>
+          <div className="signup-third-btns">
+            <StyledButton luxury text="Cancel" onClick={onCancel} />
+            <StyledButton luxury text="Register" form="third-form" />
+          </div>
         </div>
-        {lawyer && <StyledLabelText handleInput={getValues} name='description' req placeHolder="A description about you" type="text" description />}
-      </form>
-      <div className="signup-third-selection">
-        <div className="signup-third-btns">
-          <StyledButton luxury text="Cancel" white onClick={onCancel} />
-          <StyledButton luxury text="Register" form="third-form" />
-        </div>
-        <span className="signup-third-account">Already have an account? <div className="signup-third-account-link" onClick={onGoSignIn}>Click here</div></span>
       </div>
     </div>
   )

@@ -4,18 +4,36 @@ import InFirstStep from "./in-first-step";
 import { LuxuryColors } from "../../../utils/styles";
 
 export default styled(InFirstStep)`
-  display: flex;
   flex-direction: column;
-  justify-content: center;
   box-shadow: -10px 0px 10px #000000;
-  gap: 2.5rem;
   height: 100vh;
   padding: 0 8rem 0 5rem;
-  display: none;
+  display: flex;
+  /* display: none; */
 
   ${props => props.sign && css`
     display: flex;
   `}
+
+  .signin-body-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 2.5rem;
+    height: 80%;
+  }
+
+  .back-image {
+    justify-self: flex-start;
+    width: fit-content;
+    cursor: pointer;
+    opacity: .3;
+    padding: 3rem 0rem 0rem;
+
+    :hover {
+      opacity: unset;
+    }
+  }
 
   .signin {
     &-title{

@@ -19,9 +19,9 @@ export default styled(SignIn)`
     justify-content: center;
 
     &-hammer {
-      font-size: 8rem;
+      font-size: 4.5rem;
       font-weight: 800;
-      letter-spacing: 2rem;
+      letter-spacing: 1rem;
       color: #ffffff4a;
     }
   }

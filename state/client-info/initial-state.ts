@@ -1,15 +1,21 @@
-import { State } from "./types";
+import { Data, State } from "./types";
 
-const initialState: State = {
+const initialData: Data = {
   identification: '',
   birthdate: '',
   country: '',
-  state: '',
-  city: '',
-  adress: '',
   zip_code: '',
   languages: '',
   phone_number: '',
+}
+
+const initialState: State = {
+  first_name: '',
+  last_name: '',
+  email: '',
+  password: '',
+  data: initialData,
+  token: '',
 }
 
 export default initialState

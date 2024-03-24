@@ -1,25 +1,26 @@
-import { State, Photo } from "./types";
+import { State, Data } from "./types";
 
-const initialPhoto: Photo = {
-  photoLocation: '',
-  photoName: '',
-}
-
-const initialState: State = {
-  tuition_id: '',
+export const initialData: Data = {
+  identification: '',
   university: '',
   specialty_branch: '',
-  graduated_at: '',
+  experience_time: '',
   birthdate: '',
   country: '',
-  city: '',
-  adress: '',
   work_area: '',
   zip_code: '',
   languages: '',
   phone_number: '',
-  photo: initialPhoto,
-  own_description: '',
+  photo: '',
+}
+
+const initialState: State = {
+  first_name: '',
+  last_name: '',
+  email: '',
+  password: '',
+  data: initialData,
+  token: '',
 }
 
 export default initialState

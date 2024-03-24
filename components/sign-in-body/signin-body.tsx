@@ -14,8 +14,8 @@ const SignInBody: FunctionComponent<Props> = ({className}) => {
 
   return (
     <div className={className}>
-      <FirstStep sign={selectedSign === 'SignIn' ? true : false} />
-      <SignUpBody sign={selectedSign === 'SignUp' ? true : false} />
+      {selectedSign === 'SignIn' && <FirstStep  />}
+      {selectedSign === 'SignUp' && <SignUpBody />}
     </div>
   )
 }

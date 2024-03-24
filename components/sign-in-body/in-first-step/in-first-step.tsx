@@ -4,6 +4,7 @@ import { FunctionComponent, useCallback, useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../../state";
 import user from './user.svg'
 import pass from './pass.svg'
+import back1 from '../../../shared/utils/back1.svg'
 import StyledButton from "../../styled-button";
 import StyledLabelText from "../../styled-label-text";
 import loginState from '../../../state/login'
@@ -17,6 +18,7 @@ import { useRouter } from "next/router";
 import setName from "../../../state/user/actions/set-name";
 import setId from "../../../state/user/actions/set-id";
 import { USER_ID, USER_NAME, USER_TOKEN, USER_TYPE } from "../../../shared/constants/local";
+import Image from "next/image";
 
 const InFirstStep: FunctionComponent<Props> = ({ className }) => {
   const [userType, setUserType] = useState('client')
@@ -102,23 +104,26 @@ const InFirstStep: FunctionComponent<Props> = ({ className }) => {
 
   return (
     <div className={className}>
-      <div className="signin-title">
-        <div className={`signin-btn ${userType === 'client' ? '' : 'overshadowed'}`} onClick={() => onSelectUserType('client')} >Client</div>
-        <div className={`signin-btn ${userType === 'lawyer' ? '' : 'overshadowed'}`} onClick={() => onSelectUserType('lawyer')} >Lawyer</div>
-      </div>
+      <div className="back-image"><Image onClick={onCancel} src={back1} height={50} width={50} /></div>
+      <div className="signin-body-container">
+        <div className="signin-title">
+          <div className={`signin-btn ${userType === 'client' ? '' : 'overshadowed'}`} onClick={() => onSelectUserType('client')} >Client</div>
+          <div className={`signin-btn ${userType === 'lawyer' ? '' : 'overshadowed'}`} onClick={() => onSelectUserType('lawyer')} >Lawyer</div>
+        </div>
         <div>
           {noUserType && <div className="signin-error">Client or Lawyer must be selected</div>}
           {noField && <div className="signin-error">Both fields must be filled</div>}
           {failedLogin && <div className="signin-error">This user does not exist</div>}
         </div>
-      <form className="signin-form" id='sign-in' autoComplete="false" >
-        <StyledLabelText image={user} placeHolder="Email" name="email" type="email" req autoComplete='false' value={email} onChange={e => dispatch(loginState.actions.setEmail(e.target.value))} />
-        <StyledLabelText image={pass} placeHolder="Password" name="password" type="password" req value={password} onChange={e => dispatch(loginState.actions.setPassword(e.target.value))} />
-      </form>
-      <span className="signin-account">Do not have an account yet? <div className="signin-account-link" onClick={onGoToSignUp}>Create it here</div></span>
-      <div className="signin-btns">
-        <StyledButton luxury text="Cancel" onClick={onCancel} />
-        <StyledButton luxury type="button" form="sign-in" text="Sign In" onClick={onLogin} />
+        <form className="signin-form" id='sign-in' autoComplete="false" >
+          <StyledLabelText image={user} placeHolder="Email" name="email" type="email" req autoComplete='false' value={email} onChange={e => dispatch(loginState.actions.setEmail(e.target.value))} />
+          <StyledLabelText image={pass} placeHolder="Password" name="password" type="password" req value={password} onChange={e => dispatch(loginState.actions.setPassword(e.target.value))} />
+        </form>
+        <span className="signin-account">Do not have an account yet? <div className="signin-account-link" onClick={onGoToSignUp}>Create it here</div></span>
+        <div className="signin-btns">
+          <StyledButton luxury text="Cancel" onClick={onCancel} />
+          <StyledButton luxury type="button" form="sign-in" text="Sign In" onClick={onLogin} />
+        </div>
       </div>
     </div>
   )
