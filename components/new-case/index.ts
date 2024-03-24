@@ -1,14 +1,14 @@
 import styled from "styled-components";
 
 import NewCase from "./new-case";
-import { Colors } from "../../utils/styles";
+import { LuxuryColors } from "../../utils/styles";
 
 export default styled(NewCase)`
   box-shadow: 3px 5px 10px #00000080;
   display: flex;
   flex-direction: column;
   align-items: flex-end;
-  background: #fff;
+  background: ${LuxuryColors.darkButton};
 
   .NewCase-form {
     display: flex;
@@ -23,6 +23,7 @@ export default styled(NewCase)`
     text-align: center;
     font-size: 4rem;
     font-weight: 700;
+    color: ${LuxuryColors.selected};
   }
 
   .NewCase {

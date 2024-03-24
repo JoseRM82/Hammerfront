@@ -21,6 +21,14 @@ export default styled(Header)`
     cursor: pointer;
   }
 
+  .page-name {
+    font-size: 3rem;
+    color: #ffffff;
+    font-weight: 800;
+    letter-spacing: .5rem;
+    cursor: pointer;
+  }
+
   .signs {
     align-self: flex-end;
     font-size: 2rem;

@@ -57,7 +57,7 @@ const Hammer: NextPage<Props> = ({ className }) => {
           <meta name="Hammer services page" />
         </Head>
 
-        <Header className='header' visitor={noLogged} />
+        <Header className='header' mainPage visitor={noLogged} />
         <div className='body'>
           <MainBody />
         </div>

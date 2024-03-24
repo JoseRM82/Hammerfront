@@ -11,7 +11,7 @@ import registerFile from "../../../../../services/case/send-file-request";
 import getRequestedFiles from "../../../../../services/case/get-requested-files";
 import { isAnElementInArray } from "../../../../../shared/functions/array-functions";
 
-const CasesCard: FunctionComponent<Props> = ({ className, caseId, requests, CurrentCases, firstField, secondField, thirdField, fourthField, fifthField, sixthField, seventhField, eighthField, ninethField, extraField, firstFieldText, secondFieldText, thirdFieldText, fourthFieldText, fifthFieldText, sixthFieldText, seventhFieldText, eighthFieldText, ninethFieldText, showAllInfo, onClick, onAccept, onRefuse, onChat }) => {
+const CasesCard: FunctionComponent<Props> = ({ className, caseId, requests, card_id, CurrentCases, firstField, secondField, thirdField, fourthField, fifthField, sixthField, seventhField, eighthField, ninethField, extraField, firstFieldText, secondFieldText, thirdFieldText, fourthFieldText, fifthFieldText, sixthFieldText, seventhFieldText, eighthFieldText, ninethFieldText, showAllInfo, onClick, onAccept, onRefuse, onChat }) => {
   const { lawyer } = useAppSelector(state => state.globalState);
   const { file_name, file_sent, file_deleted, file_url } = useAppSelector(state => state.caseState)
   const dispatch = useAppDispatch()
@@ -119,7 +119,7 @@ const CasesCard: FunctionComponent<Props> = ({ className, caseId, requests, Curr
   );
 
   return (
-    <div className={className + ' cases-card'} onClick={onClick}>
+    <div className={className + ' cases-card'} id={card_id} onClick={onClick}>
       {showAllInfo
         ? <>
           <div className="complete-card-container">
@@ -130,7 +130,7 @@ const CasesCard: FunctionComponent<Props> = ({ className, caseId, requests, Curr
               {fourthFieldText && <div className="complete-card-item"><span className="complete-span">{fourthFieldText}</span>{fourthField}</div>}
               {fifthFieldText && <div className="complete-card-item"><span className="complete-span">{fifthFieldText}</span>{fifthField}</div>}
               <Popover content={content} trigger='click' open={open} onOpenChange={handleOpenChange}>
-               {sixthFieldText && <div className="complete-card-item" onClick={e => {e.stopPropagation(); setInput(false); requestFiles()}}><span className="complete-span">{sixthFieldText}</span>{requestFiles.length}</div>}
+               {sixthFieldText && <div className="complete-card-item" onClick={e => {e.stopPropagation(); setInput(false); requestFiles()}}><span className="complete-span">{sixthFieldText}</span>{requestsList[0] ? requestsList.length : sixthField}</div>}
               </Popover>
               {seventhFieldText && <div className="complete-card-item"><span className="complete-span">{seventhFieldText}</span>{seventhField}</div>}
               {eighthFieldText && <div className="complete-card-item"><span className="complete-span">{eighthFieldText}</span>{eighthField}</div>}
@@ -141,14 +141,14 @@ const CasesCard: FunctionComponent<Props> = ({ className, caseId, requests, Curr
                 <StyledButton className="requests-btn" white text="DECLINE" onClick={(e) => { e.stopPropagation(); onRefuse?.() }} /></>}
             </div>
           </div>
-          {ninethField && <div className="complete-card-item"><span className="complete-span">{ninethFieldText}</span>{ninethField}</div>}
+          {ninethField && <div className="complete-card-desc"><span className="complete-span">{ninethFieldText}</span>{ninethField}</div>}
         </>
 
-        : <><div className="cases-card-item"><span className="card-span">{firstFieldText}:</span> {firstField}</div>
-          <div className="cases-card-item"><span className="card-span">{secondFieldText}:</span> {secondField}</div>
-          <div className="cases-card-item"><span className="card-span">{thirdFieldText}:</span> {thirdField}</div>
-          <div className="cases-card-item"><span className="card-span">{sixthFieldText}:</span> {requestFiles.length}</div>
-          <div className="cases-card-item"><span className="card-span">{fifthFieldText}:</span> {fifthField}</div>
+        : <><div className="cases-card-item"><span className="card-span">{firstFieldText}</span> {firstField}</div>
+          <div className="cases-card-item"><span className="card-span">{secondFieldText}</span> {secondField}</div>
+          <div className="cases-card-item"><span className="card-span">{thirdFieldText}</span> {thirdField}</div>
+          <div className="cases-card-item"><span className="card-span">{sixthFieldText}</span> {requestFiles.length}</div>
+          <div className="cases-card-item"><span className="card-span">{fifthFieldText}</span> {fifthField}</div>
           {extraField && <div className="cases-card-item">{extraField}</div>}</>
       }
     </div>
@@ -160,6 +160,7 @@ export default CasesCard
 interface Props {
   className?: string;
   caseId?: string;
+  card_id?: string;
   firstField?: string | number;
   firstFieldText?: string | number;
   secondField?: string | number;

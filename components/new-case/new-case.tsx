@@ -36,21 +36,21 @@ const NewCase: FunctionComponent<Props> = ({ className }) => {
         <h1 className='NewCase-title'>Add your case info: </h1>
         <form className='NewCase' id='NewCase' onSubmit={handleSubmit(onAddCaseInformation)} >
           <div className='NewCase-container'>
-            <StyledLabelText handleInput={getValues} text='Phone Number:' req name='phone_number' />
-            <StyledLabelText handleInput={getValues} text='Email:' name='email' req type='email' />
-            <StyledLabelText handleInput={getValues} text='City:' name='city' req />
-            <StyledLabelText handleInput={getValues} text='State:' name='state' req />
-            <StyledLabelText handleInput={getValues} text='Country:' name='country' req />
-            <StyledLabelText handleInput={getValues} text='Adress:' name='adress' req />
-            <StyledLabelText handleInput={getValues} text='Language(s):' name='languages' req />
-            <StyledLabelText handleInput={getValues} text='Case Type: ' name='case_type' req />
+            <StyledLabelText handleInput={getValues} placeHolder='Your phone number' name='phone_number' req />
+            <StyledLabelText handleInput={getValues} placeHolder='Your email' name='email' req type='email' />
+            <StyledLabelText handleInput={getValues} placeHolder='Lawsuit city' name='city' req />
+            <StyledLabelText handleInput={getValues} placeHolder='Lawsuit state' name='state' req />
+            <StyledLabelText handleInput={getValues} placeHolder='Lawsuit country' name='country' req />
+            <StyledLabelText handleInput={getValues} placeHolder='Your adress' name='adress' req />
+            <StyledLabelText handleInput={getValues} placeHolder='Language(s) you speak' name='languages' req />
+            <StyledLabelText handleInput={getValues} placeHolder='Case Type' name='case_type' req />
           </div>
-          <StyledLabelText handleInput={getValues} text='Case description:' name='description' description />
+          <StyledLabelText handleInput={getValues} placeHolder='Case description' name='description' description />
         </form>
       </div>
       <div className='btns'>
-        <StyledButton text='Cancel' white onClick={onCancel} />
-        <StyledButton text='Find a Lawyer' form='NewCase' />
+        <StyledButton luxury text='Cancel' onClick={onCancel} />
+        <StyledButton luxury text='Find a Lawyer' form='NewCase' />
       </div>
     </div>
   )

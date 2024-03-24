@@ -18,7 +18,7 @@ import dout from '../../shared/utils/dout.svg'
 import lout from '../../shared/utils/lout.svg'
 
 
-const Header: FunctionComponent<Props> = ({ className, visitor }) => {
+const Header: FunctionComponent<Props> = ({ className, visitor, mainPage }) => {
   const { client, lawyer } = useAppSelector(state => state.globalState)
   const { chatIsOpen } = useAppSelector(state => state.globalState)
   const [loged, setLoged] = useState(false)
@@ -89,28 +89,33 @@ const Header: FunctionComponent<Props> = ({ className, visitor }) => {
   return (
     <div className={className}>
       <div className='main-header'>
-        <div className='logo' onClick={() => onGoToPage('/', '')}><div><Image src={logo2} height={100} width={100} /></div></div>
-        <div className='options'>
-          <div className='options-list'>
-            {(client || lawyer) && <button className='options-list_item' onClick={onChatOpen} >Chat</button>}
-            {(client || lawyer) && <Link href='/cases'><button className='options-list_item'>Your Cases</button></Link>}
-            {client && <button className='options-list_item' onClick={() => onGoToPage('/new-cases', '')}>Create a Case</button>}
-            {(client || lawyer) && 
-            <Popover trigger='click' color='#111114' arrow={false} content={content}>
-              <div className='signed-user'>
-                {userInfo}
-                <div className='signed-user-image'>
-                  <Image src={darrow} height={25} width={25} />
+        {mainPage
+          ?
+          <div className='logo'><div><Image src={logo2} height={100} width={100} /></div></div>
+          :
+          <div className='page-name' onClick={() => onGoToPage('/', '')}>HAMMER</div>
+        }
+          <div className='options'>
+            <div className='options-list'>
+              {(client || lawyer) && <button className='options-list_item' onClick={onChatOpen} >Chat</button>}
+              {(client || lawyer) && <Link href='/cases'><button className='options-list_item'>Your Cases</button></Link>}
+              {client && <button className='options-list_item' onClick={() => onGoToPage('/new-cases', '')}>Create a Case</button>}
+              {(client || lawyer) && 
+              <Popover trigger='click' color='#111114' arrow={false} content={content}>
+                <div className='signed-user'>
+                  {userInfo}
+                  <div className='signed-user-image'>
+                    <Image src={darrow} height={25} width={25} />
+                  </div>
                 </div>
-              </div>
-            </Popover>}
-            {visitor && <div className='signs'>
-              {(!client && !lawyer) && <div className='sign' onClick={() => onGoToPage('/sign-in-up', 'SignIn')}>Sign in </div>}
-              {(!client && !lawyer) && <div>/</div>}
-              {(!client && !lawyer) && <div className='sign' onClick={() => onGoToPage('/sign-in-up', 'SignUp')}> Sign up</div>}
-            </div>}
+              </Popover>}
+              {visitor && <div className='signs'>
+                {(!client && !lawyer) && <div className='sign' onClick={() => onGoToPage('/sign-in-up', 'SignIn')}>Sign in </div>}
+                {(!client && !lawyer) && <div>/</div>}
+                {(!client && !lawyer) && <div className='sign' onClick={() => onGoToPage('/sign-in-up', 'SignUp')}> Sign up</div>}
+              </div>}
+            </div>
           </div>
-        </div>
       </div>
     </div>
   )
@@ -122,4 +127,5 @@ interface Props {
   className?: string;
   header?: boolean;
   visitor?: boolean;
+  mainPage?: boolean;
 }

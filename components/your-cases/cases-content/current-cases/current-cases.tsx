@@ -38,17 +38,9 @@ const CurrentCases: FunctionComponent<Props> = ({ className }) => {
 
   const onClickCase = (x: Cases) => {
     if (selectedCase === x) {
-      setOpenCard(false)
       setSelectedCase(initialCases)
     } else {
       setSelectedCase(x)
-      const caseToDivide = [...cases]
-
-      const newCardsObject = divideArray(caseToDivide, selectedCase)
-      setFirstCases(newCardsObject.arr1)
-      setSelectedCase(newCardsObject.elem)
-      setLastCases(newCardsObject.arr2)
-      setOpenCard(true)
     }
   }
 
@@ -85,43 +77,28 @@ const CurrentCases: FunctionComponent<Props> = ({ className }) => {
   }
 
   useEffect(() => {
+    if(!selectedCase._id) return
 
-  }, [])
+    const heightY = document.getElementById(selectedCase._id + '')?.offsetTop
+    const vheight = window.innerHeight / 2
+    const divHeight = document.getElementById(selectedCase._id)?.clientHeight! / 2
+    if (heightY) {
+      scrollTo(0, heightY! - vheight + divHeight!)
+    }
+  }, [selectedCase])
 
   return (
     <div className={className}>
-      {/* <div className="current-cases">
-        <div className="current-cases-categories">ID</div>
-        <div className="current-cases-categories">{client ? 'Lawyer Name' : (lawyer ? 'Client Name' : '')}</div>
-        <div className="current-cases-categories-sort">Next court</div>
-        <div className="current-cases-categories-sort">Needed files</div>
-        <div className="current-cases-categories-sort">{client ? 'Status' : (lawyer ? 'Case Type' : '')}</div>
-      </div> */}
         {
           cases.length > 0
             ?
-            openCard 
-              ?
-              <div className="current-cases-cards">
-                <div className="current-cases-cards-grid">
-                  {firstCases.map(x => (
-                    <CasesCard key={x._id} CurrentCases caseId={x._id} onClick={() => onClickCase(x)} onChat={() => onChat(client ? x.lawyer_id! : x.client_id!)} firstFieldText='Case ID: ' firstField={x._id + ''} secondFieldText={client ? 'Lawyer Name: ' : (lawyer ? 'Client Name: ' : '')} secondField={client ? (x.lawyer_name! ? x.lawyer_name! : 'No lawyer yet') : (lawyer ? x.client_name! : '')} thirdFieldText='Next Court Date: ' thirdField={x.next_court ? x.next_court : 'No date yet'}  fifthFieldText={client ? 'Status: ' : (lawyer ? 'Case Type: ' : '')} fifthField={client ? x.status : (lawyer ? x.data.case_type : '')} sixthFieldText='Needed Files: ' sixthField={x.needed_files.files_types!.length} seventhFieldText='Language: ' seventhField={x.data.languages} eighthFieldText='Judgement Location: ' eighthField={x.judgement_location ? x.judgement_location.court_adress : x.data.city} ninethFieldText='Case Description: ' ninethField={x.data.description} />
-                  ))}
-                </div>
-                <CasesCard key={selectedCase._id} CurrentCases caseId={selectedCase._id} onClick={() => onClickCase(selectedCase)} onChat={() => onChat(client ? selectedCase.lawyer_id! : selectedCase.client_id!)} firstFieldText='Case ID: ' firstField={selectedCase._id + ''} secondFieldText={client ? 'Lawyer Name: ' : (lawyer ? 'Client Name: ' : '')} secondField={client ? (selectedCase.lawyer_name! ? selectedCase.lawyer_name! : 'No lawyer yet') : (lawyer ? selectedCase.client_name! : '')} thirdFieldText='Next Court Date: ' thirdField={selectedCase.next_court ? selectedCase.next_court : 'No date yet'}  fifthFieldText={client ? 'Status: ' : (lawyer ? 'Case Type: ' : '')} fifthField={client ? selectedCase.status : (lawyer ? selectedCase.data.case_type : '')} sixthFieldText='Needed Files: ' sixthField={selectedCase.needed_files.files_types!.length} seventhFieldText='Language: ' seventhField={selectedCase.data.languages} eighthFieldText='Judgement Location: ' eighthField={selectedCase.judgement_location ? selectedCase.judgement_location.court_adress : selectedCase.data.city} ninethFieldText='Case Description: ' ninethField={selectedCase.data.description} />
-                <div className="current-cases-cards-grid">
-                  {lastCases.map(x => (
-                    <CasesCard key={x._id} CurrentCases caseId={x._id} onClick={() => onClickCase(x)} onChat={() => onChat(client ? x.lawyer_id! : x.client_id!)} firstFieldText='Case ID: ' firstField={x._id + ''} secondFieldText={client ? 'Lawyer Name: ' : (lawyer ? 'Client Name: ' : '')} secondField={client ? (x.lawyer_name! ? x.lawyer_name! : 'No lawyer yet') : (lawyer ? x.client_name! : '')} thirdFieldText='Next Court Date: ' thirdField={x.next_court ? x.next_court : 'No date yet'}  fifthFieldText={client ? 'Status: ' : (lawyer ? 'Case Type: ' : '')} fifthField={client ? x.status : (lawyer ? x.data.case_type : '')} sixthFieldText='Needed Files: ' sixthField={x.needed_files.files_types!.length} seventhFieldText='Language: ' seventhField={x.data.languages} eighthFieldText='Judgement Location: ' eighthField={x.judgement_location ? x.judgement_location.court_adress : x.data.city} ninethFieldText='Case Description: ' ninethField={x.data.description} />
-                  ))}
-                </div>
-              </div>
-              :
-              <div className="current-cases-list">
-                {cases.map(x => (
-                  <CasesCard key={x._id} CurrentCases caseId={x._id} onClick={() => onClickCase(x)} onChat={() => onChat(client ? x.lawyer_id! : x.client_id!)} firstFieldText='Case ID: ' firstField={x._id + ''} secondFieldText={client ? 'Lawyer Name: ' : (lawyer ? 'Client Name: ' : '')} secondField={client ? (x.lawyer_name! ? x.lawyer_name! : 'No lawyer yet') : (lawyer ? x.client_name! : '')} thirdFieldText='Next Court Date: ' thirdField={x.next_court ? x.next_court : 'No date yet'}  fifthFieldText={client ? 'Status: ' : (lawyer ? 'Case Type: ' : '')} fifthField={client ? x.status : (lawyer ? x.data.case_type : '')} sixthFieldText='Needed Files: ' sixthField={x.needed_files.files_types!.length} seventhFieldText='Language: ' seventhField={x.data.languages} eighthFieldText='Judgement Location: ' eighthField={x.judgement_location ? x.judgement_location.court_adress : x.data.city} ninethFieldText='Case Description: ' ninethField={x.data.description} />
-                ))}
-              </div>
-            : <div className="current-cases-categories">There aren&apost cases yet</div>
+            <div className="current-cases-list">
+              {cases.map(x => (
+                <CasesCard key={x._id} card_id={x._id} showAllInfo={selectedCase === x} CurrentCases caseId={x._id} onClick={() => onClickCase(x)} onChat={() => onChat(client ? x.lawyer_id! : x.client_id!)} firstFieldText='Case ID: ' firstField={x._id + ''} secondFieldText={client ? 'Lawyer: ' : (lawyer ? 'Client: ' : '')} secondField={client ? (x.lawyer_name! ? x.lawyer_name! : 'No lawyer yet') : (lawyer ? x.client_name! : '')} thirdFieldText='Next Court Date: ' thirdField={x.next_court ? x.next_court : 'No date yet'}  fifthFieldText={x.status === 'in_progress' ? (client ? 'Status: ' : (lawyer ? 'Case Type: ' : '')) : ''} fifthField={client ? x.status : (lawyer ? x.data.case_type : '')} sixthFieldText='Needed Files: ' sixthField={x.needed_files.files_types!.length} seventhFieldText='Language: ' seventhField={x.data.languages} eighthFieldText='Judgement Location: ' eighthField={x.judgement_location ? x.judgement_location.court_adress : x.data.city} ninethFieldText='Case Description: ' ninethField={x.data.description} />
+              ))}
+            </div>
+            : 
+            <div className="current-cases-categories">There aren&apost cases yet</div>
         }
     </div>
   )
