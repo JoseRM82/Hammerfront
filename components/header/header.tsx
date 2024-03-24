@@ -80,7 +80,7 @@ const Header: FunctionComponent<Props> = ({ className, visitor, mainPage }) => {
       <div className='header-popover-field'>
         <div className='header-popover-image'><Image src={dinfo} height={25} width={25} /></div>  
       Change your info</div>
-      <div className='header-popover-field'>
+      <div className='header-popover-field' onClick={onLogout}>
         <div className='header-popover-image'><Image src={dout} height={25} width={25} /></div>  
       Log Out</div>
     </div>
