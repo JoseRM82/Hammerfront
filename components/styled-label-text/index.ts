@@ -21,6 +21,17 @@ export default styled(StyledLabelText)`
     justify-content: center;
   }
 
+  .label-pass {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    opacity: .3;
+
+    :hover {
+      opacity: unset;
+    }
+  }
+
   :focus-within {
     border: 3px solid #fff;
 

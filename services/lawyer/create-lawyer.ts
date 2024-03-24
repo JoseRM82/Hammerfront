@@ -1,11 +1,8 @@
 import { post } from "../../shared/utils/FETCH";
 import { Data, State } from "../../state/lawyer-info/types";
-import { useAppSelector } from "../../state";
 
-const createLawyer = async(body: Data): Promise<Response> => {
+const createLawyer = async(body: Data, first_name: string, last_name: string, email: string, password: string, token: string): Promise<Response> => {
     try {
-      const {first_name, last_name, email, password, token} = useAppSelector(state => state.lawyerState)
-
       const userData: Data = {
         identification: body.identification,
         university: body.university,

@@ -44,11 +44,13 @@ const post = async (url: string, body: any, headers?: any, params?: string, shou
       : headers
         ? {
           Accept: 'application/json',
+          'Access-Control-Allow-Origin': '*',
           'Content-Type': 'application/json',
           ...headers,
         }
         : {
           Accept: 'application/json',
+          'Access-Control-Allow-Origin': '*',
           'Content-Type': 'application/json',
         },
       body: shouldStringify ? JSON.stringify(body) : body,

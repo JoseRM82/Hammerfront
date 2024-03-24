@@ -1,11 +1,8 @@
 import { post } from "../../shared/utils/FETCH";
 import { Data, State } from "../../state/client-info/types";
-import { useAppSelector } from "../../state";
 
-const createClient = async(body: Data): Promise<Response> => {
+const createClient = async(body: Data, first_name: string, last_name: string, email: string, password: string, token: string): Promise<Response> => {
     try {
-      const {first_name, last_name, email, password, token} = useAppSelector(state => state.clientState)
-
       const userData: Data = {
         identification: body.identification,
         birthdate: body.birthdate,
@@ -15,7 +12,7 @@ const createClient = async(body: Data): Promise<Response> => {
         phone_number: body.phone_number
       }
 
-      const lawyer: State = {
+      const client: State = {
         first_name: first_name,
         last_name: last_name,
         email: email,
@@ -23,8 +20,8 @@ const createClient = async(body: Data): Promise<Response> => {
         data: userData,
         token: token,
       }
-  
-      const response = await post(`clients/create-user`, lawyer)
+
+      const response = await post(`clients/create-user`, client)
   
       return response
 

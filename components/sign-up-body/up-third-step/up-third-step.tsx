@@ -6,40 +6,51 @@ import Image from "next/image";
 import StyledButton from "../../styled-button";
 import StyledLabelText from "../../styled-label-text";
 import globalState from "../../../state/global";
+import registerState from "../../../state/register";
 import back from '../../../shared/utils/back1.svg'
 import { useAppDispatch, useAppSelector } from "../../../state";
 import { USER_ID, USER_NAME, USER_TOKEN, USER_TYPE } from "../../../shared/constants/local";
 import createLawyer from "../../../services/lawyer/create-lawyer";
 import createClient from "../../../services/client/create-client";
 
-const UpThirdStep: FunctionComponent<Props> = ({ className, lawyer }) => {
+const UpThirdStep: FunctionComponent<Props> = ({ className, onBack, lawyer }) => {
   const { register, handleSubmit } = useForm()
   const getValues = { register }
-  const { clientFirstName, clientLastName, clientToken } = useAppSelector(state => ({
+  const { clientFirstName, clientLastName, clientToken, clientEmail, clientPass } = useAppSelector(state => ({
     clientFirstName: state.clientState.first_name,
     clientLastName: state.clientState.last_name,
     clientToken: state.clientState.token,
+    clientEmail: state.clientState.email,
+    clientPass: state.clientState.password
   }))
-  const { lawyerFirstName, lawyerLastName, lawyerToken } = useAppSelector(state => ({
+  const { lawyerFirstName, lawyerLastName, lawyerToken, lawyerEmail, lawyerPass } = useAppSelector(state => ({
     lawyerFirstName: state.lawyerState.first_name,
     lawyerLastName: state.lawyerState.last_name,
     lawyerToken: state.lawyerState.token,
+    lawyerEmail: state.lawyerState.email,
+    lawyerPass: state.lawyerState.password,
   }))
   const dispatch = useAppDispatch()
   const router = useRouter()
 
   const onCancel = () => {
-    localStorage.removeItem(USER_TOKEN)
-    localStorage.removeItem(USER_TYPE)
-    dispatch(globalState.actions.setClientActive(false))
-    dispatch(globalState.actions.setLawyerActive(false))
+    dispatch(registerState.actions.setFirstName(''))
+    dispatch(registerState.actions.setLastName(''))
+    dispatch(registerState.actions.setEmail(''))
+    dispatch(registerState.actions.setFirstPassword(''))
+    dispatch(registerState.actions.setSecondPassword(''))
     router.push('/')
   }
 
+  const onClickBack = () => {
+    onBack?.()
+  }
+
   const onSetClientInfo = (body: any) => {
-    createClient(body)
+    console.log('inicio de funcion')
+    createClient(body, clientFirstName, clientLastName, clientEmail, clientPass, clientToken)
       .then(res => {
-        if(!res.success) return
+        if(!res.success) return console.log('error de respuesta')
 
         localStorage.setItem(USER_NAME, `${clientFirstName} ${clientLastName}`)
         localStorage.setItem(USER_ID, res.data)
@@ -51,7 +62,7 @@ const UpThirdStep: FunctionComponent<Props> = ({ className, lawyer }) => {
   }
 
   const onSetLawyerInfo = (body: any) => {
-    createLawyer(body)
+    createLawyer(body, lawyerFirstName, lawyerLastName, lawyerEmail, lawyerPass, lawyerToken)
       .then(res => {
         if(!res.success) return
 
@@ -70,10 +81,10 @@ const UpThirdStep: FunctionComponent<Props> = ({ className, lawyer }) => {
 
   return (
     <div className={className}>
-      <div className="back-image"><Image onClick={onCancel} src={back} height={50} width={50} /></div>
+      <div className="back-image"><Image onClick={onClickBack} src={back} height={50} width={50} /></div>
       <div className="signup-body-container">
         <h1 className="signup-third-title">Set your information</h1>
-        <form className="signup-third-form" onSubmit={lawyer ? handleSubmit(onSetLawyerInfo) : handleSubmit(onSetClientInfo)} id="third-form" >
+        <form className="signup-third-form" onSubmit={lawyer ? handleSubmit((body) => onSetLawyerInfo(body)) : handleSubmit((body) => onSetClientInfo(body))} id="third-form" >
           <div className="signup-third-container">
             <StyledLabelText handleInput={getValues} name='identification' autof req placeHolder={lawyer ? "Tuition ID" : "National ID"} type="text" />
             {lawyer && <StyledLabelText handleInput={getValues} name='university' req placeHolder="University you graduated from" type="text" />}
@@ -81,8 +92,6 @@ const UpThirdStep: FunctionComponent<Props> = ({ className, lawyer }) => {
             {lawyer && <StyledLabelText handleInput={getValues} name='experience' req placeHolder="Time working as lawyer" type="text" />}
             <StyledLabelText handleInput={getValues} name='birthdate' req placeHolder="Birthdate (YYYY/MM/DD)" type="text" />
             <StyledLabelText handleInput={getValues} name='country' req placeHolder="Country" type="text" />
-            {!lawyer && <StyledLabelText handleInput={getValues} name='state' placeHolder='State' req />}
-            {!lawyer && <StyledLabelText handleInput={getValues} name='city' req placeHolder="City" type="text" />}
             {lawyer && <StyledLabelText handleInput={getValues} name='work_area' req placeHolder="Cities where you can work" type="text" />}
             <StyledLabelText handleInput={getValues} name='zip_code' req placeHolder="Zip Code" type="text" />
             <StyledLabelText handleInput={getValues} name='languages' req placeHolder="Language(s)" type="text" />
@@ -91,7 +100,7 @@ const UpThirdStep: FunctionComponent<Props> = ({ className, lawyer }) => {
           </div>
         </form>
         <div className="signup-third-selection">
-          <span className="signup-third-account">Already have an account? <div className="signup-third-account-link" onClick={onGoSignIn}>Click here</div></span>
+          <span className="signup-third-account">Already have an account? <div className="signup-third-account-link" onClick={onGoSignIn}>Sign In here</div></span>
           <div className="signup-third-btns">
             <StyledButton luxury text="Cancel" onClick={onCancel} />
             <StyledButton luxury text="Register" form="third-form" />
@@ -107,4 +116,5 @@ export default UpThirdStep
 interface Props {
   className?: string;
   lawyer?: boolean;
+  onBack?: () => void;
 }

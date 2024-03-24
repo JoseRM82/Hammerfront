@@ -11,8 +11,8 @@ const SignUpBody: FunctionComponent<Props> = ({ className }) => {
   return (
     <div className={className}>
       {currentStep === 1 && <UpFirstStep setLawyer={() => setUserType('lawyer')} onNext={() => setCurrentStep(2)} />}
-      {currentStep === 2 && <UpSecondStep lawyer={userType === 'lawyer'} onNext={() => setCurrentStep(3)} />}
-      {currentStep === 3 && <UpThirdStep lawyer={userType === 'lawyer'} />}
+      {currentStep === 2 && <UpSecondStep lawyer={userType === 'lawyer'} onNext={() => setCurrentStep(3)} onBack={() => setCurrentStep(1)} />}
+      {currentStep === 3 && <UpThirdStep lawyer={userType === 'lawyer'} onBack={() => setCurrentStep(2)} />}
     </div>
   )
 }

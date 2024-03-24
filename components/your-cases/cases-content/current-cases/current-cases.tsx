@@ -8,14 +8,10 @@ import globalState from "../../../../state/global";
 import getCurrentCases from "../../../../services/case/get-current-cases";
 import { useAppDispatch, useAppSelector } from "../../../../state";
 import { USER_TOKEN, USER_TYPE } from "../../../../shared/constants/local";
-import { divideArray } from "../../../../shared/functions/array-functions";
 
 const CurrentCases: FunctionComponent<Props> = ({ className }) => {
-  const [openCard, setOpenCard] = useState(false)
   const [cases, setCases] = useState<Cases[]>([])
-  const [firstCases, setFirstCases] = useState<Cases[]>([])
   const [selectedCase, setSelectedCase] = useState<Cases>(initialCases)
-  const [lastCases, setLastCases] = useState<Cases[]>([])
   const { client, lawyer } = useAppSelector(state => state.globalState)
   const dispatch = useAppDispatch()
 
@@ -47,32 +43,32 @@ const CurrentCases: FunctionComponent<Props> = ({ className }) => {
   const onChat = (id: string) => {
     getOrCreateChat(id)
       .then(response => {
-        if (response.success) {
-          const chatId = response.data._id
-          const userType = localStorage.getItem(USER_TYPE)
+        if (!response.success) return 
+        
+        const chatId = response.data._id
+        const userType = localStorage.getItem(USER_TYPE)
 
-          dispatch(globalState.actions.setCurrentChatId(chatId))
-          dispatch(globalState.actions.setMessageName(userType === 'client' ? response.data.lawyer_name : response.data.client_name))
-          dispatch(globalState.actions.setChatIsOpen(true))
+        dispatch(globalState.actions.setCurrentChatId(chatId))
+        dispatch(globalState.actions.setMessageName(userType === 'client' ? response.data.lawyer_name : response.data.client_name))
+        dispatch(globalState.actions.setChatIsOpen(true))
 
-          getChatsList()
-            .then(response => {
-              if (response.success) {
-                const chatList = response.data
+        getChatsList()
+          .then(response => {
+            if (response.success) {
+              const chatList = response.data
 
-                dispatch(globalState.actions.setChatsList(chatList))
-              }
-            })
-
-          getMessages(chatId)
-           .then(response => {
-            if(response.success) {
-              const messages = response.data
-
-              dispatch(globalState.actions.setMessages(messages))
+              dispatch(globalState.actions.setChatsList(chatList))
             }
-           })
-        }
+          })
+
+        getMessages(chatId)
+          .then(response => {
+          if(response.success) {
+            const messages = response.data
+
+            dispatch(globalState.actions.setMessages(messages))
+          }
+          })
       })
   }
 

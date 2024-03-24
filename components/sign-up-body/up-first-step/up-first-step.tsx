@@ -22,6 +22,9 @@ const UpFirstStep: FunctionComponent<Props> = ({ className, onNext, setLawyer })
   const router = useRouter()
 
   const onCancel = () => {
+    dispatch(registerState.actions.setFirstName(''))
+    dispatch(registerState.actions.setLastName(''))
+    dispatch(registerState.actions.setEmail(''))
     router.push('/')
   }
 
