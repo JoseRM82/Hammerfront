@@ -1,6 +1,7 @@
 import styled from 'styled-components'
 
 import ProfessionalsList from './professionals-list'
+import { LuxuryColors } from '../../../utils/styles'
 
 export default styled(ProfessionalsList)`
   display: flex;
@@ -8,7 +9,6 @@ export default styled(ProfessionalsList)`
   align-items: center;
   padding: 3rem 0;
   gap: 2rem;
-  width: 70%;
   max-width: 150rem;
 
   .professionals-title {
@@ -16,6 +16,32 @@ export default styled(ProfessionalsList)`
     font-weight: 700;
     padding: 2rem 0 4rem 0;
     align-self: flex-start;
+    color: ${LuxuryColors.selected};
+  }
+
+  .professionals-loading {
+    font-size: 3rem;
+    font-weight: 700;
+    padding: 7rem 0 4rem 0;
+    align-self: flex-start;
+    color: ${LuxuryColors.selected};
+  }
+  
+  .no-professionals {
+    font-size: 3rem;
+    text-align: center;
+    background: ${LuxuryColors.alternative};
+    color: ${LuxuryColors.button};
+    padding: .5rem 2rem;
+    font-weight: 600;
+  }
+
+  .professionals-container{
+    grid-column-start: 2;
+    grid-column-end: 3;
+    grid-row-start: 1;
+    grid-row-end: 2;
+    padding: 5rem 0rem 0rem 0rem;
   }
 
   .selected-lawyer {
@@ -46,16 +72,9 @@ export default styled(ProfessionalsList)`
   .lawyers-list {
     display: grid;
 		grid-template-columns: repeat(3, 1fr);
+    width: 70vw;
 		column-gap: 3rem;
 		row-gap: 6rem;
     padding: 3rem 0;
-
-    &-card {
-      :hover {
-        box-shadow: 0px 3px 6px #00000080;
-      }
-
-      transition: box-shadow .4s;
-    }
   }
 `

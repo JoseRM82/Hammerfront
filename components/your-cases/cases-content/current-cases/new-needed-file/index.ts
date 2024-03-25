@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 import NewNeededFile from "./new-needed-file";
-import { Colors } from "../../../../../utils/styles";
+import { Colors, LuxuryColors } from "../../../../../utils/styles";
 
 export default styled(NewNeededFile)`
   display: flex;
@@ -13,12 +13,16 @@ export default styled(NewNeededFile)`
   &.needed-file {
     color: black;
     font-weight: 600;
-    font-size: 1.7rem;
+    font-size: 2rem;
     cursor: default;
   }
 
   .file-delete-button {
-    
+    background: unset;
+    color: ${LuxuryColors.button};
+    align-self: center;
+    font-size: 2rem;
+    font-weight: 500;
   }
 
   .file-input {
@@ -30,7 +34,7 @@ export default styled(NewNeededFile)`
   }
 
   .send-file {
-    color: ${Colors.darkFont};
+    color: ${LuxuryColors.button};
     font-size: 2rem;
   }
 `

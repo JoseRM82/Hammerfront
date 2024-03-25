@@ -1,9 +1,12 @@
-import Link from "next/link";
 import { FunctionComponent, useCallback, useEffect, useState } from "react";
+import { Spin } from "antd";
+import { LoadingOutlined } from "@ant-design/icons";
 
 import { useAppDispatch, useAppSelector } from "../../../state";
 import user from './user.svg'
 import pass from './pass.svg'
+import hide from '../../../shared/utils/dno-reveal.svg'
+import reveal from '../../../shared/utils/dreveal.svg'
 import back1 from '../../../shared/utils/back1.svg'
 import StyledButton from "../../styled-button";
 import StyledLabelText from "../../styled-label-text";
@@ -12,7 +15,6 @@ import globalState from '../../../state/global'
 import login from "../../../services/auth/login";
 import setTokenUser from "../../../state/user/actions/set-user-token";
 import setToken from "../../../state/user/actions/set-token";
-import userState from "../../../state/user/index";
 import { UserType } from "../../../state/user/types";
 import { useRouter } from "next/router";
 import setName from "../../../state/user/actions/set-name";
@@ -24,6 +26,8 @@ const InFirstStep: FunctionComponent<Props> = ({ className }) => {
   const [userType, setUserType] = useState('client')
   const [noUserType, setNoUserType] = useState(false)
   const [noField, setNoField] = useState(false)
+  const [hidePass, setHidePass] = useState<boolean>(true)
+  const [spinning, setSpinning] = useState<boolean>(false)
   const [failedLogin, setFailedLogin] = useState(false)
   const { email, password } = useAppSelector(state => state.loginState)
   const dispatch = useAppDispatch()
@@ -34,12 +38,34 @@ const InFirstStep: FunctionComponent<Props> = ({ className }) => {
   }
 
   const onLogin = useCallback(() => {
-    if (email && password && userType) {
+    setSpinning(true)
+    if(!userType && (!email || !password)) {
+     setNoUserType(true)
+     setNoField(true)
+     setFailedLogin(false)
+     setSpinning(false)
+
+    } else if(!userType){
+     setNoUserType(true)
+     setNoField(false)
+     setFailedLogin(false)
+     setSpinning(false)
+
+    } else if(!email || !password) {
+     setNoField(true)
+     setNoUserType(false)
+     setFailedLogin(false)
+     setSpinning(false)
+
+    } else if (email && password && userType) {
       setNoField(false)
       setNoUserType(false)
       login(email, password, userType)
         .then(response => {
-          if (response.success) {
+          if(!response.success) {
+            setSpinning(false)
+            return 
+          } else if (response.success) {
             if (userType === 'client') {
               dispatch(globalState.actions.setClientActive(true))
               dispatch(globalState.actions.setLawyerActive(false))
@@ -60,32 +86,15 @@ const InFirstStep: FunctionComponent<Props> = ({ className }) => {
               localStorage.removeItem(USER_NAME)
               localStorage.removeItem(USER_ID)
               localStorage.removeItem(USER_TOKEN)
-              route.push('/sign-in')
+              setSpinning(false)
             }
             
             dispatch(setId(userId))
             dispatch(setName(userInfo))
             dispatch(setToken(userToken))
             route.push('/cases')
-
           }
-        }).catch(error => {console.error(error), setFailedLogin(true)}) 
-        .catch(error => console.error(error))
-    } else if(!userType && (!email || !password)) {
-      setNoUserType(true)
-      setNoField(true)
-      setFailedLogin(false)
-
-    } else if(!userType){
-      setNoUserType(true)
-      setNoField(false)
-      setFailedLogin(false)
-
-    } else if(!email || !password) {
-      setNoField(true)
-      setNoUserType(false)
-      setFailedLogin(false)
-    
+        }).catch(error => {console.error(error); setFailedLogin(true); setSpinning(false)}) 
     }
   }, [email, password, userType])
 
@@ -117,12 +126,14 @@ const InFirstStep: FunctionComponent<Props> = ({ className }) => {
         </div>
         <form className="signin-form" id='sign-in' autoComplete="false" >
           <StyledLabelText image={user} placeHolder="Email" name="email" type="email" req autoComplete='false' value={email} onChange={e => dispatch(loginState.actions.setEmail(e.target.value))} />
-          <StyledLabelText image={pass} placeHolder="Password" name="password" type="password" req value={password} onChange={e => dispatch(loginState.actions.setPassword(e.target.value))} />
+          <StyledLabelText pass={hidePass ? reveal : hide} onReveal={() => setHidePass(!hidePass)} image={pass} placeHolder="Password" name="password" type={hidePass ? "password" : "text"} req value={password} onChange={e => dispatch(loginState.actions.setPassword(e.target.value))} />
         </form>
         <span className="signin-account">Do not have an account yet? <div className="signin-account-link" onClick={onGoToSignUp}>Create it here</div></span>
         <div className="signin-btns">
           <StyledButton luxury text="Cancel" onClick={onCancel} />
-          <StyledButton luxury type="button" form="sign-in" text="Sign In" onClick={onLogin} />
+          <Spin spinning={spinning} indicator={<LoadingOutlined style={{color: '#fff'}}/>}>
+            <StyledButton luxury type="button" form="sign-in" text="Sign In" onClick={onLogin} />
+          </Spin>
         </div>
       </div>
     </div>

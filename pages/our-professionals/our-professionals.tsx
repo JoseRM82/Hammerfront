@@ -1,5 +1,5 @@
 import Head from 'next/head'
-import { FunctionComponent, useEffect } from 'react'
+import { FunctionComponent, useEffect, useState } from 'react'
 import Footer from '../../components/footer'
 import Header from '../../components/header'
 import ProfesionalsList from '../../components/professionals/list'
@@ -11,22 +11,24 @@ import Chat from '../../components/chat'
 
 const OurProfessionals: FunctionComponent<Props> = ({ className }) => {
   const { chatIsOpen } = useAppSelector(state => state.globalState)
+  const [isLoading, setIsLoading] = useState<boolean>(true)
   const dispatch = useAppDispatch()
 
   useEffect(() => {
     const token = localStorage.getItem(USER_TOKEN)
     const userType = localStorage.getItem(USER_TYPE)
 
-    if (token && userType) {
-      getLawyers()
-        .then(response => {
-          if (response.success) {
-            const lawyersList = response.data
+    if(!token || !userType) return
 
-            dispatch(globalState.actions.setLawyersList(lawyersList))
-          }
-        })
-    }
+    getLawyers()
+      .then(response => {
+        if(!response.success) return
+        const lawyersList = response.data
+
+        if(response.data.length === 0) return setIsLoading(false)
+
+        dispatch(globalState.actions.setLawyersList(lawyersList))
+      }).catch(e => {console.error(e); setIsLoading(false)})
   }, [])
 
   return (
@@ -38,7 +40,7 @@ const OurProfessionals: FunctionComponent<Props> = ({ className }) => {
         </Head>
 
         <Header header />
-        <ProfesionalsList />
+        <ProfesionalsList loading={isLoading} />
         <Footer />
       </div>
       <Chat isOpen={chatIsOpen} />

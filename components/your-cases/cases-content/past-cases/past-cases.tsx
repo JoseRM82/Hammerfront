@@ -37,21 +37,19 @@ const PastCases: FunctionComponent<Props> = ({ className }) => {
 
   return (
     <div className={className}>
-      <div className="past-cases">
-        <div className="past-cases-categories">ID</div>
-        <div className="past-cases-categories">Start Date</div>
-        <div className="past-cases-categories">End Date</div>
-        <div className="past-cases-categories">Location</div>
-        <div className="past-cases-categories">Case type</div>
-      </div>
-      <div className="past-cases-list">
-        {cases.length > 0
-          ? cases.map(x => (
-            <PastCasesCard key={x._id} showAllInfo={selectedId === x._id} onClick={() => onClickCase(x._id)} firstFieldText='ID: ' firstField={x._id} secondFieldText='Start Date: ' secondField={x.start_date} thirdFieldText='End Date: ' thirdField={x.end_date} fourthFieldText='Location: ' fourthField={`${x.data.country}, ${x.data.city}`} fifthFieldText='Case Type: ' fifthField={x.data.case_type} sixthFieldText='Name: ' sixthField={client ? x.lawyer_name! : (lawyer ? x.client_name! : '')} seventhFieldText='Email: ' seventhField={x.data.email} eighthFieldText='Language: ' eighthField={x.data.languages} ninethFieldText='Description: ' ninethField={x.data.description} />
-          ))
-          : <div className="past-cases-categories" >There are no past cases yet</div>
+        {
+          cases.length > 0
+            ? 
+            <div className="past-cases-list">
+              {cases.map(x => (
+                <PastCasesCard key={x._id} showAllInfo={selectedId === x._id} onClick={() => onClickCase(x._id)} firstFieldText='ID: ' firstField={x._id} secondFieldText='Start Date: ' secondField={x.start_date} thirdFieldText='End Date: ' thirdField={x.end_date} fourthFieldText='Location: ' fourthField={`${x.data.country}, ${x.data.city}`} fifthFieldText='Case Type: ' fifthField={x.data.case_type} sixthFieldText='Name: ' sixthField={client ? x.lawyer_name! : (lawyer ? x.client_name! : '')} seventhFieldText='Email: ' seventhField={x.data.email} eighthFieldText='Language: ' eighthField={x.data.languages} ninethFieldText='Description: ' ninethField={x.data.description} />
+              ))}
+            </div>
+            :
+            <div className="past-cases-container">
+              <div className="past-cases-categories" >There are no past cases yet</div>
+            </div> 
         }
-      </div>
     </div>
   )
 }

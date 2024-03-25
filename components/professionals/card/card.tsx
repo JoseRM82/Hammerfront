@@ -1,11 +1,14 @@
 import Image, { StaticImageData } from 'next/image'
-import { FunctionComponent } from 'react'
-import { useAppSelector } from '../../../state'
+import { FunctionComponent, useState } from 'react'
+import { Spin } from 'antd'
+import { LoadingOutlined } from '@ant-design/icons'
 
+import { useAppSelector } from '../../../state'
 import StyledButton from '../../styled-button'
 
-const Card: FunctionComponent<Props> = ({ className, complete, name, photo, university, _id, specialty, onClick, age, experience, description, onCreateRequest }) => {
+const Card: FunctionComponent<Props> = ({ className, complete, name, photo, university, _id, specialty, onClick, age, experience,languages, country, work_area, onCreateRequest, waiting }) => {
   const { currentRequest } = useAppSelector(state => state.globalState)
+  const [spinning, setSpinning] = useState<boolean>(false)
 
   return (
     <div className={className} id={_id + ''} onClick={onClick}>
@@ -14,26 +17,36 @@ const Card: FunctionComponent<Props> = ({ className, complete, name, photo, univ
         <div className='current-photo' >{name}</div>
       </div>
       {complete
-        ? (<div className='data'>
-          <div className='data_box'>
-            <div className='data_box-name'>{name}</div>
-            {currentRequest
-              ? <StyledButton className='data_box-btn' text='Request' onClick={(e) => { e.stopPropagation(); onCreateRequest?.() }} />
-              : <div></div>
-            }
+        ? 
+        <div className="complete-data">
+          <div className='data'>
+            <div className='professional-data'>{name}</div>
+            <div className='professional-data'><span className='data-valor'>Specialty branch: </span>{specialty}</div>
+            <div className='professional-data'><span className='data-valor'>Graduated from: </span>{university}</div>
+            <div className='professional-data'><span className='data-valor'>{'Language(s): '}</span>{languages}</div>
           </div>
-          <div className='data_specialty'><span className='data-valor'>Specialty branch: </span>{specialty}</div>
-          <div className='data_university'><span className='data-valor'>Graduated at: </span>{university}</div>
-          <div className='data_age'><span className='data-valor'>Age: </span>{age} years</div>
-          <div className='data_experience'><span className='data-valor'>Experience time: </span>{experience}</div>
-          <div className='data_description'>{description}</div>
+          <div className='data'>
+            <div className='professional-data'><span className='data-valor'>Age: </span>{age} years</div>
+            <div className='professional-data'><span className='data-valor'>Experience time: </span>{experience}</div>
+            <div className='professional-data'><span className='data-valor'>Country: </span>{country}</div>
+            <div className='professional-data'><span className='data-valor'>Work on: </span>{work_area}</div>
+          </div>
+        </div>
+        : 
+        (<div className='professional-info'>
+          <div className='info'>{name}</div>
+          <div className='info'>{`specialty: ${specialty}`}</div>
+          <div className='info'>{`university: ${university}`}</div>
         </div>)
-
-        : (<div className='info'>
-          <div className='info_name'>{name}</div>
-          <div className='info_specialty'>{specialty}</div>
-          <div className='info_university'>{university}</div>
-        </div>)
+      }
+      {(complete && currentRequest)
+        ?
+        <div className='request-btn'>
+          <Spin size='large' spinning={spinning} indicator={<LoadingOutlined style={{color: '#fff'}}/>}>
+            <StyledButton luxury text='Request' onClick={(e) => { e.stopPropagation(); setSpinning(true); onCreateRequest?.()}} />
+          </Spin>
+        </div>
+        : <></>
       }
     </div>
   )
@@ -51,7 +64,11 @@ interface Props {
   description?: string;
   university?: string;
   specialty?: string;
+  languages?: string;
+  country?: string;
+  work_area?: string;
   onClick?: () => void;
   onCreateRequest?: () => void;
   complete?: boolean;
+  waiting?: boolean;
 }

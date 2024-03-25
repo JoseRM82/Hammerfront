@@ -1,6 +1,8 @@
 import React, { FunctionComponent, useState } from "react";
 import { useRouter } from "next/router";
 import Image from "next/image";
+import { Spin } from "antd";
+import { LoadingOutlined } from "@ant-design/icons";
 
 import { useAppDispatch, useAppSelector } from "../../../state";
 import StyledButton from "../../styled-button";
@@ -29,6 +31,7 @@ const UpSecondStep: FunctionComponent<Props> = ({ className, onNext, onBack, law
     lawyerEmail: state.lawyerState.email,
   }))
   const [alert, setAlert] = useState<boolean>(false)
+  const [spinning, setSpinning] = useState<boolean>(false)
   const [hideFirstPass, setHideFirstPass] = useState<boolean>(true)
   const [hideSecondPass, setHideSecondPass] = useState<boolean>(true)
   const dispatch = useAppDispatch()
@@ -52,8 +55,10 @@ const UpSecondStep: FunctionComponent<Props> = ({ className, onNext, onBack, law
   const userType = lawyer ? UserType.Lawyer : UserType.Client
 
   const onSetPassword = () => {
+    setSpinning(true)
     if (first_password !== second_password) {
       setAlert(true)
+      setSpinning(false)
       return
     } 
     
@@ -61,24 +66,24 @@ const UpSecondStep: FunctionComponent<Props> = ({ className, onNext, onBack, law
       createToken(userType, lawyerFirstName, lawyerLastName, lawyerEmail, first_password)
         .then(res => {
           if(!res.success) {
-            return
+            return setSpinning(false)
           }
           dispatch(lawyerState.actions.setToken(res.data))
           dispatch(lawyerState.actions.setPassword(first_password))
           onNext!()
           return
-        }).catch(error => console.error(error))
+        }).catch(error => {console.error(error); setSpinning(false)})
     } else {
       createToken(userType, clientFirstName, clientLastName, clientEmail, first_password)     
         .then(res => {
           if(!res.success) {
-            return
+            return setSpinning(false)
           }
           dispatch(clientState.actions.setToken(res.data))
           dispatch(clientState.actions.setPassword(first_password))
           onNext!()
           return
-        }).catch(error => console.error(error))
+        }).catch(error => {console.error(error); setSpinning(false)})
     }
   }
 
@@ -99,7 +104,9 @@ const UpSecondStep: FunctionComponent<Props> = ({ className, onNext, onBack, law
         <span className="signup-second-account">Already have an account? <div className="signup-second-account-link" onClick={onGoSignIn}>Sign In here</div></span>
         <div className="signup-second-btns">
           <StyledButton luxury text="Cancel" onClick={onCancel} />
-          <StyledButton luxury text="Next Step" onClick={onSetPassword} />
+          <Spin spinning={spinning} indicator={<LoadingOutlined style={{color: '#fff'}}/>}>
+            <StyledButton luxury text="Next Step" onClick={onSetPassword} />
+          </Spin>
         </div>
       </div>
     </div>

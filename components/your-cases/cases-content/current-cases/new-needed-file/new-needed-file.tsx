@@ -79,7 +79,7 @@ const NewNeededFile: FunctionComponent<Props> = ({className, fileName, type, cas
     <div className={className}>
       {(lawyer && (type === 'url')) && <Link href={fileUrl!}><a target="_blank"><div className={className + " needed-file"}>{fileName}</div></a></Link>}
       {!(lawyer && (type === 'url')) && <div className={className + " needed-file"}>{fileName}</div>}
-      {(lawyer && (type === 'request')) && <button className="file-delete-button" onClick={() => onDelete(fileName!, caseId!)}>x</button>}
+      {(lawyer && (type === 'request')) && <div className="file-delete-button" onClick={() => onDelete(fileName!, caseId!)}>x</div>}
       {(client && (type === 'url')) && <button className="file-delete-button" onClick={() => onDeleteUrl(fileName!, caseId!)}>x</button>}
       {(client && (type === 'request')) && 
       <label className="file-label">

@@ -1,6 +1,7 @@
 import styled from "styled-components";
 
 import CurrentCases from "./current-cases";
+import { LuxuryColors } from "../../../../utils/styles";
 
 export default styled(CurrentCases)`
     width: 100%;
@@ -10,6 +11,10 @@ export default styled(CurrentCases)`
     align-items: center;
     gap: 2rem;
 
+    .current-cases-container{
+      padding: 20rem 0rem 0rem 0rem;
+    }
+
     .current {
       &-cases {
         display: grid;
@@ -18,9 +23,10 @@ export default styled(CurrentCases)`
         width: 100%;
 
         &-categories {
-          font-size: 1.5rem;
+          font-size: 3rem;
           text-align: center;
-          background: #a0a0a0;
+          background: ${LuxuryColors.alternative};
+          color: ${LuxuryColors.button};
           padding: .5rem 2rem;
           font-weight: 600;
 

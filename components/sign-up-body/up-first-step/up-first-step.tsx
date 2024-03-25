@@ -1,6 +1,8 @@
 import React, { FunctionComponent, useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import Image from "next/image";
+import { Spin } from "antd";
+import { LoadingOutlined } from "@ant-design/icons";
 
 import StyledButton from "../../styled-button";
 import StyledLabelText from "../../styled-label-text";
@@ -17,6 +19,7 @@ import validatePassword from "../../../services/auth/validate-email";
 const UpFirstStep: FunctionComponent<Props> = ({ className, onNext, setLawyer }) => {
   const [userType, setUserType] = useState('client')
   const [alert, setAlert] = useState(false)
+  const [spinning, setSpinning] = useState<boolean>(false)
   const { first_name, last_name, email } = useAppSelector(state => state.registerState)
   const dispatch = useAppDispatch()
   const router = useRouter()
@@ -33,28 +36,32 @@ const UpFirstStep: FunctionComponent<Props> = ({ className, onNext, setLawyer })
   }
 
   const onClickAsClient = () => {
-    if (!first_name || !last_name || !email) return
+    setSpinning(true)
+    if (!first_name || !last_name || !email) return setSpinning(false)
 
     validatePassword(userType, email)
       .then(res => {
         if(!res) {
           setAlert(true)
+          setSpinning(false)
           return
         }
         dispatch(clientState.actions.setFirstName(first_name))
         dispatch(clientState.actions.setLastName(last_name))
         dispatch(clientState.actions.setEmail(email))
         onNext!()
-      }).catch(error => console.error(error))
+      }).catch(error => {console.error(error); setSpinning(false)})
   }
 
   const onClickAsLawyer = () => {
-    if (!first_name || !last_name || !email) return
+    setSpinning(true)
+    if (!first_name || !last_name || !email) return setSpinning(false)
 
     validatePassword(userType, email)
       .then(res => {
         if(!res) {
           setAlert(true)
+          setSpinning(false)
           return
         }
         dispatch(lawyerState.actions.setFirstName(first_name))
@@ -62,7 +69,7 @@ const UpFirstStep: FunctionComponent<Props> = ({ className, onNext, setLawyer })
         dispatch(lawyerState.actions.setEmail(email))
         setLawyer!()
         onNext!()
-      }).catch(error => console.error(error))
+      }).catch(error => {console.error(error); setSpinning(false)})
   }
 
   const onGoSignIn = () => {
@@ -90,7 +97,9 @@ const UpFirstStep: FunctionComponent<Props> = ({ className, onNext, setLawyer })
         <span className="signup-account">Already have an account? <div className="signup-account-link" onClick={onGoSignIn}>Sign In here</div></span>
         <div className="signup-btns">
           <StyledButton luxury text="Cancel" onClick={onCancel} />
-          <StyledButton luxury text="Next Step" onClick={userType === 'lawyer' ? onClickAsLawyer : onClickAsClient} />
+          <Spin spinning={spinning} indicator={<LoadingOutlined style={{color: '#fff'}}/>}>
+            <StyledButton luxury text="Next Step" onClick={userType === 'lawyer' ? onClickAsLawyer : onClickAsClient} />
+          </Spin>
         </div>
       </div>
     </div>

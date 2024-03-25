@@ -1,6 +1,7 @@
 import { FunctionComponent, useEffect, useState } from "react";
-import { Popover } from "antd";
+import { Popover, Spin } from "antd";
 import { v4 as uuidv4 } from 'uuid';
+import { LoadingOutlined } from "@ant-design/icons";
 
 import { useAppDispatch, useAppSelector } from "../../../../../state";
 import StyledButton from "../../../../styled-button";
@@ -16,6 +17,7 @@ const CasesCard: FunctionComponent<Props> = ({ className, caseId, requests, card
   const { file_name, file_sent, file_deleted, file_url } = useAppSelector(state => state.caseState)
   const dispatch = useAppDispatch()
   const [open, setOpen] = useState(false);
+  const [spinning, setSpinning] = useState<boolean>(false)
   const [input, setInput] = useState(false);
   const [requestsList, setRequestsList] = useState<string[]>([])
   const [filesList, setFilesList] = useState<FileUrl[]>([])
@@ -101,18 +103,18 @@ const CasesCard: FunctionComponent<Props> = ({ className, caseId, requests, card
     <div className={className + ' card-popover'} onClick={e => {hide; e.stopPropagation()}}>
       {(requestsList.length > 0) &&
           requestsList.map(x => 
-            (<NewNeededFile key={uuidv4()} type="request" caseId={caseId} fileName={x} />)
+            (<NewNeededFile className="requests" key={uuidv4()} type="request" caseId={caseId} fileName={x} />)
         )
       }
       {(filesList.length > 0) &&
           filesList.map(x => 
-            (<NewNeededFile key={uuidv4()} type="url" caseId={caseId} fileName={x.name} fileUrl={x.url} />)
+            (<NewNeededFile className="files" key={uuidv4()} type="url" caseId={caseId} fileName={x.name} fileUrl={x.url} />)
           )
       }
       {(input && lawyer) && 
       <form className="card-form" onSubmit={e => e.preventDefault()}>
         <StyledLabelText value={file_name} onChange={e => dispatch(caseState.actions.setFileName(e.target.value))} name="file" text='' autof type='text' />
-        <StyledButton text="send" onClick={() => sendFileRequest(file_name, caseId!)} />
+        <StyledButton luxury text="send" onClick={() => sendFileRequest(file_name, caseId!)} />
       </form>}
       {lawyer && <div className="card-popover-element" onClick={input ? () => setInput(false) : () => setInput(true)}>+Add a file request</div>}
     </div>
@@ -129,7 +131,7 @@ const CasesCard: FunctionComponent<Props> = ({ className, caseId, requests, card
               {thirdFieldText && <div className="complete-card-item"><span className="complete-span">{thirdFieldText}</span>{thirdField}</div>}
               {fourthFieldText && <div className="complete-card-item"><span className="complete-span">{fourthFieldText}</span>{fourthField}</div>}
               {fifthFieldText && <div className="complete-card-item"><span className="complete-span">{fifthFieldText}</span>{fifthField}</div>}
-              <Popover content={content} trigger='click' open={open} onOpenChange={handleOpenChange}>
+              <Popover color="#111518" arrow={false} content={content} trigger='click' open={open} onOpenChange={handleOpenChange}>
                {sixthFieldText && <div className="complete-card-item" onClick={e => {e.stopPropagation(); setInput(false); requestFiles()}}><span className="complete-span">{sixthFieldText}</span>{requestsList[0] ? requestsList.length : sixthField}</div>}
               </Popover>
               {seventhFieldText && <div className="complete-card-item"><span className="complete-span">{seventhFieldText}</span>{seventhField}</div>}
@@ -137,8 +139,12 @@ const CasesCard: FunctionComponent<Props> = ({ className, caseId, requests, card
             </div>
             <div className="requests-btns">
               {CurrentCases && <StyledButton text="CHAT" onClick={(e) => { e.stopPropagation(); onChat?.() }} />}
-              {(requests && lawyer) && <><StyledButton className="requests-btn" text="ACCEPT" onClick={(e) => { e.stopPropagation(); onAccept?.() }} />
-                <StyledButton className="requests-btn" white text="DECLINE" onClick={(e) => { e.stopPropagation(); onRefuse?.() }} /></>}
+              {(requests && lawyer) && <>
+              <Spin spinning={spinning} indicator={<LoadingOutlined style={{color: '#fff'}}/>}>
+                <StyledButton luxury className="requests-btn" text="ACCEPT" onClick={(e) => { e.stopPropagation(); onAccept?.() }} />
+              </Spin>
+              <StyledButton luxury className="requests-btn" text="DECLINE" onClick={(e) => { e.stopPropagation(); onRefuse?.() }} />
+              </>}
             </div>
           </div>
           {ninethField && <div className="complete-card-desc"><span className="complete-span">{ninethFieldText}</span>{ninethField}</div>}

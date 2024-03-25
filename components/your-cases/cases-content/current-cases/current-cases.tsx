@@ -90,11 +90,13 @@ const CurrentCases: FunctionComponent<Props> = ({ className }) => {
             ?
             <div className="current-cases-list">
               {cases.map(x => (
-                <CasesCard key={x._id} card_id={x._id} showAllInfo={selectedCase === x} CurrentCases caseId={x._id} onClick={() => onClickCase(x)} onChat={() => onChat(client ? x.lawyer_id! : x.client_id!)} firstFieldText='Case ID: ' firstField={x._id + ''} secondFieldText={client ? 'Lawyer: ' : (lawyer ? 'Client: ' : '')} secondField={client ? (x.lawyer_name! ? x.lawyer_name! : 'No lawyer yet') : (lawyer ? x.client_name! : '')} thirdFieldText='Next Court Date: ' thirdField={x.next_court ? x.next_court : 'No date yet'}  fifthFieldText={x.status === 'in_progress' ? (client ? 'Status: ' : (lawyer ? 'Case Type: ' : '')) : ''} fifthField={client ? x.status : (lawyer ? x.data.case_type : '')} sixthFieldText='Needed Files: ' sixthField={x.needed_files.files_types!.length} seventhFieldText='Language: ' seventhField={x.data.languages} eighthFieldText='Judgement Location: ' eighthField={x.judgement_location ? x.judgement_location.court_adress : x.data.city} ninethFieldText='Case Description: ' ninethField={x.data.description} />
+                <CasesCard key={x._id} card_id={x._id} showAllInfo={selectedCase === x} CurrentCases caseId={x._id} onClick={() => onClickCase(x)} onChat={() => onChat(client ? x.lawyer_id! : x.client_id!)} firstFieldText='Case ID: ' firstField={x._id + ''} secondFieldText={client ? 'Lawyer: ' : (lawyer ? 'Client: ' : '')} secondField={client ? (x.lawyer_name! ? x.lawyer_name! : 'No lawyer yet') : (lawyer ? x.client_name! : '')} thirdFieldText='Next Court Date: ' thirdField={x.next_court ? x.next_court : 'No date yet'}  fifthFieldText={(client ? 'Status: ' : (lawyer ? 'Case Type: ' : ''))} fifthField={client ? x.status : (lawyer ? x.data.case_type : '')} sixthFieldText='Needed Files: ' sixthField={x.needed_files.files_types!.length} seventhFieldText='Language: ' seventhField={x.data.languages} eighthFieldText='Judgement Location: ' eighthField={x.judgement_location.court_adress ? x.judgement_location.court_adress : x.data.city} ninethFieldText='Case Description: ' ninethField={x.data.description} />
               ))}
             </div>
             : 
-            <div className="current-cases-categories">There aren&apost cases yet</div>
+            <div className="current-cases-container">
+              <div className="current-cases-categories">There are no cases yet</div>
+            </div>
         }
     </div>
   )

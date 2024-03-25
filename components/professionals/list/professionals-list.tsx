@@ -5,7 +5,8 @@ import { useAppSelector } from '../../../state'
 import createRequest from '../../../services/requests/create-request'
 import { useRouter } from 'next/router'
 
-const ProfesionalsList: FunctionComponent<Props> = ({ className }) => {
+const ProfesionalsList: FunctionComponent<Props> = ({ className, loading }) => {
+  const [isWaiting, setIsWaiting] = useState<boolean>(false)
   const [selectedId, setSelectedId] = useState('')
   const [lawyers, setLawyers] = useState<Lawyer[]>([])
   const { lawyersList } = useAppSelector(state => state.globalState)
@@ -23,6 +24,16 @@ const ProfesionalsList: FunctionComponent<Props> = ({ className }) => {
 
   const onCreateRequest = (id: any) => {
     createRequest(currentRequest, id)
+      .then(res => {
+        if(!res.success) {
+          setIsWaiting(false)
+          window.alert('Something went wrong, please try again later')
+          return 
+        } 
+        setIsWaiting(false)
+        window.alert('Request sent successfully!')
+        return
+      }).catch(e => {console.error(e); setIsWaiting(false); window.alert('Something went wrong, please try again later')})
     router.push('/cases')
   }
 
@@ -41,13 +52,16 @@ const ProfesionalsList: FunctionComponent<Props> = ({ className }) => {
 
   return (
     <div className={className}>
-      <div className='professionals-title' id='our-professionals'>Our Professionals:</div>
+      <div className='professionals-title'>Our Professionals:</div>
       <div className='lawyers-list'>
         {lawyers.length > 0
           ? lawyers.map(x => (
-            <Card className='lawyers-list-card' onClick={() => onClick(x._id)} onCreateRequest={() => onCreateRequest(x._id)} complete={selectedId === x._id} _id={x._id} key={x._id} age={x.data!.birthdate} description={x.data!.description} experience={x.data!.graduated_at} name={`${x.last_name}, ${x.first_name}`} photo={x.data!.photo} university={x.data!.university} specialty={x.data!.specialty_branch} />
+            <Card className='lawyers-list-card' onClick={() => onClick(x._id)} waiting={isWaiting} onCreateRequest={() => {onCreateRequest(x._id); setIsWaiting(true)}} complete={selectedId === x._id} _id={x._id} key={x._id} age={x.data!.birthdate} country={x.data!.country} languages={x.data!.languages} work_area={x.data!.work_area} experience={x.data!.experience_time} name={`${x.last_name}, ${x.first_name}`} photo={x.data!.photo} university={x.data!.university} specialty={x.data!.specialty_branch} />
           ))
-          : <div className='professionals-title' >Lawyers are Loading</div>
+          :
+          <div className="professionals-container">
+            {loading ? <div className='professionals-loading' >Lawyers are Loading</div> : <div className='no-professionals'>There are no Lawyers yet</div>}
+          </div> 
         }
       </div>
     </div>
@@ -58,6 +72,7 @@ export default ProfesionalsList
 
 interface Props {
   className?: string;
+  loading?: boolean;
 }
 
 export interface Lawyer {
@@ -75,7 +90,7 @@ export interface Data {
   identification?: string;
   university?: string;
   specialty_branch?: string;
-  graduated_at?: string;
+  experience_time?: string;
   birthdate?: string;
   country?: string;
   city?: string;

@@ -24,7 +24,7 @@ export default styled(CasesCard)`
       align-items: center;
       gap: 2rem;
       text-align: left;
-      padding: 0;
+      padding: 6rem 3rem;
       text-overflow: unset;
       overflow: unset;
     `}
@@ -55,18 +55,17 @@ export default styled(CasesCard)`
     .complete-card {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
-      gap: 2rem;
+      gap: 4rem;
     }
   
     .complete-card-container {
       display: flex;
       gap: 2rem;
-      padding: 3rem 3rem 0 3rem;
     }
   
     .complete-card-item {
-      font-size: 2rem;
-      color: ${LuxuryColors.lightFont};
+      font-size: 2.2rem;
+      color: ${LuxuryColors.selected};
     }
     
     .complete-card-desc {
@@ -75,8 +74,8 @@ export default styled(CasesCard)`
     }
   
     .complete-span {
-      color: ${LuxuryColors.selected};
-      font-size: 2rem;
+      color: ${LuxuryColors.lightFont};
+      font-size: 2.5rem;
       font-weight: 700;
     }
   
@@ -104,10 +103,19 @@ export default styled(CasesCard)`
 
     .card-popover-element {
       justify-self: center;
+      color: ${LuxuryColors.lightFont};
     }
   }
 
   .card-popover-element {
     align-self: center;
+  }
+
+  .requests {
+    color: ${LuxuryColors.selected}
+  }
+
+  .files {
+    color: ${LuxuryColors.button}
   }
 `

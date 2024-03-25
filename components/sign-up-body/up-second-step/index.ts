@@ -7,7 +7,6 @@ export default styled(UpSecondStep)`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  gap: 3rem;
 
   .signup-body-container {
     display: flex;

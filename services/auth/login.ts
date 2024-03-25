@@ -3,7 +3,8 @@ import { post } from "../../shared/utils/FETCH";
 const login = async (email: string, password: string, userType: string): Promise<Response> => {
   try {
     const response = await post(`login`, { email, password, userType })
-
+    
+    console.log('response: ',response)
     return response
 
   } catch (error) {

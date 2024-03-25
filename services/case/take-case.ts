@@ -5,7 +5,9 @@ const takeCase = async (request_id: string): Promise<Response> => {
   try {
     const token = localStorage.getItem(USER_TOKEN)
 
-    const response = await post('cases/set-lawyer', { request_id }, {
+    const body = {request_id: request_id, token: token}
+
+    const response = await post('cases/set-lawyer', body, {
       'authorization': token
     })
 

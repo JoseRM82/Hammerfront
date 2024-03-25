@@ -1,7 +1,9 @@
-import { FunctionComponent } from "react";
+import { FunctionComponent, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/router";
 import Image from "next/image";
+import { Spin } from "antd";
+import { LoadingOutlined } from "@ant-design/icons";
 
 import StyledButton from "../../styled-button";
 import StyledLabelText from "../../styled-label-text";
@@ -30,6 +32,7 @@ const UpThirdStep: FunctionComponent<Props> = ({ className, onBack, lawyer }) =>
     lawyerEmail: state.lawyerState.email,
     lawyerPass: state.lawyerState.password,
   }))
+  const [spinning, setSpinning] = useState<boolean>(false)
   const dispatch = useAppDispatch()
   const router = useRouter()
 
@@ -47,10 +50,10 @@ const UpThirdStep: FunctionComponent<Props> = ({ className, onBack, lawyer }) =>
   }
 
   const onSetClientInfo = (body: any) => {
-    console.log('inicio de funcion')
+    setSpinning(true)
     createClient(body, clientFirstName, clientLastName, clientEmail, clientPass, clientToken)
       .then(res => {
-        if(!res.success) return console.log('error de respuesta')
+        if(!res.success) return setSpinning(false)
 
         localStorage.setItem(USER_NAME, `${clientFirstName} ${clientLastName}`)
         localStorage.setItem(USER_ID, res.data)
@@ -58,13 +61,14 @@ const UpThirdStep: FunctionComponent<Props> = ({ className, onBack, lawyer }) =>
         localStorage.setItem(USER_TYPE, 'client')
         dispatch(globalState.actions.setClientActive(true))
         router.push('/cases')
-      }).catch(error => console.error(error))
+      }).catch(error => {console.error(error); setSpinning(false)})
   }
 
   const onSetLawyerInfo = (body: any) => {
+    setSpinning(true)
     createLawyer(body, lawyerFirstName, lawyerLastName, lawyerEmail, lawyerPass, lawyerToken)
       .then(res => {
-        if(!res.success) return
+        if(!res.success) return setSpinning(false)
 
         localStorage.setItem(USER_NAME, `${lawyerFirstName} ${lawyerLastName}`)
         localStorage.setItem(USER_ID, res.data)
@@ -72,7 +76,7 @@ const UpThirdStep: FunctionComponent<Props> = ({ className, onBack, lawyer }) =>
         localStorage.setItem(USER_TYPE, 'lawyer')
         dispatch(globalState.actions.setLawyerActive(true))
         router.push('/cases')
-      }).catch(error => console.error(error))
+      }).catch(error => {console.error(error); setSpinning(false)})
   }
 
   const onGoSignIn = () => {
@@ -103,7 +107,9 @@ const UpThirdStep: FunctionComponent<Props> = ({ className, onBack, lawyer }) =>
           <span className="signup-third-account">Already have an account? <div className="signup-third-account-link" onClick={onGoSignIn}>Sign In here</div></span>
           <div className="signup-third-btns">
             <StyledButton luxury text="Cancel" onClick={onCancel} />
-            <StyledButton luxury text="Register" form="third-form" />
+            <Spin spinning={spinning} indicator={<LoadingOutlined style={{color: '#fff'}}/>}>
+              <StyledButton luxury text="Register" form="third-form" />
+            </Spin>
           </div>
         </div>
       </div>

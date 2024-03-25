@@ -1,33 +1,37 @@
 import styled, { css } from 'styled-components'
 
 import Card from './card'
+import { LuxuryColors } from '../../../utils/styles'
 
 export default styled(Card)`
   cursor: pointer;
-  display: flex;
-  align-items: flex-start;
-  gap: 6rem;
-  padding: 2rem 2rem 1rem 4rem;
-  background: #fff;
-  justify-content: space-between;
+  font-size: 2rem;
+  background: #171e23;
+  color: #ffffff;
+  display: grid;
+  padding: 2rem 0rem 2rem 2rem;
+  grid-template-columns: 1fr 2fr;
 
   ${props => props.complete && css`
+    grid-template-columns: 1fr 2fr 1fr;  
     grid-column: 1 / -1;
-    padding: 3rem 5rem;
   `}
 
   .photo {
-    padding: 1rem 0 0;
     object-fit: cover;
-    width: 50px;
-    height: 50px;
+    width: 100%;
+    height: 100%;
     display: flex;
     top: 0;
+    justify-content: center;
+
     ${props => props.complete && css`
-      width: unset;
-      height: unset;
+      width: 70%;
+      height: 100%;
       max-width: 250px;
       max-height: 290px;
+      justify-self: center;
+      padding: unset;
     `}
 
     > span {
@@ -39,62 +43,53 @@ export default styled(Card)`
     }
   }
 
-  .info {
-    padding: 1rem;
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
+  .current-photo {
+    align-self: center;
+  }
 
-    &_name {
-      font-size: 1.5rem;
-      font-weight: 600;
-      text-align: left;
-    }
-
-    &_specialty {
-      font-size: 1.5rem;
-      text-align: left;
-    }
-
-    &_university {
-      font-size: 1.5rem;
-      opacity: .7;
-      text-align: left;
-    }
+  .complete-data {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    padding: 3rem 1rem;
   }
 
   .data {
-    width: 70%;
+    gap: 3rem;
+    display: flex;
+    flex-direction: column;
+  }
 
-    &_box {
-      padding: 0 0 1.5rem 0;
-      display: flex;
-      justify-content: space-between;
+  .data-body {
 
-      &-name {
-        font-size: 3rem;
-        font-weight: 700;
-      }
+  }
 
-      &-btn {
-        padding: 0 2rem;
-      }
-    }
+  .professional-data {
+    font-size: 2rem;
+  }
 
-    &-valor {
-      font-weight: 600;
-    }
+  .data-valor {
+    font-size: 2.5rem;
+    color: ${LuxuryColors.lightFont};
+  }
 
-    
-    &_age, &_specialty, &_university, &_experience {
-      padding: .5rem 0;
-      font-size: 2.5rem;
-    }
+  .professional-info {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    padding: 2rem 0rem 2rem 3rem;
+  }
 
-    &_description{
-      font-size: 2rem;
-      padding: 2rem 0;
-      opacity: .7;
-    }
+  .info{
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    width: 90%;
+  }
+  
+  .request-btn {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 3rem 0rem 0rem 0rem;
   }
 `
