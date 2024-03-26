@@ -1,4 +1,5 @@
 import styled, { css } from 'styled-components'
+import logo from './logo.png'
 
 import Header from './header'
 import { Colors, LuxuryColors } from '../../utils/styles'
@@ -15,10 +16,9 @@ export default styled(Header)`
     color: ${LuxuryColors.darkFont};
   `}
 
-  .logo {
-    width: 150%;
-    height: auto;
-    cursor: pointer;
+  .logo-container {
+    max-width: 8rem;
+    max-height: 8rem;
   }
 
   .page-name {
@@ -31,14 +31,14 @@ export default styled(Header)`
 
   .signs {
     align-self: flex-end;
-    font-size: 2rem;
+    font-size: 2.5rem;
     display: flex;
     gap: 1rem;
   }
 
   .sign {
     cursor: pointer;
-    font-size: 2rem;
+    font-size: 2.5rem;
 
     :hover {
       text-decoration: underline;
@@ -55,8 +55,6 @@ export default styled(Header)`
   }
 
   .logo {
-    max-height: 4rem;
-    max-width: 6rem;
     font-size: 2.5rem;
 
     :hover {

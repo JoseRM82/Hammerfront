@@ -8,7 +8,7 @@ import { USER_ID, USER_NAME, USER_TOKEN, USER_TYPE } from '../../shared/constant
 import globalState from '../../state/global'
 import { useAppDispatch, useAppSelector } from '../../state';
 import getChatsList from '../../services/chat/get-chats-list';
-import logo1 from './logo1.png'
+import logo from './logo.png'
 import logo2 from './logo2.png'
 import larrow from './larrow.svg'
 import darrow from './darrow.svg'
@@ -91,7 +91,7 @@ const Header: FunctionComponent<Props> = ({ className, visitor, mainPage }) => {
       <div className='main-header'>
         {mainPage
           ?
-          <div className='logo'><div><Image src={logo2} height={100} width={100} /></div></div>
+          <div className='logo'><div className='logo-container'><Image src={logo} height={100} width={100} /></div></div>
           :
           <div className='page-name' onClick={() => onGoToPage('/', '')}>HAMMER</div>
         }

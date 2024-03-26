@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 import NewNeededFile from "./new-needed-file";
-import { Colors, LuxuryColors } from "../../../../../utils/styles";
+import { LuxuryColors } from "../../../../../utils/styles";
 
 export default styled(NewNeededFile)`
   display: flex;
