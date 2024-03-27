@@ -1,32 +1,41 @@
 import { FunctionComponent, useEffect, useState } from "react";
 
 import CasesCard from "./cases-card";
-import getOrCreateChat from "../../../../services/chat/get-or-create-chats";
+import getChat from "../../../../services/chat/get-chat";
 import getMessages from "../../../../services/messages/get-messages";
 import getChatsList from "../../../../services/chat/get-chats-list";
 import globalState from "../../../../state/global";
 import getCurrentCases from "../../../../services/case/get-current-cases";
 import { useAppDispatch, useAppSelector } from "../../../../state";
-import { USER_TOKEN, USER_TYPE } from "../../../../shared/constants/local";
+import { USER_ID, USER_TOKEN, USER_TYPE } from "../../../../shared/constants/local";
 
 const CurrentCases: FunctionComponent<Props> = ({ className }) => {
   const [cases, setCases] = useState<Cases[]>([])
+  const [otherPersonName, setOtherPersonName] = useState<string>('')
   const [selectedCase, setSelectedCase] = useState<Cases>(initialCases)
   const { client, lawyer } = useAppSelector(state => state.globalState)
   const dispatch = useAppDispatch()
+  let ownId: string
+  let userType: string
+
+  if(typeof window !== 'undefined') {
+    ownId = window.localStorage.getItem(USER_ID)!
+  }
+  if(typeof window !== 'undefined') {
+    userType = window.localStorage.getItem(USER_TYPE)!
+  }
 
   useEffect(() => {
-    const userType = localStorage.getItem(USER_TYPE)
     const userToken = localStorage.getItem(USER_TOKEN)
     
     if (userType && userToken) {
-        getCurrentCases(userType)
+      console.log('ownID: ', ownId)
+      console.log('type: ', userType)
+      getCurrentCases(userType)
           .then(response => {
-            if (response.success) {
-              const casesList = response.data;
-        
-              setCases(casesList)
-            }
+            if(!response.success) return console.log('error')
+            const casesList = response.data;
+            setCases(casesList)
           }).catch(error => console.error(error))
     }
 
@@ -37,38 +46,27 @@ const CurrentCases: FunctionComponent<Props> = ({ className }) => {
       setSelectedCase(initialCases)
     } else {
       setSelectedCase(x)
+      userType === 'client' ? setOtherPersonName(x.lawyer_name!) : setOtherPersonName(x.client_name!)
     }
   }
 
-  const onChat = (id: string) => {
-    getOrCreateChat(id)
+  const onChat = (otherPersonId: string) => {
+    dispatch(globalState.actions.setMessageName(otherPersonName))
+    dispatch(globalState.actions.setOtherPersonId(otherPersonId))
+    getChat(otherPersonId, ownId!, userType)
       .then(response => {
-        if (!response.success) return 
+        if (!response.success) {
+          dispatch(globalState.actions.setChatSelected(true))
+          return
+        }
         
         const chatId = response.data._id
-        const userType = localStorage.getItem(USER_TYPE)
-
-        dispatch(globalState.actions.setCurrentChatId(chatId))
-        dispatch(globalState.actions.setMessageName(userType === 'client' ? response.data.lawyer_name : response.data.client_name))
+        const messages = response.data
+      
+        dispatch(globalState.actions.setChatId(chatId))
+        dispatch(globalState.actions.setMessages(messages))  
+        dispatch(globalState.actions.setChatSelected(true))
         dispatch(globalState.actions.setChatIsOpen(true))
-
-        getChatsList()
-          .then(response => {
-            if (response.success) {
-              const chatList = response.data
-
-              dispatch(globalState.actions.setChatsList(chatList))
-            }
-          })
-
-        getMessages(chatId)
-          .then(response => {
-          if(response.success) {
-            const messages = response.data
-
-            dispatch(globalState.actions.setMessages(messages))
-          }
-          })
       })
   }
 

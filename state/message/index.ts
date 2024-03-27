@@ -7,7 +7,7 @@ export default createSlice({
   initialState,
   reducers: {
     setMessage: (state, action: PayloadAction<string>) => {
-      state.message = action.payload
+      state.content = action.payload
     }
   }
 })

@@ -83,11 +83,18 @@ export default styled(Chat)`
       justify-content: space-between;
       padding: 1rem 1rem 1rem 2rem;
       font-size: 2rem;
+      align-items: flex-end;
 
       &_back {
-        aspect-ratio: 1 / 1;
-        padding: 0 1rem;
         cursor: pointer;
+        display: flex;
+        opacity: .6;
+
+        :hover {
+          opacity: 1;
+        }
+
+        transition: opacity .5s;
       }
 
       &_name {
@@ -95,9 +102,16 @@ export default styled(Chat)`
       }
 
       &_close {
-        aspect-ratio: 1 / 1;
         padding: 0 1rem;
         cursor: pointer;
+        display: flex;
+        opacity: .6;
+
+        :hover {
+          opacity: 1;
+        }
+
+        transition: opacity .5s;
       }
     }
 
@@ -143,16 +157,16 @@ export default styled(Chat)`
       max-width: 100%;
       background: #8e8e8e;
       display: flex;
-      justify-content: space-between;
       align-items: center;
-      padding: 0 0 0 3rem;
-      gap: 2rem;
+      padding: 0 2rem 0 2rem;
+      gap: 4rem;
 
       &_box {
         background: #c0c0c0;
         border: unset;
         padding: .5rem;
         border-radius: 5px;
+        width: 100%;
 
         :focus-visible {
           outline: unset;
@@ -163,11 +177,16 @@ export default styled(Chat)`
       &_btn {
         background: #8e8e8e;
         border: unset;
-        padding: 0 3rem 0 0;
-        font-size: 1.5rem;
-        font-weight: 500;
+        display: flex;
         height: 100%;
         cursor: pointer;
+        opacity: .6;
+
+        :hover {
+          opacity: 1;
+        }
+
+        transition: opacity .5s;
       }
     }
   }

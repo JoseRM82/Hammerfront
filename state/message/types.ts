@@ -1,3 +1,3 @@
 export interface State {
-  message: string;
+  content: string;
 }

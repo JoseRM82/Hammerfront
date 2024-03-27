@@ -1,7 +1,7 @@
 import { State } from "./types";
 
 const initialState: State = {
-  message: '',
+  content: '',
 }
 
 export default initialState

@@ -9,22 +9,27 @@ import globalState from '../../state/global'
 import { useAppDispatch, useAppSelector } from '../../state';
 import getChatsList from '../../services/chat/get-chats-list';
 import logo from './logo.png'
-import logo2 from './logo2.png'
-import larrow from './larrow.svg'
 import darrow from './darrow.svg'
 import dinfo from '../../shared/utils/dinfo.svg'
-import linfo from '../../shared/utils/linfo.svg'
 import dout from '../../shared/utils/dout.svg'
-import lout from '../../shared/utils/lout.svg'
+import { connectSocket } from '../../socket/socket';
 
 
 const Header: FunctionComponent<Props> = ({ className, visitor, mainPage }) => {
-  const { client, lawyer } = useAppSelector(state => state.globalState)
-  const { chatIsOpen } = useAppSelector(state => state.globalState)
+  const { client, lawyer, chatIsOpen, messages } = useAppSelector(state => state.globalState)
   const [loged, setLoged] = useState(false)
   const [userInfo, setUserInfo] = useState('')
   const dispatch = useAppDispatch()
   const router = useRouter()
+  let user_id: string
+
+  if(typeof window !== 'undefined'){
+    user_id = window.localStorage.getItem(USER_ID)!
+  }
+
+  connectSocket().on('sentMessage', (messageData: Record<string, any>) => {
+    dispatch(globalState.actions.setMessages([...messages, {_id: messageData._id, user_id: messageData.user_id, content: messageData.content}]))
+  })
   
   useEffect(() => {
     loged ? setLoged(false) : setLoged(true)
@@ -34,6 +39,11 @@ const Header: FunctionComponent<Props> = ({ className, visitor, mainPage }) => {
   useEffect(() => {
     const userData = localStorage.getItem(USER_NAME)
     userData ? setUserInfo(userData) : setUserInfo('')
+  }, [])
+
+  useEffect(() => {
+    connectSocket().emit('sentId', user_id)
+    console.log('ejecucion iD')
   }, [])
 
   const onLogout = () => {
@@ -46,7 +56,7 @@ const Header: FunctionComponent<Props> = ({ className, visitor, mainPage }) => {
     dispatch(globalState.actions.setChatIsOpen(false)) 
     dispatch(globalState.actions.setCurrentRequest(''))
     dispatch(globalState.actions.setLawyersList([]))
-    dispatch(globalState.actions.setCurrentChatId(''))
+    dispatch(globalState.actions.setChatSelected(false))
     dispatch(globalState.actions.setOwnId(''))
     dispatch(globalState.actions.setMessages([]))
     dispatch(globalState.actions.setMessageName(''))
@@ -60,11 +70,12 @@ const Header: FunctionComponent<Props> = ({ className, visitor, mainPage }) => {
     } else {
       getChatsList()
         .then(response => {
-          if (response.success) {
-            const chatsList = response.data
+          if(!response.success) return
 
-            dispatch(globalState.actions.setChatsList(chatsList))
-          }
+          const chatsList = response.data
+
+          dispatch(globalState.actions.setChatsList(chatsList))
+
         }).catch(error => console.error(error))
       dispatch(globalState.actions.setChatIsOpen(true))
     }

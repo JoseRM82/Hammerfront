@@ -1,13 +1,13 @@
-import { USER_TOKEN, USER_TYPE } from "../../shared/constants/local";
+import { USER_ID, USER_TOKEN, USER_TYPE } from "../../shared/constants/local";
 import { get } from "../../shared/utils/FETCH";
 
 const getChatsList = async (): Promise<Response> => {
   try {
-    const token = localStorage.getItem(USER_TOKEN)
+    const userId = localStorage.getItem(USER_ID)
     const userType = localStorage.getItem(USER_TYPE)
 
-    const response = await get('chats', '', {
-      'authorization': token,
+    const response = await get('chats/get-own-chats', '', {
+      'userid': userId,
       'usertype': userType,
     })
 

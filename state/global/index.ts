@@ -13,17 +13,25 @@ export default createSlice({
     setLawyerActive: (state, action: PayloadAction<boolean>) => {
       state.lawyer = action.payload
     },
+    
+    setChatId: (state, action: PayloadAction<string>) => {
+      state.chatId = action.payload
+    },
 
     setOwnId: (state, action: PayloadAction<string>) => {
       state.ownId = action.payload
+    },
+
+    setOtherPersonId: (state, action: PayloadAction<string>) => {
+      state.otherPersonId = action.payload
     },
 
     setChatIsOpen: (state, action: PayloadAction<boolean>) => {
       state.chatIsOpen = action.payload
     },
 
-    setCurrentChatId: (state, action: PayloadAction<string>) => {
-      state.currentChatId = action.payload
+    setChatSelected: (state, action: PayloadAction<boolean>) => {
+      state.chatSelected = action.payload
     },
 
     setChatsList: (state, action: PayloadAction<any[]>) => {
