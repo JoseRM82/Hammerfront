@@ -97,23 +97,51 @@ const Header: FunctionComponent<Props> = ({ className, visitor, mainPage }) => {
     </div>
   )
 
+  const content2 = (
+    <div className={className + ' header-mobile-popover'}>
+      <div className='header-popover-mobile-field'>
+        <div className='header-popover-mobile-image'><Image src={dinfo} height={25} width={25} /></div>  
+      Change your info</div>
+      <div className='header-popover-mobile-field' onClick={onLogout}>
+        <div className='header-popover-mobile-image'><Image src={dout} height={25} width={25} /></div>  
+      Log Out</div>
+    </div>
+  )
+
   return (
     <div className={className}>
       <div className='main-header'>
         {mainPage
           ?
-          <div className='logo'><div className='logo-container'><Image src={logo} height={100} width={100} /></div></div>
+          <div className='logo-desk'><div className='logo-desk-container'><Image src={logo} height={100} width={100} /></div></div>
           :
-          <div className='page-name' onClick={() => onGoToPage('/', '')}>HAMMER</div>
+          <div className='page-desk-name' onClick={() => onGoToPage('/', '')}>HAMMER</div>
         }
+          <div className='top-mobile-header'>
+            {mainPage
+              ?
+              <div className='logo-mobile'><div className='logo-mobile-container'><Image src={logo} height={100} width={100} /></div></div>
+              :
+              <div className='page-mobile-name' onClick={() => onGoToPage('/', '')}>HAMMER</div>}
+            {(client || lawyer) && 
+              <Popover className='mobile-popover' trigger='click' color='#111114' arrow={false} content={content2}>
+                <div className='signed-mobile-user'>
+                  {userInfo}
+                  <div className='signed-mobile-user-image'>
+                    <Image src={darrow} height={25} width={25} />
+                  </div>
+                </div>
+              </Popover>
+            }
+          </div>
           <div className='options'>
             <div className='options-list'>
               {(client || lawyer) && <button className='options-list_item' onClick={onChatOpen} >Chat</button>}
               {(client || lawyer) && <Link href='/cases'><button className='options-list_item'>Your Cases</button></Link>}
               {client && <button className='options-list_item' onClick={() => onGoToPage('/new-cases', '')}>Create a Case</button>}
               {(client || lawyer) && 
-              <Popover trigger='click' color='#111114' arrow={false} content={content}>
-                <div className='signed-user'>
+              <Popover className='desk-popover' trigger='click' color='#111114' arrow={false} content={content}>
+                <div className='signed-desk-user'>
                   {userInfo}
                   <div className='signed-user-image'>
                     <Image src={darrow} height={25} width={25} />

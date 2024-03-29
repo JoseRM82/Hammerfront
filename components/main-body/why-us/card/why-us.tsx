@@ -6,7 +6,7 @@ const WhyUs: FunctionComponent<Props> = ({ className, description, image }) => {
     <div className={className}>
       <div className="card-container">
         <div className="img-container">
-          <div className="social-link" ><Image src={image} height={100} width={100} /></div>
+          <div className="social-link" ><Image src={image!} height={100} width={100} /></div>
         </div>
         <div className="desc-container">
           <span className="description">{description}</span>
@@ -20,7 +20,7 @@ export default WhyUs
 
 interface Props {
   className?: string;
-  image: StaticImageData;
+  image?: StaticImageData;
   id?: number;
-  description: string;
+  description?: string;
 }

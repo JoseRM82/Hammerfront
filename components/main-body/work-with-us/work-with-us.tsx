@@ -3,7 +3,6 @@ import { useRouter } from "next/router";
 import { FunctionComponent } from "react";
 import { useAppSelector } from "../../../state";
 import StyledButton from "../../styled-button";
-import working from './working.jpg';
 
 const WorkWithUs: FunctionComponent<Props> = ({ className }) => {
   const {client, lawyer} = useAppSelector(state => state.globalState)
@@ -15,9 +14,12 @@ const WorkWithUs: FunctionComponent<Props> = ({ className }) => {
 
   return (
     <div className={className}>
+      <h1 className="work-mobile-title">Want to try another way to work?</h1>
       <div className="work-wu-container">
         <div className="img-container">
-          <Image src={working} width={460} height={500} objectFit='contain' />
+          <div className="work-img"/>
+          <div className="work-mobile-img"/>
+          <div className="work-mobile-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Omnis nesciunt perspiciatis, recusandae a eligendi voluptas quasi totam sunt facilis.</div>
         </div>
         <div className="text-container">
           <h1 className="work-title">Want to try another way to work?</h1>

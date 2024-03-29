@@ -16,6 +16,20 @@ export default styled(Header)`
     color: ${LuxuryColors.darkFont};
   `}
 
+  /* &.header-mobile-popover {
+    display: none;
+  } */
+
+  .top-mobile-header,
+  .mobile-popover, 
+  .logo-mobile, 
+  .logo-mobile-container, 
+  .page-mobile-name, 
+  .signed-mobile-user, 
+  .signed-mobile-user-image {
+    display: none
+  }
+
   .logo-container {
     max-width: 8rem;
     max-height: 8rem;
@@ -62,7 +76,7 @@ export default styled(Header)`
     }
   }
 
-  .signed-user {
+  .signed-desk-user {
     border: none;
     border-radius: 5px;
     font-weight: 600;
@@ -118,7 +132,6 @@ export default styled(Header)`
   }
 
   &.header-popover {
-    /* background: ${LuxuryColors.darkFont}; */
     display: flex;
     width: fit-content;
     flex-direction: column;
@@ -140,6 +153,111 @@ export default styled(Header)`
       .header-popover-image {
         display: flex;
         align-items: center;
+      }
+    }
+  }
+
+  @media (max-width: 850px) {
+    /* .header-popover, */
+    .mobile-popover,
+    .logo-mobile,
+    .logo-mobile-container,
+    .page-mobile-name,
+    .signed-mobile-user,
+    .signed-mobile-user-image {
+      display: unset;
+    }
+
+    &.header-mobile-popover {
+      display: flex;
+      width: fit-content;
+      flex-direction: column;
+      justify-content: center;
+      align-items: flex-start;
+      gap: 1.5rem;
+      padding: 1rem;
+      color: ${LuxuryColors.selected};
+
+      .header-popover-mobile-field {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        padding: .5rem 1rem;
+        font-weight: 600;
+        font-size: 2rem;
+        cursor: pointer;
+
+        .header-popover-mobile-image {
+          display: flex;
+          align-items: center;
+        }
+      }
+    }
+
+    .top-mobile-header {
+      justify-content: space-between;
+      width: 100%;
+      align-items: center;
+    }
+
+    .signed-mobile-user {
+      height: fit-content;
+    }
+
+    .logo-desk,
+    .logo-desk-container,
+    .page-desk-name,
+    .desk-popover,
+    .signed-desk-user {
+      display: none;
+    }
+
+    .signed-mobile-user {
+      border: none;
+      border-radius: 5px;
+      font-weight: 600;
+      font-size: 2rem;
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      background: ${LuxuryColors.darkBackground};
+      padding: 2rem;
+      color: ${LuxuryColors.button};
+      
+      ${props => props.header && css`
+      color: ${LuxuryColors.button};
+      `}
+      
+      :hover {
+        cursor: pointer;
+        background: ${LuxuryColors.buttonHover};
+      }
+    }
+
+    .main-header {
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .top-mobile-header {
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+    }
+
+    .options-list {
+      align-items: center;
+    }
+  }
+
+  @media (min-width: 1850px) {
+    @media (min-height: 950px) {
+      .sign {
+        font-size: 2.5rem;
+      }
+
+      .signs {
+        font-size: 2.5rem;
       }
     }
   }

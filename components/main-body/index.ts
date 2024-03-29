@@ -31,14 +31,14 @@ export default styled(MainBody)`
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: flex-end;
+    justify-content: center;
     padding: 0 0 4rem 0;
   }
 
   .text {
     font-size: 2rem;
     color: #fff;
-    padding: 3rem;
+    padding: 15rem 3rem 0rem 3rem;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -58,10 +58,48 @@ export default styled(MainBody)`
   }
 
   .main-body {
-    /* background: ${LuxuryColors.darkBackground}; */
-    width: 100vw;
+    width: -webkit-fill-available;
     display: flex;
     flex-direction: column;
     align-items: center;
+  }
+
+  @media (max-width: 420px) {
+    .text {
+      span {
+        display: none;
+      }
+    }
+  }
+
+  @media (max-width: 800px) {
+      .body-image-container {
+        background-image: url('https://w0.peakpx.com/wallpaper/276/342/HD-wallpaper-lawyer-law-occupation-business-paragraphic.jpg');
+      }
+
+      .text {
+        font-size: 1.6rem;
+      }
+
+      
+  }
+
+  @media (max-width: 1350px) {
+    .body-image-container {
+      background-repeat: round;
+    }
+  }
+
+  @media (min-width: 1850px) {
+    @media (min-height: 950px) {
+      
+      .text {
+        max-width: unset;
+        width: 80%;
+        span {
+          font-size: 4.5rem;
+        }
+      }
+    }
   }
 `

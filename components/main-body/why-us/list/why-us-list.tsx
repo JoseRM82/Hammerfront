@@ -24,14 +24,39 @@ const dummyObject = [
   },
 ]
 
+const dummyObject2 = [
+  {
+    'id': 1,
+    'image': law1,
+    'description': 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis unde ducimus molestiae perferendis, suscipit repellendus accusamus porro quos ab odit? Reprehenderit, id odit! Repellendus'
+  },
+  {
+    'id': 2,
+    'image': law2,
+    'description': 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis unde ducimus molestiae perferendis, suscipit repellendus accusamus porro quos ab odit? Reprehenderit, id odit!'
+  },
+  {
+    'id': 3,
+    'image': law3,
+    'description': 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis unde ducimus molestiae perferendis, suscipit repellendus accusamus'
+  },
+]
+
 const WhyUsList: FunctionComponent<Props> = ({ className }) => {
   return (
     <div className={className}>
       <div className="content-container">
         <h1 className="list-title">Why Choose Us</h1>
-        {dummyObject.map(x => (
-          <WhyUs className="cards" key={x.id} description={x.description} image={x.image} />
-        ))}
+        <div className="container">
+          {dummyObject.map(x => (
+            <WhyUs className="cards" key={x.id} description={x.description} image={x.image} />
+          ))}
+        </div>
+        <div className="phone-container">
+          {dummyObject2.map(x => (
+            <WhyUs className="phone-cards" key={x.id} description={x.description} image={x.image} />
+          ))}
+        </div>
       </div>
     </div>
   )

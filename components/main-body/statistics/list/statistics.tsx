@@ -24,15 +24,32 @@ const dummyStats = [
   },
 ]
 
+const dummyStats2 = [
+  {
+    'id': 1,
+    'description': 'Cases solved',
+    'value': '1 489',
+  },
+  {
+    'id': 2,
+    'description': 'Profits',
+    'value': 'USD 18.6M',
+  },
+]
+
 const Statistics: FunctionComponent<Props> = ({ className }) => {
   return (
     <div className={className}>
       <div className="stats">
         <div className="stats-container">
           <div className="stats-text">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quam tempore, at, fugiat ipsa recusandae eligendi earum corrupti est, ipsum quia alias labore repudiandae voluptatibus laborum iusto. Eius culpa nemo assumenda.</div>
+          <div className="stats-mobile-text">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quam tempore, at, fugiat ipsa recusandae eligendi earum corrupti est</div>
           <div className="stats-data">
             {dummyStats.map(x => (
               <StatisticCard className="stats-data-item" key={x.id} description={x.description} value={x.value} />
+            ))}
+            {dummyStats2.map(x => (
+              <StatisticCard className="stats-data-mobile-item" key={x.id} description={x.description} value={x.value} />
             ))}
           </div>
         </div>
