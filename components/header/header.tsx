@@ -46,7 +46,6 @@ const Header: FunctionComponent<Props> = ({ className, visitor, mainPage, tourRe
 
   useEffect(() => {
     connectSocket().emit('sentId', user_id)
-    console.log('ejecucion iD')
   }, [])
 
   const onLogout = () => {

@@ -25,15 +25,11 @@ const Hammer: NextPage<Props> = ({ className }) => {
     dispatch(globalState.actions.setCurrentRequest(''))
 
     if (userType === 'client' && token) {
-      console.log('token: ', token)
-      console.log('type: ', userType)
       dispatch(globalState.actions.setClientActive(true))
       dispatch(globalState.actions.setLawyerActive(false))
 
       getOwnId().then(response => {
-        console.log('1')
-        if(!response.success) return console.log('ownid failed')
-        console.log('ownidData: ', response.data)
+        if(!response.success) return 
  
         dispatch(globalState.actions.setOwnId(response.data))
       }).catch(error => {console.error(error); dispatch(globalState.actions.setClientActive(false)); setNoLogged(false)})
@@ -43,9 +39,7 @@ const Hammer: NextPage<Props> = ({ className }) => {
       dispatch(globalState.actions.setLawyerActive(true))
       
       getOwnId().then(response => {
-        console.log('1')
-        if(!response.success) return console.log('ownid failed')
-        console.log('ownidData: ', response.data)
+        if(!response.success) return 
         
         dispatch(globalState.actions.setOwnId(response.data))
       }).catch(error => {console.error(error); dispatch(globalState.actions.setLawyerActive(false)); setNoLogged(false)})

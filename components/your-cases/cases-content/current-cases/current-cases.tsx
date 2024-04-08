@@ -115,7 +115,6 @@ const CurrentCases: FunctionComponent<Props> = ({ className, tourRef }) => {
         
         const chatId = response.data._id
         const messagesFromResponse = response.data.messages
-        console.log('messages: ', messagesFromResponse)
       
         dispatch(globalState.actions.setChatId(chatId))
         dispatch(globalState.actions.setMessages(messagesFromResponse))  

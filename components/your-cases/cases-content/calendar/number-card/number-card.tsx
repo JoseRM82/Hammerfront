@@ -51,7 +51,6 @@ const NumberCard: FunctionComponent<Props> = ({ className, number, today }) => {
     }
 
     const removeNote = (thisNote: string) => {
-        console.log('data: ', thisNote, own_id)
         deleteNote(thisNote, own_id)
             .then(res => {
                 if(!res.success) return

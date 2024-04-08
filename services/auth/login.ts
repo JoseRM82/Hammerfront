@@ -4,7 +4,6 @@ const login = async (email: string, password: string, userType: string): Promise
   try {
     const response = await post(`login`, { email, password, userType })
     
-    console.log('response: ',response)
     return response
 
   } catch (error) {

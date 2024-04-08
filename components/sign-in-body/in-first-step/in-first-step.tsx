@@ -58,9 +58,6 @@ const InFirstStep: FunctionComponent<Props> = ({ className }) => {
      setSpinning(false)
 
     } else if (email && password && userType) {
-      console.log('email: ', email)
-      console.log('password: ', password)
-      console.log('user type: ', userType)
       setNoField(false)
       setNoUserType(false)
       login(email, password, userType)
