@@ -51,7 +51,7 @@ const Calendar: FunctionComponent<Props> = ({ className, tourRef }) => {
   }
 
   const onGetNotes = () => {
-    let calendar_info = calendar_information
+    let calendar_info = JSON.parse(JSON.stringify(calendar_information))
 
     getNotes(own_id)
       .then(res => {
@@ -71,7 +71,7 @@ const Calendar: FunctionComponent<Props> = ({ className, tourRef }) => {
             calendar_info = {...calendar_info, ...newDate}
             i++
             
-          } else if(Boolean(calendar_info[response[i].date])) {
+          } else if(calendar_info[response[i].date]) {
             
             if(calendar_info[response[i].date].notes.indexOf({note: response[i].note}) < 0) {
               
@@ -94,7 +94,7 @@ const Calendar: FunctionComponent<Props> = ({ className, tourRef }) => {
   }
 
   useEffect(() => {
-    !guideAvailable ? onGetNotes() : null
+    onGetNotes()
   }, [])
 
   useEffect(() => {

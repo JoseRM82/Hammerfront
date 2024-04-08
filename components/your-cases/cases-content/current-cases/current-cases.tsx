@@ -104,6 +104,13 @@ const CurrentCases: FunctionComponent<Props> = ({ className, tourRef }) => {
 
   }, [])
 
+  useEffect(() => {
+    const heightY = document.getElementById('inner-chat')?.offsetTop
+    if (heightY) {
+      document.getElementById('chat-body')!.scrollTo(0, heightY!)
+    }
+  }, [messages])
+
   const onChat = (otherPersonId: string) => {
     dispatch(globalState.actions.setMessageName(otherPersonName))
     dispatch(globalState.actions.setOtherPersonId(otherPersonId))
@@ -111,7 +118,6 @@ const CurrentCases: FunctionComponent<Props> = ({ className, tourRef }) => {
       .then(response => {
         if (!response.success) return
         if (!response.data.messages) return dispatch(globalState.actions.setMessages([]))  
-        // if (response.data.messages.length === 0) return
         
         const chatId = response.data._id
         const messagesFromResponse = response.data.messages
@@ -174,11 +180,9 @@ const CurrentCases: FunctionComponent<Props> = ({ className, tourRef }) => {
         {
           cases.length > 0
             ?
-            <div className="current-cases-list" ref={tourRef?.cardStep}>
+            <div className="current-cases-list" key={uuidv4()} ref={tourRef?.cardStep}>
               {cases.map(x => (
-                <>
                 <CasesCard key={uuidv4()} card_id={x._id} CurrentCases caseId={x._id} onClick={() => {setSelectedCase(x); toggleDrawer()}} firstFieldText='Case ID: ' firstField={x._id + ''} secondFieldText={client ? 'Lawyer: ' : (lawyer ? 'Client: ' : '')} secondField={client ? (x.lawyer_name! ? x.lawyer_name! : 'No lawyer yet') : (lawyer ? x.client_name! : '')} thirdFieldText='Next Court Date: ' thirdField={x.next_court[0] ? x.next_court[0].date : 'No date yet'}  fifthFieldText={(client ? 'Status: ' : (lawyer ? 'Case Type: ' : ''))} fifthField={client ? x.status : (lawyer ? x.data.case_type : '')} sixthFieldText='Needed Files: ' sixthField={x.needed_files.files_types!.length} seventhFieldText='Language: ' seventhField={x.data.languages} eighthFieldText='Judgement Location: ' eighthField={x.judgement_location.court_adress ? x.judgement_location.court_adress : x.data.city} ninethFieldText='Case Description: ' ninethField={x.data.description} />
-                </>
               ))}
             </div>
             : 
@@ -187,13 +191,14 @@ const CurrentCases: FunctionComponent<Props> = ({ className, tourRef }) => {
             </div>
         }
         <Drawer style={{background: LuxuryColors.darkButton, color: LuxuryColors.selected}} onClose={toggleDrawer} closeIcon={false} open={(open || guideCaseOpen)} >
-          <CasesCard key={selectedCase._id} card_id={selectedCase._id} tourRef={tourRef} showAllInfo={true} CurrentCases caseId={selectedCase._id} onChat={() => {toggleChildrenDrawer(); onChat(lawyer ? selectedCase.client_id! : selectedCase.lawyer_id!); setOtherPersonName(lawyer ? selectedCase.client_name! : selectedCase.lawyer_name!)}} onFinish={onFinish} onLeave={onLeave} firstFieldText='Case ID: ' firstField={selectedCase._id + ''} secondFieldText={client ? 'Lawyer: ' : (lawyer ? 'Client: ' : '')} secondField={client ? (selectedCase.lawyer_name! ? selectedCase.lawyer_name! : 'No lawyer yet') : (lawyer ? selectedCase.client_name! : '')} thirdFieldText='Next Court Date: ' thirdField={selectedCase.next_court[0] ? selectedCase.next_court[0].date : 'No date yet'}  fifthFieldText={(client ? 'Status: ' : (lawyer ? 'Case Type: ' : ''))} fifthField={client ? selectedCase.status : (lawyer ? selectedCase.data.case_type : '')} sixthFieldText='Needed Files: ' sixthField={selectedCase.needed_files.files_types!.length} seventhFieldText='Language: ' seventhField={selectedCase.data.languages} eighthFieldText='Judgement Location: ' eighthField={selectedCase.judgement_location.court_adress ? selectedCase.judgement_location.court_adress : selectedCase.data.city} ninethFieldText='Case Description: ' ninethField={selectedCase.data.description} />
+          <CasesCard key={uuidv4()} card_id={selectedCase._id} tourRef={tourRef} showAllInfo={true} CurrentCases caseId={selectedCase._id} onChat={() => {toggleChildrenDrawer(); onChat(lawyer ? selectedCase.client_id! : selectedCase.lawyer_id!); setOtherPersonName(lawyer ? selectedCase.client_name! : selectedCase.lawyer_name!)}} onFinish={onFinish} onLeave={onLeave} firstFieldText='Case ID: ' firstField={selectedCase._id + ''} secondFieldText={client ? 'Lawyer: ' : (lawyer ? 'Client: ' : '')} secondField={client ? (selectedCase.lawyer_name! ? selectedCase.lawyer_name! : 'No lawyer yet') : (lawyer ? selectedCase.client_name! : '')} thirdFieldText='Next Court Date: ' thirdField={selectedCase.next_court[0] ? selectedCase.next_court[0].date : 'No date yet'}  fifthFieldText={(client ? 'Status: ' : (lawyer ? 'Case Type: ' : ''))} fifthField={client ? selectedCase.status : (lawyer ? selectedCase.data.case_type : '')} sixthFieldText='Needed Files: ' sixthField={selectedCase.needed_files.files_types!.length} seventhFieldText='Language: ' seventhField={selectedCase.data.languages} eighthFieldText='Judgement Location: ' eighthField={selectedCase.judgement_location.court_adress ? selectedCase.judgement_location.court_adress : selectedCase.data.city} ninethFieldText='Case Description: ' ninethField={selectedCase.data.description} />
           <Drawer style={{background: LuxuryColors.darkButton, color: LuxuryColors.selected}} onClose={toggleChildrenDrawer} closeIcon={false} open={childrenDrawer}>
             <div className={`${className} chat-drawer`}>
-              <div className={`${className} messages-body`}>
+              <div className={`${className} messages-body`} id='chat-body'>
                 {messages.map(message => (
                   <MessagesList className={message.user_id === ownId ? `${className} messages-body_own` : `${className} messages-body_its`} key={uuidv4()} message={message.content} myMessage={message.user_id == ownId} />
                 ))}
+                <div id='inner-chat'></div>
               </div>
               <div className={`${className} messages-input`}>
                 <input className="messages-input_box" id="send-message" autoCapitalize='sentences' autoFocus placeholder="Write a message" name="message" autoComplete="off" type='text' onChange={e => dispatch(messageState.actions.setMessage(e.target.value))} value={content} />
@@ -213,7 +218,7 @@ interface Props {
   tourRef?: Record<string, MutableRefObject<any>>;
 }
 
-interface Cases {
+export interface Cases {
   _id: string;
   client_id?: string;
   client_name?: string;
@@ -227,33 +232,33 @@ interface Cases {
   status: string;
 }
 
-interface NextCourt {
+export interface NextCourt {
   citation: string;
   date: string;
 }
 
-interface Data {
+export interface Data {
   description: string;
   city: string;
   languages: string;
   case_type: string;
 }
 
-interface Location {
+export interface Location {
   court_adress: string;
 }
 
-interface NeededFiles {
+export interface NeededFiles {
   files_types?: string[]; 
   files_url?: Files_URL[];
 }
 
-interface Files_URL {
+export interface Files_URL {
   name?: string;
   url?: string;
 }
 
-const initialCases = {
+export const initialCases = {
   _id: '',
   client_id: '',
   client_name: '',

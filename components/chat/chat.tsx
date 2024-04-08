@@ -134,6 +134,11 @@ const Chat: FunctionComponent<Props> = ({ className }) => {
       openNotification("bottomRight", message_name, messageSent.content)
     })
 
+    const heightY = document.getElementById('inner-chat')?.offsetTop
+    if (heightY) {
+      document.getElementById('chat-body')!.scrollTo(0, heightY!)
+    }
+
     return () => {connectSocket().off('sentMessage')}
   }, [messages, message_name])
 
@@ -163,10 +168,11 @@ const Chat: FunctionComponent<Props> = ({ className }) => {
         </div>
       }
       {chatSelected
-        ? <div className="messages-body">
+        ? <div className="messages-body" id='chat-body'>
           {messages.map(message =>
             <MessagesList className={message.user_id == userId ? 'messages-body_own' : 'messages-body_its'} key={uuidv4()} message={message.content} myMessage={message.user_id == userId} />
           )}
+          <div id='inner-chat'></div>
         </div>
         : <div className="chats-body">
           {chatsList.map(chat =>

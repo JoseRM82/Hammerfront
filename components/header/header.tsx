@@ -91,9 +91,6 @@ const Header: FunctionComponent<Props> = ({ className, visitor, mainPage, tourRe
 
   const content = (
     <div className={className + ' header-popover'}>
-      <div className='header-popover-field'>
-        <div className='header-popover-image'><Image src={dinfo} height={25} width={25} /></div>  
-      Change your info</div>
       <div className='header-popover-field' onClick={onLogout}>
         <div className='header-popover-image'><Image src={dout} height={25} width={25} /></div>  
       Log Out</div>
@@ -102,9 +99,6 @@ const Header: FunctionComponent<Props> = ({ className, visitor, mainPage, tourRe
 
   const content2 = (
     <div className={className + ' header-mobile-popover'}>
-      <div className='header-popover-mobile-field'>
-        <div className='header-popover-mobile-image'><Image src={dinfo} height={25} width={25} /></div>  
-      Change your info</div>
       <div className='header-popover-mobile-field' onClick={onLogout}>
         <div className='header-popover-mobile-image'><Image src={dout} height={25} width={25} /></div>  
       Log Out</div>

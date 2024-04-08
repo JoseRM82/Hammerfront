@@ -42,7 +42,7 @@ const Cases: FunctionComponent<Props> = ({ className }) => {
     },
     {
       title: 'Chat',
-      description: 'Here you can see your chats list.',
+      description: "Here you can see your chats list. You'll receive a notification if someone sends you a message",
       target: () => selectedStep.chatStep.current,
       prevButtonProps: {
         onClick: () => {dispatch(globalState.actions.setCurrentTourStep(1))}
@@ -75,7 +75,7 @@ const Cases: FunctionComponent<Props> = ({ className }) => {
     },
     {
       title: 'Your account',
-      description: 'Here you can edit your personal information or log out.',
+      description: 'Here you can log out.',
       target: () => selectedStep.accountStep.current,
       prevButtonProps: {
         onClick: () => {dispatch(globalState.actions.setCurrentTourStep(4))}
@@ -107,8 +107,8 @@ const Cases: FunctionComponent<Props> = ({ className }) => {
       },
     },
     {
-      title: 'Create a Chat',
-      description: 'When you have a case you can start chatting whith your Lawyer/Client by pressing this button.',
+      title: 'Cases Buttons',
+      description: 'These buttons allows you to chat whith your Lawyer/Client or to finish the current case.',
       target: () => selectedStep.currentChatStep.current,
       prevButtonProps: {
         onClick: () => {dispatch(globalState.actions.setCurrentTourStep(7)); dispatch(guideState.actions.setGuideCaseOpen(false))}

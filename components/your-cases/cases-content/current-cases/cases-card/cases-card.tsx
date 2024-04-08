@@ -12,7 +12,7 @@ import registerFile from "../../../../../services/case/send-file-request";
 import getRequestedFiles from "../../../../../services/case/get-requested-files";
 import { isAnElementInArray } from "../../../../../shared/functions/array-functions";
 
-const CasesCard: FunctionComponent<Props> = ({ className, tourRef, caseId, onFinish, onLeave, requests, card_id, key, CurrentCases, firstField, secondField, thirdField, fourthField, fifthField, sixthField, seventhField, eighthField, ninethField, extraField, firstFieldText, secondFieldText, thirdFieldText, fourthFieldText, fifthFieldText, sixthFieldText, seventhFieldText, eighthFieldText, ninethFieldText, showAllInfo, onClick, onAccept, onRefuse, onChat }) => {
+const CasesCard: FunctionComponent<Props> = ({ className, tourRef, caseId, onFinish, onLeave, requests, card_id, CurrentCases, firstField, secondField, thirdField, fourthField, fifthField, sixthField, seventhField, eighthField, ninethField, extraField, firstFieldText, secondFieldText, thirdFieldText, fourthFieldText, fifthFieldText, sixthFieldText, seventhFieldText, eighthFieldText, ninethFieldText, showAllInfo, onClick, onAccept, onRefuse, onChat }) => {
   const { lawyer } = useAppSelector(state => state.globalState);
   const { file_name, file_sent, file_deleted, file_url } = useAppSelector(state => state.caseState)
   const dispatch = useAppDispatch()
@@ -121,7 +121,7 @@ const CasesCard: FunctionComponent<Props> = ({ className, tourRef, caseId, onFin
   );
 
   return (
-    <div className={className + ' cases-card'} key={key} id={card_id} onClick={onClick}>
+    <div className={className + ' cases-card'} id={card_id} onClick={onClick}>
       {showAllInfo
         ? <>
           <div className="complete-card-container">
@@ -175,7 +175,6 @@ interface Props {
   tourRef?: Record<string, MutableRefObject<any>>;
   caseId?: string;
   card_id?: string;
-  key: string;
   firstField?: string | number;
   firstFieldText?: string | number;
   secondField?: string | number;
