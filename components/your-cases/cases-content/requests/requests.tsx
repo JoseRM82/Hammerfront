@@ -11,7 +11,6 @@ import getRequests from "../../../../services/case/get-requests";
 import { LuxuryColors } from "../../../../utils/styles";
 
 const Requests: FunctionComponent<Props> = ({ className, tourRef }) => {
-  const [selectedId, setSelectedId] = useState('')
   const [cases, setCases] = useState<Cases[]>([])
   const [selectedCase, setSelectedCase] = useState<Cases>(initialRequest)
   const [open, setOpen] = useState<boolean>(false)
@@ -43,14 +42,6 @@ const Requests: FunctionComponent<Props> = ({ className, tourRef }) => {
     !guideAvailable ? declineRequest(request_id) : null
   }
 
-  const onClickRequest = (id: string) => {
-    if (selectedId === id) {
-      setSelectedId('')
-    } else {
-      setSelectedId(id)
-    }
-  }
-
   const toggleDrawer = () => {
     setOpen(!open)
   }
@@ -71,7 +62,7 @@ const Requests: FunctionComponent<Props> = ({ className, tourRef }) => {
             </div>
         }
         <Drawer style={{background: LuxuryColors.darkButton, color: LuxuryColors.selected}} onClose={toggleDrawer} closeIcon={false} open={(open || guideCaseOpen)} >
-          <RequestsCard key={selectedCase._id} onAccept={() => onAccept(selectedId)} onRefuse={() => onRefuse(selectedId)} showAllInfo={true} requests firstFieldText='Request Date: ' firstField={`${new Date(selectedCase.sent_date).getFullYear()}-${new Date(selectedCase.sent_date).getMonth()}-${new Date(selectedCase.sent_date).getDate()}`} secondFieldText='Name: ' secondField={client ? selectedCase.lawyer_name : (lawyer ? selectedCase.client_name : '')} thirdFieldText='Language: ' thirdField={selectedCase.case_languages} fourthField={selectedCase.case_location} fifthFieldText='Case Type: ' fifthField={selectedCase.case_type} seventhFieldText='Description: ' seventhField={selectedCase.case_description} />
+          <RequestsCard key={selectedCase._id} onAccept={() => onAccept(selectedCase._id)} onRefuse={() => onRefuse(selectedCase._id)} showAllInfo={true} requests firstFieldText='Request Date: ' firstField={`${new Date(selectedCase.sent_date).getFullYear()}-${new Date(selectedCase.sent_date).getMonth()}-${new Date(selectedCase.sent_date).getDate()}`} secondFieldText='Name: ' secondField={client ? selectedCase.lawyer_name : (lawyer ? selectedCase.client_name : '')} thirdFieldText='Language: ' thirdField={selectedCase.case_languages} fourthField={selectedCase.case_location} fifthFieldText='Case Type: ' fifthField={selectedCase.case_type} seventhFieldText='Description: ' seventhField={selectedCase.case_description} />
         </Drawer>
     </div>
   )

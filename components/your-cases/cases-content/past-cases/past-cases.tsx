@@ -8,11 +8,10 @@ import { USER_TOKEN, USER_TYPE } from "../../../../shared/constants/local";
 import { LuxuryColors } from "../../../../utils/styles";
 
 const PastCases: FunctionComponent<Props> = ({ className, tourRef }) => {
-  const [selectedId, setSelectedId] = useState('')
   const [cases, setCases] = useState<Cases[]>([])
   const [selectedCase, setSelectedCase] = useState<Cases>(initialPast)
   const [open, setOpen] = useState<boolean>(false)
-  const {guideAvailable, guideCaseOpen} = useAppSelector(state => state.guideState)
+  const {guideCaseOpen} = useAppSelector(state => state.guideState)
   const { client, lawyer } = useAppSelector(state => state.globalState)
 
   useEffect(() => {
@@ -31,14 +30,6 @@ const PastCases: FunctionComponent<Props> = ({ className, tourRef }) => {
     }
 
   }, [])
-
-  const onClickCase = (id: string) => {
-    if (selectedId === id) {
-      setSelectedId('')
-    } else {
-      setSelectedId(id)
-    }
-  }
 
   const toggleDrawer = () => {
     setOpen(!open)
