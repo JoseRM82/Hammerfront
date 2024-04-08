@@ -1,7 +1,8 @@
 import { FunctionComponent, useCallback, useEffect, useState } from "react";
 import Image from "next/image";
 import { v4 as uuidv4 } from "uuid";
-import { Spin } from "antd";
+import { Spin, notification } from "antd";
+import type { NotificationArgsProps } from 'antd';
 import { LoadingOutlined } from "@ant-design/icons";
 
 import getChatsList from "../../services/chat/get-chats-list";
@@ -21,11 +22,14 @@ import { USER_ID, USER_TYPE } from "../../shared/constants/local";
 import createChat from "../../services/chat/create-chat";
 import { error } from "console";
 import getChat from "../../services/chat/get-chat";
+import { LuxuryColors } from "../../utils/styles";
 
 const Chat: FunctionComponent<Props> = ({ className }) => {
   const { chatSelected, chatsList, client, messages, message_name, otherPersonId, chatId } = useAppSelector(state => state.globalState)
   const { content } = useAppSelector(state => state.messageState)
   const { chatInput } = useAppSelector(state => state.chatState)
+  type NotificationPlacement = NotificationArgsProps['placement']
+  const [api, contextHolder] = notification.useNotification();
   const [spinning, setSpinning] = useState<boolean>(false)
   const dispatch = useAppDispatch()
   let userType: string
@@ -37,26 +41,30 @@ const Chat: FunctionComponent<Props> = ({ className }) => {
   if(typeof window !== 'undefined') {
     userId = window.localStorage.getItem(USER_ID)!
   }
-  
-  // useEffect(() => {
-  //   const myId = localStorage.getItem(USER_ID)
-  // }, [])
 
+  const openNotification = (placement: NotificationPlacement, name: string, message: string) => {
+    api.info({
+      message: <div>Message received:</div>,
+      description: <div>{name}: {message}</div>,
+      placement,
+      style: {background: LuxuryColors.darkCard},
+      duration: 5,
+    })
+  }
+  
   const onSelectChat = (selectedChatId: string, otherOneId: string, otherOneName: string) => {
     dispatch(globalState.actions.setMessageName(otherOneName))
     dispatch(globalState.actions.setChatId(selectedChatId))
     dispatch(globalState.actions.setOtherPersonId(otherOneId))
     getChat(otherOneId, userId, userType)
       .then(response => {
-        if (!response.success) return console.log('1')
-        console.log(response.data)
-        if (!response.data.messages) return console.log('2')
-        if (response.data.messages.length === 0) return console.log('3')
+        if (!response.success) return
+        if (!response.data.messages) return 
+        if (response.data.messages.length === 0) return
 
         const messagesList = response.data.messages
-        console.log('messagesList: ', messagesList)
 
-        dispatch(globalState.actions.setMessages([...messages, ...messagesList]))
+        dispatch(globalState.actions.setMessages([...messagesList]))
         dispatch(globalState.actions.setChatSelected(true))
       })
   }
@@ -119,10 +127,15 @@ const Chat: FunctionComponent<Props> = ({ className }) => {
     return
   }, [content])
 
-  connectSocket().on('sentMessage', (messageSent: Record<string, any>) => {
-    console.log('message data: ', messageSent)
-    dispatch(globalState.actions.setMessages([...messages, messageSent]))
-  })
+
+  useEffect (() => {
+    connectSocket().on('sentMessage', (messageSent: Record<string, any>) => {
+      dispatch(globalState.actions.setMessages([...messages, messageSent]))
+      openNotification("bottomRight", message_name, messageSent.content)
+    })
+
+    return () => {connectSocket().off('sentMessage')}
+  }, [messages, message_name])
 
   connectSocket().on('chatCreated', (data: Record<string, any>) => {
       dispatch(globalState.actions.setChatsList([...chatsList, data]))
@@ -133,13 +146,10 @@ const Chat: FunctionComponent<Props> = ({ className }) => {
   connectSocket().on('createChatCompleted', (data: string) => {
     dispatch(globalState.actions.setChatId(data))
   })
-  // useEffect(() => {
-  //   const height = messagesContainerRef.current?.scrollHeight || 0
-  //   messagesContainerRef.current?.scrollTo(0, height)
-  // }, [messages])
 
   return (
     <div className={className}>
+      {contextHolder}
       {chatSelected
         ? <div className="messages-head">
           <div className="messages-head_back" onClick={() => onBack()}><Image src={back} height={25} width={25} /></div>
@@ -160,7 +170,7 @@ const Chat: FunctionComponent<Props> = ({ className }) => {
         </div>
         : <div className="chats-body">
           {chatsList.map(chat =>
-            <ChatsList key={chat._id} name={client ? chat.lawyer_name : chat.client_name} onSelectChat={() => onSelectChat(chat._id, client ? chat.lawyer_id : chat.client_id, client ? chat.lawyer_name : chat.client_name)} last_message={chat.last_message} messages_counter={chat.messages_counter} />
+            <ChatsList key={uuidv4()} name={client ? chat.lawyer_name : chat.client_name} onSelectChat={() => onSelectChat(chat._id, client ? chat.lawyer_id : chat.client_id, client ? chat.lawyer_name : chat.client_name)} last_message={chat.messages[chat.messages.length - 1].content} messages_counter={chat.messages_counter} />
           )}
         </div>
       }
@@ -173,10 +183,7 @@ const Chat: FunctionComponent<Props> = ({ className }) => {
           </div>
         // </Spin>
         : 
-        <div className="chats-input">
-          <input className="chats-input_box" autoCapitalize='sentences' placeholder="Look for a chat" type='text' onChange={e => dispatch(chatState.actions.setChatInput(e.target.value))} value={chatInput} />
-          <button className="chats-input_btn" >Send</button>
-        </div>
+        <></>
       }
     </div>
   )

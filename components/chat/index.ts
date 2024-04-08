@@ -1,6 +1,7 @@
 import styled, { css } from "styled-components";
 
 import Chat from "./chat";
+import { LuxuryColors } from "../../utils/styles";
 
 export default styled(Chat)`
   position: fixed;
@@ -38,19 +39,28 @@ export default styled(Chat)`
     &-body {
       height: 35rem;
       width: 100%;
-      background: #c0c0c0;
+      background: ${LuxuryColors.chatBackground};
       overflow: scroll;
       overflow-x: hidden;
+
+      ::-webkit-scrollbar {
+      width: 6px;
+      }
+    
+      ::-webkit-scrollbar-thumb {
+        background: #8e8e8e;
+        border-radius: 20px;
+      }
     }
 
     &-input {
       height: 5rem;
       max-width: 100%;
-      background: #8e8e8e;
+      background: ${LuxuryColors.buttonHover};
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 0 0 0 3rem;
+      padding: 0 2rem 0 2rem;
       gap: 2rem;
 
       &_box {
@@ -118,7 +128,7 @@ export default styled(Chat)`
     &-body {
       height: 33rem;
       max-width: 100%;
-      background: #c0c0c0;
+      background: ${LuxuryColors.chatBackground};
       display: flex;
       flex-direction: column;
       overflow: scroll;
@@ -129,10 +139,10 @@ export default styled(Chat)`
       ::-webkit-scrollbar {
         width: 6px;
       }
-      
+/*       
       ::-webkit-scrollbar-track {
         background: #c0c0c0;
-      }
+      } */
       
       ::-webkit-scrollbar-thumb {
         background: #8e8e8e;
@@ -140,14 +150,14 @@ export default styled(Chat)`
       }
 
       &_own {
-        background: #8e8e8e;
-        color: #000;
+        background: unset;
+        color: ${LuxuryColors.selected};
         align-self: flex-end;
       }
 
       &_its {
-        background: #000;
-        color: #efefef;
+        background: unset;
+        color: ${LuxuryColors.selected};
         align-self: flex-start;
       }
     }
@@ -155,27 +165,27 @@ export default styled(Chat)`
     &-input {
       height: 5rem;
       max-width: 100%;
-      background: #8e8e8e;
+      background: ${LuxuryColors.darkFont};
       display: flex;
       align-items: center;
       padding: 0 2rem 0 2rem;
-      gap: 4rem;
+      gap: 2rem;
 
       &_box {
-        background: #c0c0c0;
+        background: unset;
         border: unset;
         padding: .5rem;
         border-radius: 5px;
+        color: ${LuxuryColors.lightFont};
         width: 100%;
 
         :focus-visible {
           outline: unset;
-          background: #efefef;
         }
       }
 
       &_btn {
-        background: #8e8e8e;
+        background: unset;
         border: unset;
         display: flex;
         height: 100%;

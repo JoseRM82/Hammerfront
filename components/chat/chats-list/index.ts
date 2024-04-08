@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 import ChatsList from "./chats-list";
-import { Colors } from "../../../utils/styles";
+import { Colors, LuxuryColors } from "../../../utils/styles";
 
 export default styled(ChatsList)`
   height: 6rem;
@@ -13,7 +13,7 @@ export default styled(ChatsList)`
   border-bottom: .1px solid #00000025;
 
   :hover {
-    background: #dddada;
+    background: ${LuxuryColors.darkCard};
   }
 
   .chat_content {
@@ -24,9 +24,9 @@ export default styled(ChatsList)`
     padding: 0 0 0 3rem;
 
     &-name {
-      font-size: 1.5rem;
+      font-size: 1.8rem;
       font-weight: 500;
-      color: #000;
+      color: ${LuxuryColors.selected};
       max-width: 22rem;
       overflow: hidden;
       text-overflow: ellipsis;
@@ -35,7 +35,7 @@ export default styled(ChatsList)`
 
     &-message {
       font-size: 1.2rem;
-      color: #000000;
+      color: ${LuxuryColors.selected};
       max-width: 22rem;
       overflow: hidden;
       text-overflow: ellipsis;
