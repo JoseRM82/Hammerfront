@@ -1,4 +1,4 @@
-const uri: string = process.env.BASE_URL as string
+const uri: string = process.env.NEXT_PUBLIC_BASE_URL as string
 
 const get = async (url: string, params?: any, headers?: any) => {
   try {
