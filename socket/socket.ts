@@ -5,6 +5,6 @@ let socket: Socket
 export const connectSocket = () => {
   if(socket) return socket
 
-  socket = io('http://localhost:5000/')
+  socket = io('https://hammer-backend.onrender.com/api/')
   return socket
 }
