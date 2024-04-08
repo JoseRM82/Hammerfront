@@ -30,19 +30,18 @@ const MainBody: FunctionComponent<Props> = ({ className }) => {
 
   const onTestMode = () => {
     setSpinning(true)
-    console.log('log info: ', process.env.TEST_EMAIL!, process.env.TEST_PASS!, process.env.TEST_TYPE!)
-    // login(process.env.TEST_EMAIL!, process.env.TEST_PASS!, process.env.TEST_TYPE!)
-    //   .then(res => {
-    //     if(!res.success) return setSpinning(false)
+    login(process.env.NEXT_PUBLIC_TEST_EMAIL!, process.env.NEXT_PUBLIC_TEST_PASS!, process.env.NEXT_PUBLIC_TEST_TYPE!)
+      .then(res => {
+        if(!res.success) return setSpinning(false)
         dispatch(guideState.actions.setGuideAvailable(true))
         dispatch(globalState.actions.setClientActive(false))
         dispatch(globalState.actions.setLawyerActive(true))
-    //     dispatch(setUserToken(UserType.Lawyer))
-    //     dispatch(setId(res.data!._id))
+        dispatch(setUserToken(UserType.Lawyer))
+        dispatch(setId(res.data!._id))
         dispatch(setName({name: 'Lawyer', last_name: 'Tester'}))
-    //     dispatch(setToken(res.data!.token))
+        dispatch(setToken(res.data!.token))
         route.push('/cases')
-      // }).catch(error => {console.error(error); setSpinning(false)}) 
+      }).catch(error => {console.error(error); setSpinning(false)}) 
   }
 
   return (

@@ -18,6 +18,7 @@ module.exports = {
     NEXT_PUBLIC_TEST_ID: process.env.TEST_ID,
     NEXT_PUBLIC_TEST_TYPE: process.env.TEST_TYPE,
     NEXT_PUBLIC_TEST_NAME: process.env.TEST_NAME,
+    NEXT_PUBLIC_TEST_EMAIL: process.env.TEST_EMAIL,
     NEXT_PUBLIC_TEST_TOKEN: process.env.TEST_TOKEN,
     NEXT_PUBLIC_TEST_PASS: process.env.TEST_PASS,
   }
