@@ -165,16 +165,6 @@ const CurrentCases: FunctionComponent<Props> = ({ className, tourRef }) => {
       })
   }
 
-  const onLeave = () => {
-    leaveCase(selectedCase._id, userType, ownId)
-      .then(res => {
-        if(!res.success) return
-
-        toggleDrawer()
-        setCases(cases.splice(cases.indexOf(selectedCase), 1))
-      })
-  }
-
   return (
     <div className={className}>
         {
@@ -191,7 +181,7 @@ const CurrentCases: FunctionComponent<Props> = ({ className, tourRef }) => {
             </div>
         }
         <Drawer style={{background: LuxuryColors.darkButton, color: LuxuryColors.selected}} onClose={toggleDrawer} closeIcon={false} open={(open || guideCaseOpen)} >
-          <CasesCard key={uuidv4()} card_id={selectedCase._id} tourRef={tourRef} showAllInfo={true} CurrentCases caseId={selectedCase._id} onChat={() => {toggleChildrenDrawer(); onChat(lawyer ? selectedCase.client_id! : selectedCase.lawyer_id!); setOtherPersonName(lawyer ? selectedCase.client_name! : selectedCase.lawyer_name!)}} onFinish={onFinish} onLeave={onLeave} firstFieldText='Case ID: ' firstField={selectedCase._id + ''} secondFieldText={client ? 'Lawyer: ' : (lawyer ? 'Client: ' : '')} secondField={client ? (selectedCase.lawyer_name! ? selectedCase.lawyer_name! : 'No lawyer yet') : (lawyer ? selectedCase.client_name! : '')} thirdFieldText='Next Court Date: ' thirdField={selectedCase.next_court[0] ? selectedCase.next_court[0].date : 'No date yet'}  fifthFieldText={(client ? 'Status: ' : (lawyer ? 'Case Type: ' : ''))} fifthField={client ? selectedCase.status : (lawyer ? selectedCase.data.case_type : '')} sixthFieldText='Needed Files: ' sixthField={selectedCase.needed_files.files_types!.length} seventhFieldText='Language: ' seventhField={selectedCase.data.languages} eighthFieldText='Judgement Location: ' eighthField={selectedCase.judgement_location.court_adress ? selectedCase.judgement_location.court_adress : selectedCase.data.city} ninethFieldText='Case Description: ' ninethField={selectedCase.data.description} />
+          <CasesCard key={uuidv4()} card_id={selectedCase._id} tourRef={tourRef} showAllInfo={true} CurrentCases caseId={selectedCase._id} onChat={() => {toggleChildrenDrawer(); onChat(lawyer ? selectedCase.client_id! : selectedCase.lawyer_id!); setOtherPersonName(lawyer ? selectedCase.client_name! : selectedCase.lawyer_name!)}} onFinish={onFinish} firstFieldText='Case ID: ' firstField={selectedCase._id + ''} secondFieldText={client ? 'Lawyer: ' : (lawyer ? 'Client: ' : '')} secondField={client ? (selectedCase.lawyer_name! ? selectedCase.lawyer_name! : 'No lawyer yet') : (lawyer ? selectedCase.client_name! : '')} thirdFieldText='Next Court Date: ' thirdField={selectedCase.next_court[0] ? selectedCase.next_court[0].date : 'No date yet'}  fifthFieldText={(client ? 'Status: ' : (lawyer ? 'Case Type: ' : ''))} fifthField={client ? selectedCase.status : (lawyer ? selectedCase.data.case_type : '')} sixthFieldText='Needed Files: ' sixthField={selectedCase.needed_files.files_types!.length} seventhFieldText='Language: ' seventhField={selectedCase.data.languages} eighthFieldText='Judgement Location: ' eighthField={selectedCase.judgement_location.court_adress ? selectedCase.judgement_location.court_adress : selectedCase.data.city} ninethFieldText='Case Description: ' ninethField={selectedCase.data.description} />
           <Drawer style={{background: LuxuryColors.darkButton, color: LuxuryColors.selected}} onClose={toggleChildrenDrawer} closeIcon={false} open={childrenDrawer}>
             <div className={`${className} chat-drawer`}>
               <div className={`${className} messages-body`} id='chat-body'>

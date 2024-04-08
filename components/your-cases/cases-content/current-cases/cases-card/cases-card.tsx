@@ -12,7 +12,7 @@ import registerFile from "../../../../../services/case/send-file-request";
 import getRequestedFiles from "../../../../../services/case/get-requested-files";
 import { isAnElementInArray } from "../../../../../shared/functions/array-functions";
 
-const CasesCard: FunctionComponent<Props> = ({ className, tourRef, caseId, onFinish, onLeave, requests, card_id, CurrentCases, firstField, secondField, thirdField, fourthField, fifthField, sixthField, seventhField, eighthField, ninethField, extraField, firstFieldText, secondFieldText, thirdFieldText, fourthFieldText, fifthFieldText, sixthFieldText, seventhFieldText, eighthFieldText, ninethFieldText, showAllInfo, onClick, onAccept, onRefuse, onChat }) => {
+const CasesCard: FunctionComponent<Props> = ({ className, tourRef, caseId, onFinish, requests, card_id, CurrentCases, firstField, secondField, thirdField, fourthField, fifthField, sixthField, seventhField, eighthField, ninethField, extraField, firstFieldText, secondFieldText, thirdFieldText, fourthFieldText, fifthFieldText, sixthFieldText, seventhFieldText, eighthFieldText, ninethFieldText, showAllInfo, onClick, onAccept, onRefuse, onChat }) => {
   const { lawyer } = useAppSelector(state => state.globalState);
   const { file_name, file_sent, file_deleted, file_url } = useAppSelector(state => state.caseState)
   const dispatch = useAppDispatch()
@@ -142,7 +142,6 @@ const CasesCard: FunctionComponent<Props> = ({ className, tourRef, caseId, onFin
               {CurrentCases && 
               <><StyledButton small text="CHAT" onClick={(e) => { e.stopPropagation(); onChat?.() }} />
               <StyledButton small white text="FINISH CASE" onClick={(e) => { e.stopPropagation(); onFinish?.() }} />
-              <StyledButton small white text="LEAVE CASE" onClick={(e) => { e.stopPropagation(); onLeave?.() }} />
               </>
               }
               {(requests && lawyer) && <>
@@ -200,7 +199,6 @@ interface Props {
   onClick?: () => void;
   onChat?: () => void;
   onFinish?: () => void;
-  onLeave?: () => void;
   onAccept?: () => void;
   onRefuse?: () => void;
 }
