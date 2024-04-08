@@ -12,7 +12,7 @@
     "@ant-design/icons": "^5.3.5",
     "@reduxjs/toolkit": "^1.8.5",
     "@types/uuid": "^9.0.8",
-    "antd": "^5.2.3",
+    "antd": "^5.15.4",
     "babel-preset-next": "^1.4.0",
     "dayjs": "^1.11.5",
     "dotenv": "^16.4.5",
