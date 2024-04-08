@@ -12,11 +12,54 @@ export default styled(NumberCard)`
     font-weight: 700;
     cursor: pointer;
 
-    &.new-citation {
+    &.notes-citations {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
+        padding: 1rem;
+        background: unset;
+        cursor: initial;
+    }
+    
+    .new-citation {
         font-size: 1.5rem;
         padding: 0;
         background: none;
         color: blue;
+        cursor: pointer;
+        width: fit-content;
+    }
+
+    .citations {
+        color: ${LuxuryColors.button};
+    }
+
+    .notes-container {
+        display: flex;
+        justify-content: space-between;
+        width: -webkit-fill-available;
+        padding: 0rem 2rem;
+    }
+
+    .note {
+        color: ${LuxuryColors.selected};
+        font-size: 1.5rem;
+    }
+
+    .delete {
+        color: ${LuxuryColors.selected};
+        font-size: 1.5rem;
+        cursor: pointer;
+    }
+
+    .note-form {
+        display: flex;
+        justify-content: space-between;
+        gap: 2rem;
+    }
+
+    .note-send {
         cursor: pointer;
     }
 `

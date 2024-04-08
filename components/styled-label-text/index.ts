@@ -48,6 +48,7 @@ export default styled(StyledLabelText)`
       font-weight: 600;
     }
 
+    &-pass-input,
     &-input {
       font-size: ${props => props.inputSize || '1.8rem'};
       border: unset;
@@ -107,6 +108,47 @@ export default styled(StyledLabelText)`
         background: transparent;
       }
 
+      transition: box-shadow .5s;
+    }
+  }
+
+
+  @media (max-width: 500px) {
+    width: -webkit-fill-available;
+    max-width: 37rem;
+    justify-content: space-between;
+
+    .styled-input {
+      width: inherit;
+    }
+
+    .styled-pass-input {
+      min-width: 18rem;
+      font-size: ${props => props.inputSize || '1.8rem'};
+      border: unset;
+      background: transparent;
+      color: ${LuxuryColors.alternativeFont};
+      fill: none;
+      border-radius: 5px;
+      
+      :focus {
+        fill: none;
+        outline: unset;
+        background: transparent;
+      }
+      
+      :active {
+        fill: none;
+        outline: unset;
+        background: transparent;
+      }
+      
+      :focus-visible {
+        fill: none;
+        outline: unset;
+        background: transparent;
+      }
+      
       transition: box-shadow .5s;
     }
   }

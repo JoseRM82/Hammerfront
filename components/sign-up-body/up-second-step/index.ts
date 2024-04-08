@@ -8,7 +8,7 @@ export default styled(UpSecondStep)`
   flex-direction: column;
   justify-content: center;
 
-  .signup-body-container {
+  .signup-second-body-container {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -73,6 +73,35 @@ export default styled(UpSecondStep)`
       align-self: flex-end;
       display: flex;
       gap: 3rem;
+    }
+  }
+
+  @media (max-width: 500px) {
+    padding: 0rem 1rem;
+
+    .back-image {
+      padding: 1rem 0rem 0rem;
+    }
+
+    .signup-second-title {
+      font-size: 3rem;
+    }
+
+    .signup-second-form {
+      max-width: 37rem;
+      align-self: center;
+    }
+
+    .signup-second-body-container {
+      align-items: center;
+    }
+
+    .signup-second-btns {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      align-self: center;
+      gap: 1rem;
     }
   }
 `

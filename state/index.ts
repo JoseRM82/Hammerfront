@@ -11,6 +11,8 @@ import globalState from './global'
 import messageState from './message'
 import chatState from './chat'
 import caseState from './case'
+import guideState from './guide'
+import calendarState from './calendar'
 
 const appReducer = combineReducers({
   clientState: clientState.reducer,
@@ -22,6 +24,8 @@ const appReducer = combineReducers({
   messageState: messageState.reducer,
   chatState: chatState.reducer,
   caseState: caseState.reducer,
+  guideState: guideState.reducer,
+  calendarState: calendarState.reducer,
 })
 
 export const store = configureStore({

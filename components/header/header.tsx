@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { FunctionComponent, useEffect, useState } from 'react';
+import { FunctionComponent, useEffect, useState, useRef, MutableRefObject } from 'react';
 import { useRouter } from 'next/router';
 import { Popover } from 'antd';
 import Image from 'next/image';
@@ -13,10 +13,13 @@ import darrow from './darrow.svg'
 import dinfo from '../../shared/utils/dinfo.svg'
 import dout from '../../shared/utils/dout.svg'
 import { connectSocket } from '../../socket/socket';
+import guideState from '../../state/guide';
+// import { tourRefsList } from '../../shared/utils/tour-refs';
 
 
-const Header: FunctionComponent<Props> = ({ className, visitor, mainPage }) => {
-  const { client, lawyer, chatIsOpen, messages } = useAppSelector(state => state.globalState)
+const Header: FunctionComponent<Props> = ({ className, visitor, mainPage, tourRef }) => {
+  const { client, lawyer, chatIsOpen, messages, currentTourStep } = useAppSelector(state => state.globalState)
+  const { guideAvailable } = useAppSelector(state => state.guideState)
   const [loged, setLoged] = useState(false)
   const [userInfo, setUserInfo] = useState('')
   const dispatch = useAppDispatch()
@@ -61,6 +64,7 @@ const Header: FunctionComponent<Props> = ({ className, visitor, mainPage }) => {
     dispatch(globalState.actions.setMessages([]))
     dispatch(globalState.actions.setMessageName(''))
     dispatch(globalState.actions.setChatsList([]))
+    dispatch(guideState.actions.setGuideAvailable(false))
     router.push('/')
   }
 
@@ -122,7 +126,7 @@ const Header: FunctionComponent<Props> = ({ className, visitor, mainPage }) => {
               ?
               <div className='logo-mobile'><div className='logo-mobile-container'><Image src={logo} height={100} width={100} /></div></div>
               :
-              <div className='page-mobile-name' onClick={() => onGoToPage('/', '')}>HAMMER</div>}
+              <div className='page-mobile-name' onClick={guideAvailable ? () => onGoToPage('/', '') : onLogout}>HAMMER</div>}
             {(client || lawyer) && 
               <Popover className='mobile-popover' trigger='click' color='#111114' arrow={false} content={content2}>
                 <div className='signed-mobile-user'>
@@ -136,12 +140,13 @@ const Header: FunctionComponent<Props> = ({ className, visitor, mainPage }) => {
           </div>
           <div className='options'>
             <div className='options-list'>
-              {(client || lawyer) && <button className='options-list_item' onClick={onChatOpen} >Chat</button>}
-              {(client || lawyer) && <Link href='/cases'><button className='options-list_item'>Your Cases</button></Link>}
-              {client && <button className='options-list_item' onClick={() => onGoToPage('/new-cases', '')}>Create a Case</button>}
+              {(guideAvailable) && <button className='options-list_item' onClick={() => dispatch(globalState.actions.setCurrentTourStep(1))} >Guide</button>}
+              {(client || lawyer) && <button className='options-list_item' onClick={onChatOpen} ref={tourRef?.chatStep} >Chat</button>}
+              {(client || lawyer) && <Link href='/cases'><button className='options-list_item' ref={tourRef?.casesStep}>Your Cases</button></Link>}
+              {client && <button className='options-list_item' onClick={() => onGoToPage('/new-cases', '')} ref={tourRef?.newCaseStep}>Create a Case</button>}
               {(client || lawyer) && 
               <Popover className='desk-popover' trigger='click' color='#111114' arrow={false} content={content}>
-                <div className='signed-desk-user'>
+                <div className='signed-desk-user' ref={tourRef?.accountStep}>
                   {userInfo}
                   <div className='signed-user-image'>
                     <Image src={darrow} height={25} width={25} />
@@ -167,4 +172,5 @@ interface Props {
   header?: boolean;
   visitor?: boolean;
   mainPage?: boolean;
+  tourRef?: Record<string, MutableRefObject<any>>;
 }

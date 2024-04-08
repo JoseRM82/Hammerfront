@@ -22,4 +22,21 @@ export default styled(CasesContent)`
         display: flex;
         justify-content: center;
     }
+
+    @media (max-width: 850px) {
+        padding: 3rem 0;
+        
+        .cases-title {
+            padding: 0 0 0 2rem;
+        }
+    }
+
+    @media (max-width: 500px) {
+        padding: 0;
+
+        .cases-title {
+            font-size: 2rem;
+            align-self: center;
+        }
+    }
 `

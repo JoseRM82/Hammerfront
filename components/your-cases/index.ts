@@ -9,16 +9,16 @@ export default styled(YourCases)`
   min-height: 72vh;
   padding-bottom: 8rem;
 
+  .case_option-mobile-item {
+    display: none;
+  }
+
   .case_option {
     height: auto;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
     padding: 2rem;
-
-    &-navbar{
-
-    }
      
     &-list {
       color: ${LuxuryColors.unselected};
@@ -45,12 +45,6 @@ export default styled(YourCases)`
     }
   }
 
-  /* .case-option {
-    display: unset;
-
-    transition: .2s ease all;
-  } */
-
   .clicked-item {
     color: ${LuxuryColors.selected};
     border-bottom: 1px solid ${LuxuryColors.selected} ;
@@ -60,11 +54,40 @@ export default styled(YourCases)`
     color: ${LuxuryColors.selected};
   }
 
-  /* .hide {
-    transform: translateY(-100%); 
-  } */
-
   .hide-list {
     display: none;
   }
+
+  @media (max-width: 800px) {
+    flex-direction: column;
+    align-items: center;
+
+    .case_option {
+      flex-direction: row;
+      gap: 3rem;
+      font-size: 3rem;
+      color: #fff;
+      max-width: -webkit-fill-available;
+      overflow-x: scroll;
+    }
+
+    .case_option::-webkit-scrollbar {
+      height: 3px;
+    }
+
+    .case_option::-webkit-scrollbar-thumb {
+      background: ${LuxuryColors.selected};
+      border-radius: 5px;
+    }
+
+    .case_option-list,
+    .case_option-item {
+      display: none;
+    }
+
+    .case_option-mobile-item {
+      display: unset;
+    }
+  }
+
 `

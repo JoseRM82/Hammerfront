@@ -1,4 +1,4 @@
-import { FunctionComponent, useEffect, useState } from "react";
+import { FunctionComponent, MutableRefObject, useEffect, useState } from "react";
 import { Popover, Spin } from "antd";
 import { v4 as uuidv4 } from 'uuid';
 import { LoadingOutlined } from "@ant-design/icons";
@@ -12,7 +12,7 @@ import registerFile from "../../../../../services/case/send-file-request";
 import getRequestedFiles from "../../../../../services/case/get-requested-files";
 import { isAnElementInArray } from "../../../../../shared/functions/array-functions";
 
-const CasesCard: FunctionComponent<Props> = ({ className, caseId, requests, card_id, CurrentCases, firstField, secondField, thirdField, fourthField, fifthField, sixthField, seventhField, eighthField, ninethField, extraField, firstFieldText, secondFieldText, thirdFieldText, fourthFieldText, fifthFieldText, sixthFieldText, seventhFieldText, eighthFieldText, ninethFieldText, showAllInfo, onClick, onAccept, onRefuse, onChat }) => {
+const CasesCard: FunctionComponent<Props> = ({ className, tourRef, caseId, onFinish, onLeave, requests, card_id, key, CurrentCases, firstField, secondField, thirdField, fourthField, fifthField, sixthField, seventhField, eighthField, ninethField, extraField, firstFieldText, secondFieldText, thirdFieldText, fourthFieldText, fifthFieldText, sixthFieldText, seventhFieldText, eighthFieldText, ninethFieldText, showAllInfo, onClick, onAccept, onRefuse, onChat }) => {
   const { lawyer } = useAppSelector(state => state.globalState);
   const { file_name, file_sent, file_deleted, file_url } = useAppSelector(state => state.caseState)
   const dispatch = useAppDispatch()
@@ -121,7 +121,7 @@ const CasesCard: FunctionComponent<Props> = ({ className, caseId, requests, card
   );
 
   return (
-    <div className={className + ' cases-card'} id={card_id} onClick={onClick}>
+    <div className={className + ' cases-card'} key={key} id={card_id} onClick={onClick}>
       {showAllInfo
         ? <>
           <div className="complete-card-container">
@@ -132,28 +132,35 @@ const CasesCard: FunctionComponent<Props> = ({ className, caseId, requests, card
               {fourthFieldText && <div className="complete-card-item"><span className="complete-span">{fourthFieldText}</span>{fourthField}</div>}
               {fifthFieldText && <div className="complete-card-item"><span className="complete-span">{fifthFieldText}</span>{fifthField}</div>}
               <Popover color="#111518" arrow={false} content={content} trigger='click' open={open} onOpenChange={handleOpenChange}>
-               {sixthFieldText && <div className="complete-card-item" onClick={e => {e.stopPropagation(); setInput(false); requestFiles()}}><span className="complete-span">{sixthFieldText}</span>{requestsList[0] ? requestsList.length : sixthField}</div>}
+               {sixthFieldText && <div className="complete-card-item files" ref={tourRef?.filesStep} onClick={e => {e.stopPropagation(); setInput(false); requestFiles()}}><span className="complete-span">{sixthFieldText}</span>{requestsList[0] ? requestsList.length : sixthField}</div>}
               </Popover>
               {seventhFieldText && <div className="complete-card-item"><span className="complete-span">{seventhFieldText}</span>{seventhField}</div>}
               {eighthFieldText && <div className="complete-card-item"><span className="complete-span">{eighthFieldText}</span>{eighthField}</div>}
+              {ninethField && <div className="complete-card-item"><span className="complete-span">{ninethFieldText}</span>{ninethField}</div>}
             </div>
-            <div className="requests-btns">
-              {CurrentCases && <StyledButton text="CHAT" onClick={(e) => { e.stopPropagation(); onChat?.() }} />}
+            <div className="requests-btns" ref={tourRef?.currentChatStep}>
+              {CurrentCases && 
+              <><StyledButton small text="CHAT" onClick={(e) => { e.stopPropagation(); onChat?.() }} />
+              <StyledButton small white text="FINISH CASE" onClick={(e) => { e.stopPropagation(); onFinish?.() }} />
+              <StyledButton small white text="LEAVE CASE" onClick={(e) => { e.stopPropagation(); onLeave?.() }} />
+              </>
+              }
               {(requests && lawyer) && <>
               <Spin spinning={spinning} indicator={<LoadingOutlined style={{color: '#fff'}}/>}>
                 <StyledButton luxury className="requests-btn" text="ACCEPT" onClick={(e) => { e.stopPropagation(); onAccept?.() }} />
               </Spin>
-              <StyledButton luxury className="requests-btn" text="DECLINE" onClick={(e) => { e.stopPropagation(); onRefuse?.() }} />
-              </>}
+              <StyledButton luxury className="requests-btn" text="DECLINE" onClick={(e) => { e.stopPropagation(); onRefuse?.() }} /></>
+              }
             </div>
           </div>
-          {ninethField && <div className="complete-card-desc"><span className="complete-span">{ninethFieldText}</span>{ninethField}</div>}
         </>
 
         : <><div className="cases-card-item"><span className="card-span">{firstFieldText}</span> {firstField}</div>
           <div className="cases-card-item"><span className="card-span">{secondFieldText}</span> {secondField}</div>
           <div className="cases-card-item"><span className="card-span">{thirdFieldText}</span> {thirdField}</div>
-          <div className="cases-card-item"><span className="card-span">{sixthFieldText}</span> {requestFiles.length}</div>
+          <Popover color="#111518" arrow={false} content={content} trigger='click' open={open} onOpenChange={handleOpenChange}>
+            <div className="cases-card-item" onClick={e => {e.stopPropagation(); setInput(false); requestFiles()}}><span className="card-span">{sixthFieldText}</span> {requestsList[0] ? requestsList.length : sixthField}</div>
+          </Popover>
           <div className="cases-card-item"><span className="card-span">{fifthFieldText}</span> {fifthField}</div>
           {extraField && <div className="cases-card-item">{extraField}</div>}</>
       }
@@ -165,8 +172,10 @@ export default CasesCard
 
 interface Props {
   className?: string;
+  tourRef?: Record<string, MutableRefObject<any>>;
   caseId?: string;
   card_id?: string;
+  key: string;
   firstField?: string | number;
   firstFieldText?: string | number;
   secondField?: string | number;
@@ -191,6 +200,8 @@ interface Props {
   requests?: boolean;
   onClick?: () => void;
   onChat?: () => void;
+  onFinish?: () => void;
+  onLeave?: () => void;
   onAccept?: () => void;
   onRefuse?: () => void;
 }

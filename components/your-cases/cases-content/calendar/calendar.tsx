@@ -1,18 +1,30 @@
-import { FunctionComponent, useEffect, useState } from "react";
+import { FunctionComponent, MutableRefObject, useEffect, useState } from "react";
 import dayjs from 'dayjs';
 
 import NumberCard from "./number-card";
 import { monthInfo } from "../../../../hooks/useCalendar/useDate/useDate";
 import { createCalendar } from "../../../../hooks/useCalendar/useCalendar";
+import { getNotes } from "../../../../services/calendar/get-dates";
+import { USER_ID } from "../../../../shared/constants/local";
+import calendarState from "../../../../state/calendar"
+import { useAppDispatch, useAppSelector } from "../../../../state";
+import { dateFormatter } from "../../../../hooks/get-formatted-date";
 dayjs().format()
 
-const Calendar: FunctionComponent<Props> = ({ className }) => {
+const Calendar: FunctionComponent<Props> = ({ className, tourRef }) => {
+  const {guideAvailable} = useAppSelector(state => state.guideState)
+  const {calendar_information} = useAppSelector(state => state.calendarState)
   const [days, setDays] = useState<{ totalDays: number, firstDay: number }>({ totalDays: dayjs().endOf('month').get('date'), firstDay: dayjs().startOf('month').get('day') })
   const [calendar, setCalendar] = useState<{ id: string, number: string }[]>(createCalendar(days.totalDays, days.firstDay))
   const [viewedMonth, setViewedMonth] = useState<number>(dayjs().get('month') + 1)
   const [viewedYear, setViewedYear] = useState<number>(dayjs().get('year'))
   const [backButton, setBackButton] = useState(false)
-  // const [selectedDate, setSelectedDate] = useState('')
+  const dispatch = useAppDispatch()
+  let own_id: string
+
+  if(typeof window !== 'undefined'){
+    own_id = window.localStorage.getItem(USER_ID)!
+  }
 
 
   const onClickNext = () => {
@@ -38,9 +50,52 @@ const Calendar: FunctionComponent<Props> = ({ className }) => {
     setViewedYear(dayjs().get('year'))
   }
 
-  // const onClickDay = (number: number) => {
-    
-  // }
+  const onGetNotes = () => {
+    let calendar_info = calendar_information
+
+    getNotes(own_id)
+      .then(res => {
+        if(!res.success) return 
+
+        const response = res.data
+        
+        for(let i = 0; i < res.data.length; ) {
+
+          if(calendar_info[response[i].date] === undefined) {
+            
+            const newDate = {[response[i].date]: {
+              notes: [{note: response[i].note}],
+              citations: []
+            }}
+
+            calendar_info = {...calendar_info, ...newDate}
+            i++
+            
+          } else if(Boolean(calendar_info[response[i].date])) {
+            
+            if(calendar_info[response[i].date].notes.indexOf({note: response[i].note}) < 0) {
+              
+              const newNote = {[response[i].date]: {
+                notes: [...calendar_info[response[i].date].notes, {note: response[i].note}],
+                citations: [...calendar_info[response[i].date].citations]
+              }}
+              
+              calendar_info = {...calendar_info, ...newNote}
+              i++
+              
+            } else {
+              i++
+            }
+          }
+        }
+        dispatch(calendarState.actions.setCalendarInfo(calendar_info))
+      }).catch(error => console.error(error))
+    return 
+  }
+
+  useEffect(() => {
+    !guideAvailable ? onGetNotes() : null
+  }, [])
 
   useEffect(() => {
     const res = monthInfo(viewedMonth, viewedYear)!
@@ -69,10 +124,10 @@ const Calendar: FunctionComponent<Props> = ({ className }) => {
         <div className="calendar-weekday">Fri</div>
         <div className="calendar-weekday">Sat</div>
       </div>
-      <div className="calendar-month">
+      <div className="calendar-month" ref={tourRef?.calendarStep}>
         {calendar.map(x => (
           <NumberCard className={(dayjs().format('YYYY-M-D') === `${viewedYear}-${viewedMonth}-${x.number}`) ? `today-font ${isOccupied ? 'occupied-soon' : 'today-back'}` : isOccupied ? `occupied-soon ${Number.isInteger(+x.id / 7) ? 'sun' : ''}` : Number.isInteger(+x.id / 7) ? 'sun' : ''}
-            key={x.id} number={x.number} />
+            key={x.id} number={x.number} today={`${viewedYear}-${dayjs(dateFormatter(viewedMonth)).format('MMM')}-${dateFormatter(x.number)}`} />
         ))}
       </div>
     </div>
@@ -83,4 +138,5 @@ export default Calendar
 
 interface Props {
   className?: string;
+  tourRef?: Record<string, MutableRefObject<any>>;
 }

@@ -64,6 +64,13 @@ export default styled(MainBody)`
     align-items: center;
   }
 
+  .body-create_account {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 3rem;
+  }
+
   @media (max-width: 420px) {
     .text {
       span {

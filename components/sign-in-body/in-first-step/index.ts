@@ -9,7 +9,6 @@ export default styled(InFirstStep)`
   height: 100vh;
   padding: 0 8rem 0 5rem;
   display: flex;
-  /* display: none; */
 
   ${props => props.sign && css`
     display: flex;
@@ -95,5 +94,36 @@ export default styled(InFirstStep)`
   .overshadowed {
     border-bottom: 2px solid #ffffff5c;
     opacity: .4;
+  }
+
+  @media (max-width: 500px) {
+    padding: 0rem 1rem;
+    gap: 1rem;
+    box-shadow: unset;
+
+    .back-image {
+      padding: 1rem 0rem 0rem;
+    }
+
+    .signin-form {
+      max-width: 37rem;
+      align-self: center;
+    }
+
+    .signin-body-container {
+      align-items: center;
+    }
+
+    .signin-btns {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      align-self: center;
+      gap: 1rem;
+    }
+  }
+
+  @media (max-width: 900px) {
+    box-shadow: unset;
   }
 `

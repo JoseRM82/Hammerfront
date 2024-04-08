@@ -12,6 +12,7 @@ export const initialState: State = {
   ownId: '',
   otherPersonId: '',
   chatIsOpen: false,
+  currentTourStep: 0,
   chatSelected: false,
   chatsList: [],
   messages: [],

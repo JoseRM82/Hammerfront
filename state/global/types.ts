@@ -12,6 +12,7 @@ export interface State {
   ownId: string;
   otherPersonId: string;
   chatIsOpen: boolean;
+  currentTourStep: number;
   chatSelected: boolean;
   chatsList: any[];
   messages: Messages[];

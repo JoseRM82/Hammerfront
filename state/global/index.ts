@@ -30,6 +30,10 @@ export default createSlice({
       state.chatIsOpen = action.payload
     },
 
+    setCurrentTourStep: (state, action: PayloadAction<number>) => {
+      state.currentTourStep = action.payload
+    },
+
     setChatSelected: (state, action: PayloadAction<boolean>) => {
       state.chatSelected = action.payload
     },

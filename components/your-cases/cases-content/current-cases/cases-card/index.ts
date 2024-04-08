@@ -4,15 +4,19 @@ import CasesCard from "./cases-card";
 import { LuxuryColors } from "../../../../../utils/styles";
 
 export default styled(CasesCard)`
+  .files {
+    cursor: pointer;
+  }
+
   &.cases-card {
     border-radius: 5px;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     background: ${LuxuryColors.darkCard};
+    cursor: pointer;
     padding: 5rem 1rem;
     gap: 2rem;
-    cursor: pointer;
     text-overflow: ellipsis;
     overflow: hidden;
     
@@ -20,13 +24,14 @@ export default styled(CasesCard)`
       grid-column: span 3;
       display: flex;
       flex-direction: column;
-      background: ${LuxuryColors.buttonHover};
-      align-items: center;
+      background: none;
+      align-items: flex-start;
       gap: 2rem;
       text-align: left;
-      padding: 6rem 3rem;
+      padding: 6rem 1rem;
       text-overflow: unset;
       overflow: unset;
+      cursor: initial;
     `}
   
     .cases-card-item {
@@ -53,29 +58,30 @@ export default styled(CasesCard)`
     }
   
     .complete-card {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 4rem;
+      display: flex;
+      flex-direction: column;
+      /* grid-template-columns: repeat(2, 1fr); */
+      gap: 2rem;
     }
   
     .complete-card-container {
       display: flex;
+      flex-direction: column;
       gap: 2rem;
+      cursor: initial;
     }
   
     .complete-card-item {
-      font-size: 2.2rem;
+      font-size: 1.5rem;
       color: ${LuxuryColors.selected};
-    }
-    
-    .complete-card-desc {
-      font-size: 2rem;
-      padding: 0rem 3rem 3rem 3rem;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      white-space: break-spaces;
     }
   
     .complete-span {
       color: ${LuxuryColors.lightFont};
-      font-size: 2.5rem;
+      font-size: 1.5rem;
       font-weight: 700;
     }
   
@@ -83,6 +89,7 @@ export default styled(CasesCard)`
       &-btns {
         display: flex;
         flex-direction: column;
+        align-items: flex-start;
         gap: 2rem;
       }
   
@@ -92,6 +99,9 @@ export default styled(CasesCard)`
     }
   }
   
+  .complete-card-desc {
+    cursor: initial;
+  }
 
   &.card-popover {
     cursor: pointer;

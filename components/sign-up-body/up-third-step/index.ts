@@ -7,7 +7,7 @@ export default styled(UpThirdStep)`
   display: flex;
   flex-direction: column;
 
-  .signup-body-container {
+  .signup-third-body-container {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -79,6 +79,57 @@ export default styled(UpThirdStep)`
     &-btns {
       display: flex;
       gap: 3rem;
+    }
+  }
+
+  @media (max-width: 600px) {
+    height: fit-content;
+    gap: 2rem;
+    padding: 2rem 0rem;
+
+    .back-image {
+      padding: 1rem 0rem 0rem;
+    }
+
+    .signup-third-form {
+      max-width: 37rem;
+      align-self: center;
+    }
+
+    .signup-third-container {
+      display: flex; 
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .signup-third-title {
+      font-size: 2.5rem;
+    }
+
+    .signup-third-body-container {
+      align-items: center;
+    }
+
+    .signup-third-btns {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      align-self: center;
+      gap: 1rem;
+    }
+  }
+
+  @media (max-width: 1200px) {
+    gap: 2rem;
+
+    .signup-third-container {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 900px) {
+    .signup-third-body-container {
+      gap: 8rem;
     }
   }
 `

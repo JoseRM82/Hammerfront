@@ -11,6 +11,7 @@ export default StyledButton
 interface Props {
   className?: string;
   text: string;
+  small?: boolean;
   active?: boolean;
   white?: boolean;
   luxury?: boolean;

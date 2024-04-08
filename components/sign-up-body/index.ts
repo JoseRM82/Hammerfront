@@ -14,4 +14,17 @@ export default styled(SignUpBody)`
   ${props => props.sign && css`
     display: flex;
   `}
+
+  @media (max-width: 1200px) {
+    justify-content: center;
+  }
+
+  @media (max-width: 900px) {
+    box-shadow: unset;
+  }
+
+  @media (max-width: 500px) {
+    padding: unset;
+    box-shadow: unset;
+  }
 `

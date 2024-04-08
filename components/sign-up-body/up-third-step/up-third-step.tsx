@@ -86,7 +86,7 @@ const UpThirdStep: FunctionComponent<Props> = ({ className, onBack, lawyer }) =>
   return (
     <div className={className}>
       <div className="back-image"><Image onClick={onClickBack} src={back} height={50} width={50} /></div>
-      <div className="signup-body-container">
+      <div className="signup-third-body-container">
         <h1 className="signup-third-title">Set your information</h1>
         <form className="signup-third-form" onSubmit={lawyer ? handleSubmit((body) => onSetLawyerInfo(body)) : handleSubmit((body) => onSetClientInfo(body))} id="third-form" >
           <div className="signup-third-container">

@@ -94,7 +94,7 @@ const UpSecondStep: FunctionComponent<Props> = ({ className, onNext, onBack, law
   return (
     <div className={className}>
       <div className="back-image"><Image onClick={onClickBack} src={back} height={50} width={50} /></div>
-      <div className="signup-body-container">
+      <div className="signup-second-body-container">
         <h1 className="signup-second-title">Set your password</h1>
         {alert && <div className="signup-error">Passwords are different</div>}
         <form className="signup-second-form" id="second-form">

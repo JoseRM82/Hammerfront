@@ -93,4 +93,27 @@ export default styled(UpFirstStep)`
   .overshadowed {
     opacity: .4;
   }
+
+  @media (max-width: 500px) {
+    .back-image {
+      padding: 1rem 0rem 0rem;
+    }
+
+    .signup-form {
+      max-width: 37rem;
+      align-self: center;
+    }
+
+    .signup-body-container {
+      align-items: center;
+    }
+
+    .signup-btns {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      align-self: center;
+      gap: 1rem;
+    }
+  }
 `

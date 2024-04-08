@@ -35,7 +35,7 @@ export default styled(Header)`
     max-height: 8rem;
   }
 
-  .page-name {
+  .page-desk-name {
     font-size: 3rem;
     color: #ffffff;
     font-weight: 800;
@@ -166,6 +166,14 @@ export default styled(Header)`
     .signed-mobile-user,
     .signed-mobile-user-image {
       display: unset;
+    }
+
+    .page-mobile-name {
+      font-size: 2rem;
+      color: ${LuxuryColors.selected};
+      font-weight: 800;
+      letter-spacing: .5rem;
+      cursor: pointer;
     }
 
     &.header-mobile-popover {

@@ -14,6 +14,11 @@ export default styled(StyledButton)`
   white-space: nowrap;
   border-radius: 3px;
 
+  ${props => props.small && css`
+    padding: 1.2rem 3rem;
+    font-size: 1.5rem;
+  `}
+
   ${props => props.white && css`
     background: ${LuxuryColors.button};
     color: ${LuxuryColors.darkFont};

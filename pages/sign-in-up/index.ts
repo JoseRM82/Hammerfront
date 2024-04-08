@@ -29,4 +29,38 @@ export default styled(SignIn)`
   .signin-background {
     background: ${LuxuryColors.darkButton};
   }
-`
+  
+  @media (max-width: 1200px) {
+    justify-content: center;
+
+    .signin-background {
+      width: 80%;
+    }
+
+    .signin-glass {
+      display: none;
+    }
+  }
+  
+  @media (max-width: 1000px) {
+    .signin-background {
+      width: 100%;
+    }
+  }
+
+  @media (max-width: 800px) {
+    justify-content: center;
+   
+    .signin-glass {
+      display: none;
+    }
+  }
+
+  @media (max-width: 500px) {
+    background-image: unset;
+
+    .signin-background {
+      width: -webkit-fill-available;
+    }
+  }
+  `

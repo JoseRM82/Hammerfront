@@ -12,7 +12,7 @@ const StyledLabelText: FunctionComponent<Props> = ({ className, text, value, req
       {text && <span className="styled-span">{text}</span>}
       {description
         ? <textarea className='styled-textarea' {...handleInput ? { ...handleInput.register(name) } : ''} placeholder={placeHolder} name={name} onChange={onChange} value={value} rows={3} />
-        : <input className="styled-input" {...handleInput ? { ...handleInput.register(name) } : ''} placeholder={placeHolder} type={type} autoFocus={autof} autoComplete={autoComplete} value={value} name={name} onChange={onChange} required={req} inputMode={inputMode} />
+        : <input className={pass ? "styled-pass-input" : "styled-input"} {...handleInput ? { ...handleInput.register(name) } : ''} placeholder={placeHolder} type={type} autoFocus={autof} autoComplete={autoComplete} value={value} name={name} onChange={onChange} required={req} inputMode={inputMode} />
       }
       {pass && <div className="label-pass" onClick={onClickPassImg}><Image src={pass} height={25} width={25} ></Image></div>}
     </label>
