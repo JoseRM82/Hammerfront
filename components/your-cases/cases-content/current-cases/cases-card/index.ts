@@ -98,13 +98,25 @@ export default styled(CasesCard)`
       }
     }
   }
+
+  .card-form {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+  }
+
+  .send-file-request {
+    font-size: 1.8rem;
+    color: ${LuxuryColors.selected};
+    cursor: pointer;
+  }
   
   .complete-card-desc {
     cursor: initial;
   }
 
   &.card-popover {
-    cursor: pointer;
+    /* cursor: pointer; */
     color: blue;
     display: flex;
     flex-direction: column;
@@ -114,6 +126,7 @@ export default styled(CasesCard)`
     .card-popover-element {
       justify-self: center;
       color: ${LuxuryColors.lightFont};
+      cursor: pointer;
     }
   }
 

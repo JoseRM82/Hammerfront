@@ -2,6 +2,7 @@ import { FunctionComponent, MutableRefObject, useEffect, useState } from "react"
 import { Popover, Spin } from "antd";
 import { v4 as uuidv4 } from 'uuid';
 import { LoadingOutlined } from "@ant-design/icons";
+import Image from "next/image";
 
 import { useAppDispatch, useAppSelector } from "../../../../../state";
 import StyledButton from "../../../../styled-button";
@@ -11,6 +12,7 @@ import caseState from "../../../../../state/case";
 import registerFile from "../../../../../services/case/send-file-request";
 import getRequestedFiles from "../../../../../services/case/get-requested-files";
 import { isAnElementInArray } from "../../../../../shared/functions/array-functions";
+import arrow from "../../../../header/darrow.svg"
 
 const CasesCard: FunctionComponent<Props> = ({ className, tourRef, caseId, onFinish, requests, card_id, CurrentCases, firstField, secondField, thirdField, fourthField, fifthField, sixthField, seventhField, eighthField, ninethField, extraField, firstFieldText, secondFieldText, thirdFieldText, fourthFieldText, fifthFieldText, sixthFieldText, seventhFieldText, eighthFieldText, ninethFieldText, showAllInfo, onClick, onAccept, onRefuse, onChat }) => {
   const { lawyer } = useAppSelector(state => state.globalState);
@@ -44,10 +46,9 @@ const CasesCard: FunctionComponent<Props> = ({ className, tourRef, caseId, onFin
         .then(res => {
           if(!res.success) {
             setRequestsList(requestsList.splice(requestsList.indexOf(name), 1))
-            
           }
-        }
-      )
+          dispatch(caseState.actions.setFileName(''))
+        })
     }
   }
 
@@ -113,8 +114,8 @@ const CasesCard: FunctionComponent<Props> = ({ className, tourRef, caseId, onFin
       }
       {(input && lawyer) && 
       <form className="card-form" onSubmit={e => e.preventDefault()}>
-        <StyledLabelText value={file_name} onChange={e => dispatch(caseState.actions.setFileName(e.target.value))} name="file" text='' autof type='text' />
-        <StyledButton luxury text="send" onClick={() => sendFileRequest(file_name, caseId!)} />
+        <StyledLabelText value={file_name} small onChange={e => dispatch(caseState.actions.setFileName(e.target.value))} name="file" text='' autof type='text' />
+        <div className="send-file-request" onClick={() => sendFileRequest(file_name, caseId!)}>send</div>
       </form>}
       {lawyer && <div className="card-popover-element" onClick={input ? () => setInput(false) : () => setInput(true)}>+Add a file request</div>}
     </div>
@@ -131,8 +132,8 @@ const CasesCard: FunctionComponent<Props> = ({ className, tourRef, caseId, onFin
               {thirdFieldText && <div className="complete-card-item"><span className="complete-span">{thirdFieldText}</span>{thirdField}</div>}
               {fourthFieldText && <div className="complete-card-item"><span className="complete-span">{fourthFieldText}</span>{fourthField}</div>}
               {fifthFieldText && <div className="complete-card-item"><span className="complete-span">{fifthFieldText}</span>{fifthField}</div>}
-              <Popover color="#111518" arrow={false} content={content} trigger='click' open={open} onOpenChange={handleOpenChange}>
-               {sixthFieldText && <div className="complete-card-item files" ref={tourRef?.filesStep} onClick={e => {e.stopPropagation(); setInput(false); requestFiles()}}><span className="complete-span">{sixthFieldText}</span>{requestsList[0] ? requestsList.length : sixthField}</div>}
+              <Popover color="#24343f" arrow={false} content={content} placement="bottomLeft" trigger='click' open={open} onOpenChange={handleOpenChange}>
+               {sixthFieldText && <div className="complete-card-item files" ref={tourRef?.filesStep} onClick={e => {e.stopPropagation(); setInput(false); requestFiles()}}><span className="complete-span">{sixthFieldText}</span>{requestsList[0] ? requestsList.length : sixthField} {CurrentCases && <Image src={arrow} height={15} width={15} />}</div>}
               </Popover>
               {seventhFieldText && <div className="complete-card-item"><span className="complete-span">{seventhFieldText}</span>{seventhField}</div>}
               {eighthFieldText && <div className="complete-card-item"><span className="complete-span">{eighthFieldText}</span>{eighthField}</div>}

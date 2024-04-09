@@ -127,6 +127,13 @@ const Chat: FunctionComponent<Props> = ({ className }) => {
     return
   }, [content])
 
+  const getLastMessageReceived = (chat: Record<string, any>) => {
+    let lastMessage = ''
+
+    chat.messages[chat.messages.length - 1].user_id === userId ? lastMessage = `You: ${chat.messages[chat.messages.length - 1].content}` : lastMessage = chat.messages[chat.messages.length - 1].content
+  
+    return lastMessage
+  }
 
   useEffect (() => {
     connectSocket().on('sentMessage', (messageSent: Record<string, any>) => {
@@ -176,7 +183,7 @@ const Chat: FunctionComponent<Props> = ({ className }) => {
         </div>
         : <div className="chats-body">
           {chatsList.map(chat =>
-            <ChatsList key={uuidv4()} name={client ? chat.lawyer_name : chat.client_name} onSelectChat={() => onSelectChat(chat._id, client ? chat.lawyer_id : chat.client_id, client ? chat.lawyer_name : chat.client_name)} last_message={chat.messages[chat.messages.length - 1].content} messages_counter={chat.messages_counter} />
+            <ChatsList key={uuidv4()} name={client ? chat.lawyer_name : chat.client_name} onSelectChat={() => onSelectChat(chat._id, client ? chat.lawyer_id : chat.client_id, client ? chat.lawyer_name : chat.client_name)} last_message={getLastMessageReceived(chat)} messages_counter={chat.messages_counter} />
           )}
         </div>
       }

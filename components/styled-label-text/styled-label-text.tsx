@@ -23,6 +23,7 @@ export default StyledLabelText
 
 interface Props {
   className?: string;
+  small?: boolean;
   name?: string;
   placeHolder?: string;
   autoComplete?: string;

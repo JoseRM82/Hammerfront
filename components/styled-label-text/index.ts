@@ -11,6 +11,19 @@ export default styled(StyledLabelText)`
   border-radius: 4px;
   padding: 1.3rem;
 
+  ${props => props.small && css`
+    padding: .5rem;
+    border: 2px solid ${LuxuryColors.alternativeFont}5c;
+
+    :focus-within {
+    border: 3px solid ${LuxuryColors.selected};
+
+    .styled-input {
+        color: ${LuxuryColors.selected};
+    }
+  }
+  `}
+
   ${props => props.image && css`
     flex-direction: row;
   `}
@@ -56,6 +69,10 @@ export default styled(StyledLabelText)`
       color: ${LuxuryColors.alternativeFont};
       fill: none;
       border-radius: 5px;
+
+      ${props => props.small && css`
+        font-size: 1.5rem;
+      `}
       
       :focus {
         fill: none;

@@ -83,7 +83,7 @@ const NumberCard: FunctionComponent<Props> = ({ className, number, today }) => {
             }
             {input && 
                 <form className="note-form" onSubmit={e => e.preventDefault()}>
-                    <StyledLabelText value={value} onChange={e => setValue(e.target.value)} name='note' text='' autof type='text' />
+                    <StyledLabelText small value={value} onChange={e => setValue(e.target.value)} name='note' text='' autof type='text' />
                     <div className="note-send" onClick={() => setNote(value, today)}>send</div>
                 </form>
             }

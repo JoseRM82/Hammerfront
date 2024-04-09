@@ -38,28 +38,33 @@ export default styled(NumberCard)`
     .notes-container {
         display: flex;
         justify-content: space-between;
+        align-items: center;
         width: -webkit-fill-available;
-        padding: 0rem 2rem;
+        padding: 0rem 2rem 2rem;
+        border-bottom: 1px solid ${LuxuryColors.selected}47;
     }
 
     .note {
         color: ${LuxuryColors.selected};
-        font-size: 1.5rem;
+        font-size: 2rem;
     }
 
     .delete {
         color: ${LuxuryColors.selected};
-        font-size: 1.5rem;
+        font-size: 2rem;
         cursor: pointer;
     }
 
     .note-form {
         display: flex;
         justify-content: space-between;
+        align-items: center;
         gap: 2rem;
+        padding: 1rem 0rem 0rem 0rem;
     }
 
     .note-send {
         cursor: pointer;
+        font-size: 2rem;
     }
 `

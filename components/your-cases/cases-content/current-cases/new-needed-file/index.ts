@@ -23,6 +23,7 @@ export default styled(NewNeededFile)`
     align-self: center;
     font-size: 2rem;
     font-weight: 500;
+    cursor: pointer;
   }
 
   .file-input {
