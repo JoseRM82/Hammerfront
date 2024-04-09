@@ -39,12 +39,19 @@ export default styled(CasesCard)`
       text-align: left;
       text-overflow: ellipsis;
       overflow: hidden;
-      font-size: 2rem;
+      font-size: 1.5rem;
       max-width: 90%;
       font-weight: 600;
-      padding: 0.2rem 0 0.2rem 1rem;
+      padding: .2rem 0rem .2rem 1rem;
       text-overflow: ellipsis;
       overflow: hidden;
+
+      &-name {
+        font-size: 2rem;
+        width: -webkit-fill-available;
+        padding: 0rem 0rem 1.5rem 1rem;
+        border-bottom: 1px solid ${LuxuryColors.selected}47;
+      }
 
       ${props => props.showAllInfo && css`
         text-overflow: unset;

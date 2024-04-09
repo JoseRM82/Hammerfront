@@ -155,14 +155,15 @@ const CasesCard: FunctionComponent<Props> = ({ className, tourRef, caseId, onFin
           </div>
         </>
 
-        : <><div className="cases-card-item"><span className="card-span">{firstFieldText}</span> {firstField}</div>
-          <div className="cases-card-item"><span className="card-span">{secondFieldText}</span> {secondField}</div>
+        : 
+        <>
+          <div className="cases-card-item-name"><span className="card-span">{secondFieldText}</span> {secondField}</div>
+          <div className="cases-card-item"><span className="card-span">{firstFieldText}</span> {firstField}</div>
           <div className="cases-card-item"><span className="card-span">{thirdFieldText}</span> {thirdField}</div>
-          <Popover color="#111518" arrow={false} content={content} trigger='click' open={open} onOpenChange={handleOpenChange}>
-            <div className="cases-card-item" onClick={e => {e.stopPropagation(); setInput(false); requestFiles()}}><span className="card-span">{sixthFieldText}</span> {requestsList[0] ? requestsList.length : sixthField}</div>
-          </Popover>
+          <div className="cases-card-item"><span className="card-span">{sixthFieldText}</span> {requestsList[0] ? requestsList.length : sixthField}</div>
           <div className="cases-card-item"><span className="card-span">{fifthFieldText}</span> {fifthField}</div>
-          {extraField && <div className="cases-card-item">{extraField}</div>}</>
+          {extraField && <div className="cases-card-item">{extraField}</div>}
+        </>
       }
     </div>
   )
