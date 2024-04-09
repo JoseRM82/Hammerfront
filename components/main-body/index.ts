@@ -71,7 +71,17 @@ export default styled(MainBody)`
     gap: 3rem;
   }
 
-  @media (max-width: 420px) {
+  @media (max-width: 520px) {
+    .text {
+      h1 {
+        font-size: 2.5rem;
+      }
+    }
+
+    .body-create_account {
+      flex-direction: column;
+    }
+
     .text {
       span {
         display: none;

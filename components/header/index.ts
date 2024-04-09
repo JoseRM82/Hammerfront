@@ -168,6 +168,10 @@ export default styled(Header)`
       display: unset;
     }
 
+    .signs {
+      width: max-content;
+    }
+
     .page-mobile-name {
       font-size: 2rem;
       color: ${LuxuryColors.selected};
@@ -243,8 +247,8 @@ export default styled(Header)`
     }
 
     .main-header {
-      flex-direction: column;
-      justify-content: space-between;
+      /* flex-direction: column; */
+      /* justify-content: space-between; */
     }
 
     .top-mobile-header {
