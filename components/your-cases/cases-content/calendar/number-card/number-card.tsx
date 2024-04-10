@@ -1,4 +1,5 @@
 import { FunctionComponent, useState } from "react";
+import Image from "next/image";
 import { v4 as uuidv4 } from "uuid";
 import { Popover } from "antd";
 
@@ -9,8 +10,10 @@ import StyledButton from "../../../../styled-button";
 import { USER_ID } from "../../../../../shared/constants/local";
 import postNote from "../../../../../services/calendar/post-note";
 import deleteNote from "../../../../../services/calendar/delete-note";
+import dnew from "../../../../../shared/utils/dnew.svg"
+import lnew from "../../../../../shared/utils/lnew.svg"
 
-const NumberCard: FunctionComponent<Props> = ({ className, number, today }) => {
+const NumberCard: FunctionComponent<Props> = ({ className, number, today, isToday }) => {
     const {calendar_information} = useAppSelector(state => state.calendarState)
     const [input, setInput] = useState<boolean>(false)
     const [open, setOpen] = useState<boolean>(false)
@@ -39,13 +42,17 @@ const NumberCard: FunctionComponent<Props> = ({ className, number, today }) => {
                       notes: [{note: value}],
                       citations: []
                     }}
-                    return dispatch(calendarState.actions.setCalendarInfo({...calendar_information, ...newDate}))
-                  } else if(Boolean(calendar_information[today])) {
+                    setValue('')
+                    dispatch(calendarState.actions.setCalendarInfo({...calendar_information, ...newDate}))
+                    return 
+                } else if(Boolean(calendar_information[today])) {
                     const newNote = {[today]: {
                       notes: [...calendar_information[today].notes, {note: value}],
                       citations: [...calendar_information[today].citations]
                     }}
-                    return dispatch(calendarState.actions.setCalendarInfo({...calendar_information, ...newNote}))
+                    setValue('')
+                    dispatch(calendarState.actions.setCalendarInfo({...calendar_information, ...newNote}))
+                    return 
                   }
             })
     }
@@ -77,7 +84,7 @@ const NumberCard: FunctionComponent<Props> = ({ className, number, today }) => {
             calendar_information[today].notes.map(note => (
                 <div className="notes-container" key={uuidv4()}>
                     <div className="note">{note.note}</div>
-                    <div className="delete" onClick={() => removeNote(note.note)}>x</div>
+                    <div className="delete" onClick={() => removeNote(note.note)}>(x)</div>
                 </div>
             ))
             }
@@ -97,6 +104,7 @@ const NumberCard: FunctionComponent<Props> = ({ className, number, today }) => {
         <Popover color="#24343f" trigger='click' open={open} onOpenChange={handleOpenChange} content={content}>
             <div className={className}>
                 {number}
+                {calendar_information[today] && <Image src={isToday ? lnew : dnew} />}
             </div>
         </Popover>
         :
@@ -110,4 +118,5 @@ interface Props {
     className?: string;
     number?: string;
     today: string;
+    isToday: boolean;
 }

@@ -14,7 +14,7 @@ import getRequestedFiles from "../../../../../services/case/get-requested-files"
 import { isAnElementInArray } from "../../../../../shared/functions/array-functions";
 import arrow from "../../../../header/darrow.svg"
 
-const CasesCard: FunctionComponent<Props> = ({ className, tourRef, caseId, onFinish, requests, card_id, CurrentCases, firstField, secondField, thirdField, fourthField, fifthField, sixthField, seventhField, eighthField, ninethField, extraField, firstFieldText, secondFieldText, thirdFieldText, fourthFieldText, fifthFieldText, sixthFieldText, seventhFieldText, eighthFieldText, ninethFieldText, showAllInfo, onClick, onAccept, onRefuse, onChat }) => {
+const CasesCard: FunctionComponent<Props> = ({ className, tourRef, caseId, onFinish, onFindALawyer, requests, isRequest, card_id, CurrentCases, firstField, secondField, thirdField, fourthField, fifthField, sixthField, seventhField, eighthField, ninethField, extraField, firstFieldText, secondFieldText, thirdFieldText, fourthFieldText, fifthFieldText, sixthFieldText, seventhFieldText, eighthFieldText, ninethFieldText, showAllInfo, onClick, onAccept, onRefuse, onChat }) => {
   const { lawyer } = useAppSelector(state => state.globalState);
   const { file_name, file_sent, file_deleted, file_url } = useAppSelector(state => state.caseState)
   const dispatch = useAppDispatch()
@@ -140,11 +140,10 @@ const CasesCard: FunctionComponent<Props> = ({ className, tourRef, caseId, onFin
               {ninethField && <div className="complete-card-item"><span className="complete-span">{ninethFieldText}</span>{ninethField}</div>}
             </div>
             <div className="requests-btns" ref={tourRef?.currentChatStep}>
-              {CurrentCases && 
-              <><StyledButton small text="CHAT" onClick={(e) => { e.stopPropagation(); onChat?.() }} />
-              <StyledButton small white text="FINISH CASE" onClick={(e) => { e.stopPropagation(); onFinish?.() }} />
-              </>
-              }
+              {(CurrentCases && isRequest === 'in_progress') && <StyledButton small text="CHAT" onClick={(e) => { e.stopPropagation(); onChat?.() }} />}
+              {(CurrentCases && isRequest === 'in_progress') && <StyledButton small white text="FINISH CASE" onClick={(e) => { e.stopPropagation(); onFinish?.() }} />}
+              {(CurrentCases && isRequest === 'on_hold') && <StyledButton small white text="FIND A LAWYER" onClick={(e) => { e.stopPropagation(); onFindALawyer?.() }} />}
+              
               {(requests && lawyer) && <>
               <Spin spinning={spinning} indicator={<LoadingOutlined style={{color: '#fff'}}/>}>
                 <StyledButton luxury className="requests-btn" text="ACCEPT" onClick={(e) => { e.stopPropagation(); onAccept?.() }} />
@@ -176,6 +175,7 @@ interface Props {
   tourRef?: Record<string, MutableRefObject<any>>;
   caseId?: string;
   card_id?: string;
+  isRequest?: string;
   firstField?: string | number;
   firstFieldText?: string | number;
   secondField?: string | number;
@@ -201,6 +201,7 @@ interface Props {
   onClick?: () => void;
   onChat?: () => void;
   onFinish?: () => void;
+  onFindALawyer?: () => void;
   onAccept?: () => void;
   onRefuse?: () => void;
 }

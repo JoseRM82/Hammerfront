@@ -6,6 +6,9 @@ import { Colors, BlueColors, LuxuryColors } from "../../../../../utils/styles";
 export default styled(NumberCard)`
     background: ${LuxuryColors.darkCard};
     color: ${LuxuryColors.lightFont};
+    display: flex;
+    justify-content: center;
+    gap: .5rem;
     padding: 2.5rem 0;
     border-radius: 3px;
     font-size: 2.5rem;
@@ -37,10 +40,11 @@ export default styled(NumberCard)`
 
     .notes-container {
         display: flex;
-        justify-content: space-between;
+        justify-content: center;
         align-items: center;
+        gap: 2rem;
         width: -webkit-fill-available;
-        padding: 0rem 2rem 2rem;
+        padding: 0rem 2rem 1rem;
         border-bottom: 1px solid ${LuxuryColors.selected}47;
     }
 

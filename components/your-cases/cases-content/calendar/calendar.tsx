@@ -51,7 +51,7 @@ const Calendar: FunctionComponent<Props> = ({ className, tourRef }) => {
   }
 
   const onGetNotes = () => {
-    let calendar_info = JSON.parse(JSON.stringify(calendar_information))
+    let calendar_info = JSON.parse(JSON.stringify(calendar_information)) as (typeof calendar_information);
 
     getNotes(own_id)
       .then(res => {
@@ -73,7 +73,7 @@ const Calendar: FunctionComponent<Props> = ({ className, tourRef }) => {
             
           } else if(calendar_info[response[i].date]) {
             
-            if(calendar_info[response[i].date].notes.indexOf({note: response[i].note}) < 0) {
+            if(!calendar_info[response[i].date].notes.some(x => x.note === response[i].note)) {
               
               const newNote = {[response[i].date]: {
                 notes: [...calendar_info[response[i].date].notes, {note: response[i].note}],
@@ -105,8 +105,6 @@ const Calendar: FunctionComponent<Props> = ({ className, tourRef }) => {
     setBackButton(!isThisMonth)
   }, [viewedMonth])
 
-  const isOccupied = false
-
   return (
     <div className={className}> 
       <div className="calendar-date">
@@ -126,8 +124,9 @@ const Calendar: FunctionComponent<Props> = ({ className, tourRef }) => {
       </div>
       <div className="calendar-month" ref={tourRef?.calendarStep}>
         {calendar.map(x => (
-          <NumberCard className={(dayjs().format('YYYY-M-D') === `${viewedYear}-${viewedMonth}-${x.number}`) ? `today-font ${isOccupied ? 'occupied-soon' : 'today-back'}` : isOccupied ? `occupied-soon ${Number.isInteger(+x.id / 7) ? 'sun' : ''}` : Number.isInteger(+x.id / 7) ? 'sun' : ''}
-            key={x.id} number={x.number} today={`${viewedYear}-${dayjs(dateFormatter(viewedMonth)).format('MMM')}-${dateFormatter(x.number)}`} />
+          <NumberCard className={dayjs().format('YYYY-M-D') === (`${viewedYear}-${viewedMonth}-${x.number}`) ? 'today ' : '' + (Number.isInteger(+x.id / 7) ? 'sun' : '')}
+            key={x.id} number={x.number} today={`${viewedYear}-${dayjs(dateFormatter(viewedMonth)).format('MMM')}-${dateFormatter(x.number)}`} 
+            isToday={dayjs().format('YYYY-M-D') === `${viewedYear}-${viewedMonth}-${x.number}`}/>
         ))}
       </div>
     </div>

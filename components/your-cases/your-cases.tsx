@@ -25,16 +25,10 @@ const YourCases: FunctionComponent<Props> = ({ className, tourRef }) => {
         <div className={`case_option-mobile-item ${guideRequestsOpen ? 'clicked-mobile-item' : ''}`} onClick={() => setOptionToggled('Requests')}>Requests</div>
         <div className={`case_option-mobile-item ${guidePastOpen ? 'clicked-mobile-item' : ''}`} onClick={() => setOptionToggled('Past Cases')}>Record</div>
         
-        <div className={`case_option-list ${listToggled === 'Current Cases' ? 'clicked-list' : ''}`} onClick={() => {listToggled === 'Current Cases' ? setListToggled('') : setListToggled('Current Cases')}}>Current cases</div>
-        <div className={`case-options ${listToggled === 'Current Cases' ? '' : 'hide-list'}`}>
-          <div className={`case_option-item ${guideCurrentOpen ? 'clicked-item' : ''} ${listToggled === 'Current Cases' ? '' : 'hide'}`} onClick={() => setOptionToggled('Current Cases')}>Current</div>
-          <div className={`case_option-item ${guideCalendarOpen ? 'clicked-item' : ''} ${listToggled === 'Current Cases' ? '' : 'hide'}`} onClick={() => setOptionToggled('Calendar')}>Calendar</div>
-          <div className={`case_option-item ${guideRequestsOpen ? 'clicked-item' : ''} ${listToggled === 'Current Cases' ? '' : 'hide'}`} onClick={() => setOptionToggled('Requests')}>Requests</div>
-        </div>
-        <div className={`case_option-list ${listToggled === 'Past Cases' ? 'clicked-list' : ''}`} onClick={() => {listToggled === 'Past Cases' ? setListToggled('') : setListToggled('Past Cases')}}>Past cases</div>
-        <div className={`case-options ${listToggled === 'Past Cases' ? '' : 'hide-list'}`}>
-          <div className={`case_option-item ${guidePastOpen ? 'clicked-item' : ''} ${listToggled === 'Past Cases' ? '' : 'hide'}`} onClick={() => setOptionToggled('Past Cases')}>Record</div>
-        </div>
+        <div className={`case_option-item ${guideCurrentOpen ? 'clicked-item' : ''} ${listToggled === 'Current Cases' ? '' : 'hide'}`} onClick={() => setOptionToggled('Current Cases')}>Current</div>
+        <div className={`case_option-item ${guideCalendarOpen ? 'clicked-item' : ''} ${listToggled === 'Current Cases' ? '' : 'hide'}`} onClick={() => setOptionToggled('Calendar')}>Calendar</div>
+        <div className={`case_option-item ${guideRequestsOpen ? 'clicked-item' : ''} ${listToggled === 'Current Cases' ? '' : 'hide'}`} onClick={() => setOptionToggled('Requests')}>Requests</div>
+        <div className={`case_option-item ${guidePastOpen ? 'clicked-item' : ''} ${listToggled === 'Past Cases' ? '' : 'hide'}`} onClick={() => setOptionToggled('Past Cases')}>Record</div>
       </div>
       <CasesContent optionToggled={optionToggled} tourRef={tourRef} />
     </div>

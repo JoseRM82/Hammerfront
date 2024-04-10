@@ -76,12 +76,12 @@ export default styled(Calendar)`
     background: #3b7032;
   }
 
-  .today-back {
+  .today {
     background: ${LuxuryColors.button};
+    color: ${LuxuryColors.darkFont};
+    font-weight: 700;
   }
   
   .today-font {
-    color: ${LuxuryColors.darkFont};
-    font-weight: 700;
   }
 `

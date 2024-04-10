@@ -34,7 +34,6 @@ const ProfesionalsList: FunctionComponent<Props> = ({ className, loading }) => {
         window.alert('Request sent successfully!')
         return
       }).catch(e => {console.error(e); setIsWaiting(false); window.alert('Something went wrong, please try again later')})
-    router.push('/cases')
   }
 
   useEffect(() => {
