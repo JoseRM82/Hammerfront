@@ -13,9 +13,9 @@ const CasesContent: FunctionComponent<Props> = ({ className, optionToggled, tour
             <div className="cases-title">{`Your Cases `}{optionToggled && <div className="cases-title">{' > '}{optionToggled}</div>}</div>
             <div className="cases-content">
                 {(guideCurrentOpen) && <CurrentCases tourRef={tourRef}/>}
-                {(guideCalendarOpen) && <Calendar tourRef={tourRef}/>}
-                {(guideRequestsOpen) && <Requests tourRef={tourRef}/>}
-                {(guidePastOpen) && <PastCases tourRef={tourRef}/>}
+                {(guideCalendarOpen) && <Calendar />}
+                {(guideRequestsOpen) && <Requests />}
+                {(guidePastOpen) && <PastCases />}
             </div>
         </div>
     )

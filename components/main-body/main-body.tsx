@@ -17,6 +17,7 @@ import setName from "../../state/user/actions/set-name";
 import setToken from "../../state/user/actions/set-token";
 import { Spin } from "antd";
 import { LoadingOutlined } from "@ant-design/icons";
+import { GUIDE, USER_ID } from "../../shared/constants/local";
 
 const MainBody: FunctionComponent<Props> = ({ className }) => {
   const {client, lawyer} = useAppSelector(state => state.globalState)
@@ -36,6 +37,7 @@ const MainBody: FunctionComponent<Props> = ({ className }) => {
         dispatch(guideState.actions.setGuideAvailable(true))
         dispatch(globalState.actions.setClientActive(false))
         dispatch(globalState.actions.setLawyerActive(true))
+        localStorage.setItem(GUIDE, 'enabled')
         dispatch(setUserToken(UserType.Lawyer))
         dispatch(setId(res.data!._id))
         dispatch(setName({name: 'Lawyer', last_name: 'Tester'}))

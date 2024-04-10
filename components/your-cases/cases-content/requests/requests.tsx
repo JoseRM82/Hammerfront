@@ -10,7 +10,7 @@ import getRequests from "../../../../services/case/get-requests";
 // import { initialCases, Cases as CompletedCases } from "../current-cases/current-cases";
 import { LuxuryColors } from "../../../../utils/styles";
 
-const Requests: FunctionComponent<Props> = ({ className, tourRef }) => {
+const Requests: FunctionComponent<Props> = ({ className }) => {
   const [cases, setCases] = useState<Cases[]>([])
   const [selectedCase, setSelectedCase] = useState<Cases>(initialRequest)
   const [open, setOpen] = useState<boolean>(false)
@@ -51,7 +51,7 @@ const Requests: FunctionComponent<Props> = ({ className, tourRef }) => {
         {
           cases.length > 0
             ? 
-            <div className="requests-list" ref={tourRef?.requestsStep}>
+            <div className="requests-list">
               {cases.map(x => (
                 <RequestsCard key={x._id} requests onClick={() => {setSelectedCase(x); toggleDrawer()}} firstFieldText='Request Date: ' firstField={`${new Date(x.sent_date).getFullYear()}-${new Date(x.sent_date).getMonth()}-${new Date(x.sent_date).getDate()}`} secondFieldText='Name: ' secondField={client ? x.lawyer_name : (lawyer ? x.client_name : '')} thirdFieldText='Language: ' thirdField={x.case_languages} fourthField={x.case_location} fifthFieldText='Case Type: ' fifthField={x.case_type} seventhFieldText='Description: ' seventhField={x.case_description} />
               ))}
@@ -72,7 +72,6 @@ export default Requests
 
 interface Props {
   className?: string;
-  tourRef?: Record<string, MutableRefObject<any>>;
 }
 
 interface Cases {

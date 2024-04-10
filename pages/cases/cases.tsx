@@ -77,6 +77,7 @@ const Cases: FunctionComponent<Props> = ({ className }) => {
       title: 'Your account',
       description: 'Here you can log out.',
       target: () => selectedStep.accountStep.current,
+      placement: 'bottomLeft',
       prevButtonProps: {
         onClick: () => {dispatch(globalState.actions.setCurrentTourStep(4))}
       },
@@ -88,6 +89,7 @@ const Cases: FunctionComponent<Props> = ({ className }) => {
       title: 'Cases Tab',
       description: 'This is the options list to choose between your requests, ongoing cases, past cases or calendar.',
       target: () => selectedStep.tabsStep.current,
+      placement: 'right',
       prevButtonProps: {
         onClick: () => {dispatch(globalState.actions.setCurrentTourStep(5))}
       },
@@ -108,8 +110,9 @@ const Cases: FunctionComponent<Props> = ({ className }) => {
     },
     {
       title: 'Cases Buttons',
-      description: 'These buttons allows you to chat whith your Lawyer/Client or to finish the current case.',
+      description: 'These buttons allows you to chat whith your Lawyer/Client or to finish the current case. As a CLient if you do not have a Lawyer for your case, a button to find one will be displayed.',
       target: () => selectedStep.currentChatStep.current,
+      placement: 'left',
       prevButtonProps: {
         onClick: () => {dispatch(globalState.actions.setCurrentTourStep(7)); dispatch(guideState.actions.setGuideCaseOpen(false))}
       },
@@ -154,7 +157,7 @@ const Cases: FunctionComponent<Props> = ({ className }) => {
     },
     {
       title: 'Requests',
-      description: 'Your requests will be shown here. As a Lawyer you will be able to accept or reject a case displaying the information by clicking on a card.',
+      description: 'Your requests will be shown here. You will be able to accept or reject a case displaying the information by clicking on a card. Only Available as Lawyer',
       target: () => selectedStep.requestsStep.current,
       prevButtonProps: {
         onClick: () => {dispatch(guideState.actions.setGuideCalendarOpen(true)); dispatch(guideState.actions.setGuideRequestsOpen(false)); dispatch(globalState.actions.setCurrentTourStep(11))}

@@ -7,7 +7,7 @@ import getPastCases from "../../../../services/case/get-past-cases";
 import { USER_TOKEN, USER_TYPE } from "../../../../shared/constants/local";
 import { LuxuryColors } from "../../../../utils/styles";
 
-const PastCases: FunctionComponent<Props> = ({ className, tourRef }) => {
+const PastCases: FunctionComponent<Props> = ({ className }) => {
   const [cases, setCases] = useState<Cases[]>([])
   const [selectedCase, setSelectedCase] = useState<Cases>(initialPast)
   const [open, setOpen] = useState<boolean>(false)
@@ -40,7 +40,7 @@ const PastCases: FunctionComponent<Props> = ({ className, tourRef }) => {
         {
           cases.length > 0
             ? 
-            <div className="past-cases-list" ref={tourRef?.pastStep}>
+            <div className="past-cases-list" >
               {cases.map(x => (
                 <PastCasesCard key={x._id} onClick={() => {setSelectedCase(x); toggleDrawer()}} firstFieldText='ID: ' firstField={x._id} secondFieldText='Start Date: ' secondField={x.start_date} thirdFieldText='End Date: ' thirdField={x.end_date} fourthFieldText='Location: ' fourthField={`${x.data.country}, ${x.data.city}`} fifthFieldText='Case Type: ' fifthField={x.data.case_type} sixthFieldText='Name: ' sixthField={client ? x.lawyer_name! : (lawyer ? x.client_name! : '')} seventhFieldText='Email: ' seventhField={x.data.email} eighthFieldText='Language: ' eighthField={x.data.languages} ninethFieldText='Description: ' ninethField={x.data.description} />
               ))}
@@ -61,7 +61,7 @@ export default PastCases
 
 interface Props {
   className?: string;
-  tourRef?: Record<string, MutableRefObject<any>>;
+  // tourRef?: Record<string, MutableRefObject<any>>;
 }
 
 interface Cases {

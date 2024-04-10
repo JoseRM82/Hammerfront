@@ -4,7 +4,7 @@ import { useRouter } from 'next/router';
 import { Popover } from 'antd';
 import Image from 'next/image';
 
-import { USER_ID, USER_NAME, USER_TOKEN, USER_TYPE } from '../../shared/constants/local';
+import { GUIDE, USER_ID, USER_NAME, USER_TOKEN, USER_TYPE } from '../../shared/constants/local';
 import globalState from '../../state/global'
 import { useAppDispatch, useAppSelector } from '../../state';
 import getChatsList from '../../services/chat/get-chats-list';
@@ -25,9 +25,13 @@ const Header: FunctionComponent<Props> = ({ className, visitor, mainPage, tourRe
   const dispatch = useAppDispatch()
   const router = useRouter()
   let user_id: string
+  let enabled_guide: string
 
   if(typeof window !== 'undefined'){
     user_id = window.localStorage.getItem(USER_ID)!
+  }
+  if(typeof window !== 'undefined'){
+    enabled_guide = window.localStorage.getItem(GUIDE)!
   }
 
   connectSocket().on('sentMessage', (messageData: Record<string, any>) => {
@@ -53,6 +57,7 @@ const Header: FunctionComponent<Props> = ({ className, visitor, mainPage, tourRe
     localStorage.removeItem(USER_TOKEN)
     localStorage.removeItem(USER_NAME)
     localStorage.removeItem(USER_ID)
+    localStorage.removeItem(GUIDE)
     dispatch(globalState.actions.setClientActive(false))
     dispatch(globalState.actions.setLawyerActive(false))
     dispatch(globalState.actions.setChatIsOpen(false)) 
@@ -133,7 +138,7 @@ const Header: FunctionComponent<Props> = ({ className, visitor, mainPage, tourRe
           </div>
           <div className='options'>
             <div className='options-list'>
-              {(guideAvailable) && <button className='options-list_item' onClick={() => dispatch(globalState.actions.setCurrentTourStep(1))} >Guide</button>}
+              {(guideAvailable || enabled_guide!) && <button className='options-list_item' onClick={() => dispatch(globalState.actions.setCurrentTourStep(1))} >Guide</button>}
               {(client || lawyer) && <button className='options-list_item' onClick={onChatOpen} ref={tourRef?.chatStep} >Chat</button>}
               {(client || lawyer) && <Link href='/cases'><button className='options-list_item' ref={tourRef?.casesStep}>Your Cases</button></Link>}
               {client && <button className='options-list_item' onClick={() => onGoToPage('/new-cases', '')} ref={tourRef?.newCaseStep}>Create a Case</button>}
