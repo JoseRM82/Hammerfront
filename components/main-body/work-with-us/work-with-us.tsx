@@ -19,11 +19,11 @@ const WorkWithUs: FunctionComponent<Props> = ({ className }) => {
         <div className="img-container">
           <div className="work-img"/>
           <div className="work-mobile-img"/>
-          <div className="work-mobile-text">Our platform's efficiency and user-centric design make collaboration seamless and enjoyable. Trust in our commitment to excellence and innovation to manage your cases and achieve outstanding results.</div>
+          <div className="work-mobile-text">The efficiency of our platform and user-centric design make collaboration seamless and enjoyable. Trust in our commitment to excellence and innovation to manage your cases and achieve outstanding results.</div>
         </div>
         <div className="text-container">
           <h1 className="work-title">Want to try another way to work?</h1>
-          <div className="work-text">Our platform's efficiency and user-centric design make collaboration seamless and enjoyable. Trust in our commitment to excellence and innovation to manage your cases and achieve outstanding results. Partner with us for a rewarding and productive experience.</div>
+          <div className="work-text">The efficiency of our platform and user-centric design make collaboration seamless and enjoyable. Trust in our commitment to excellence and innovation to manage your cases and achieve outstanding results. Partner with us for a rewarding and productive experience.</div>
           {(!client && !lawyer) && <StyledButton white text="Work with us" onClick={onSignUp} />}
         </div>
       </div>
