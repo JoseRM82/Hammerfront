@@ -42,8 +42,8 @@ const Statistics: FunctionComponent<Props> = ({ className }) => {
     <div className={className}>
       <div className="stats">
         <div className="stats-container">
-          <div className="stats-text">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quam tempore, at, fugiat ipsa recusandae eligendi earum corrupti est, ipsum quia alias labore repudiandae voluptatibus laborum iusto. Eius culpa nemo assumenda.</div>
-          <div className="stats-mobile-text">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quam tempore, at, fugiat ipsa recusandae eligendi earum corrupti est</div>
+          <div className="stats-text">Choosing our page is a profitable decision for several reasons. We connect you with high-caliber lawyers to deliver quality results. Our efficient matching process saves you time and reduces overhead costs associated with hiring. With access to top talent, your cases are completed faster and safer. Try our platform to optimize your cases development.</div>
+          <div className="stats-mobile-text">Choosing our page is a profitable decision for several reasons. With access to top talent, your cases are completed faster and safer. Try our platform to optimize your cases development.</div>
           <div className="stats-data">
             {dummyStats.map(x => (
               <StatisticCard className="stats-data-item" key={x.id} description={x.description} value={x.value} />

@@ -10,17 +10,17 @@ const dummyObject = [
   {
     'id': 1,
     'image': law1,
-    'description': 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis unde ducimus molestiae perferendis, suscipit repellendus accusamus porro quos ab odit? Reprehenderit, id odit! Repellendus, repellat nam! Sint nobis quisquam magni. Lorem ipsum dolor, sit amet consectetur adipisicing elit. Veniam magnam architecto vitae praesentium voluptatibus ratione, tempora quisquam dicta dolorum beatae iure eius dolorem ipsum incidunt nemo. Inventore ullam dignissimos earum.'
+    'description': 'Our page stands out as the premier destination to find lawyers because we prioritize quality, expertise, and reliability. With a curated selection of top-tier professionals, we ensure you connect with the best in the industry. Our user-friendly platform streamlines your search, making it effortless to find the perfect match for your needs. Trust us to deliver excellence and make your hiring process seamless.'
   },
   {
     'id': 2,
     'image': law2,
-    'description': 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis unde ducimus molestiae perferendis, suscipit repellendus accusamus porro quos ab odit? Reprehenderit, id odit! Repellendus, repellat nam! Sint nobis quisquam magni. Lorem ipsum dolor, sit amet consectetur adipisicing elit. Veniam magnam architecto vitae praesentium voluptatibus ratione, tempora quisquam dicta dolorum beatae iure eius dolorem ipsum incidunt nemo. Inventore ullam dignissimos earum.'
+    'description': 'You can believe in our page because we prioritize transparency, credibility, and user satisfaction. We meticulously vet professionals to ensure their qualifications meet industry standards. Our commitment to integrity means you can trust the information and services we provide. Count on us to connect you with a lawyer you can rely on.'
   },
   {
     'id': 3,
     'image': law3,
-    'description': 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis unde ducimus molestiae perferendis, suscipit repellendus accusamus porro quos ab odit? Reprehenderit, id odit! Repellendus, repellat nam! Sint nobis quisquam magni. Lorem ipsum dolor, sit amet consectetur adipisicing elit. Veniam magnam architecto vitae praesentium voluptatibus ratione, tempora quisquam dicta dolorum beatae iure eius dolorem ipsum incidunt nemo. Inventore ullam dignissimos earum.'
+    'description': 'Hammer is invaluable because it centralizes a diverse range of skilled professionals tailored to your needs. With user-friendly features and comprehensive profiles, finding the right professional has never been easier. Rely on us to streamline your search and elevate your projects to new heights.'
   },
 ]
 
@@ -28,17 +28,17 @@ const dummyObject2 = [
   {
     'id': 1,
     'image': law1,
-    'description': 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis unde ducimus molestiae perferendis, suscipit repellendus accusamus porro quos ab odit? Reprehenderit, id odit! Repellendus'
+    'description': 'Our page stands out as the premier destination to find lawyers because we prioritize quality, expertise, and reliability.Trust us to deliver excellence and make your hiring process seamless.'
   },
   {
     'id': 2,
     'image': law2,
-    'description': 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis unde ducimus molestiae perferendis, suscipit repellendus accusamus porro quos ab odit? Reprehenderit, id odit!'
+    'description': 'You can believe in our page because we prioritize transparency, credibility, and user satisfaction. We meticulously vet professionals to ensure their qualifications meet industry standards.'
   },
   {
     'id': 3,
     'image': law3,
-    'description': 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis unde ducimus molestiae perferendis, suscipit repellendus accusamus'
+    'description': 'Hammer is invaluable because it centralizes a diverse range of skilled professionals tailored to your needs. Rely on us to streamline your search and manage your projects eficiently.'
   },
 ]
 
